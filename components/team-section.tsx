@@ -26,7 +26,7 @@ const teamMembers = [
     id: 3,
     name: "Jolanda Veldhuis",
     role: "Co-Director",
-    bio: "Jolanda Veldhuis is an Assistant Professor in the field of Health and Risk Communication as well as Media Psychology at the Department of Communication Science (Vrije Universiteit Amsterdam). She specializes in digital literacy education and intervention design for diverse populations, often with a specific focus on body image satisfaction and well-being.",
+    bio: "Jolanda Veldhuis is an Associate Professor in the field of Health and Risk Communication as well as Media Psychology at the Department of Communication Science (Vrije Universiteit Amsterdam). She specializes in digital literacy education and intervention design for diverse populations, often with a specific focus on body image satisfaction and well-being.",
     image: "https://dmb-lab.nl/wp-content/uploads/2025/01/Jolanda-Veldhuis-CW-General-Info.jpg",
     personalWebpage: "",
     institutionalPage: "https://research.vu.nl/en/persons/jolanda-veldhuis",
