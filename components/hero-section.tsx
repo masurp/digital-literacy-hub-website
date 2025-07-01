@@ -77,12 +77,12 @@ export default function HeroSection() {
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4"
           >
             <motion.button
-              onClick={() => document.getElementById("research")?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => document.getElementById("mission")?.scrollIntoView({ behavior: "smooth" })}
               className="px-6 sm:px-8 py-3 bg-blue-600 text-white rounded-full font-medium hover:bg-blue-700 transition-colors shadow-lg text-sm sm:text-base"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Explore Research
+              Read our Mission
             </motion.button>
             <motion.button
               onClick={() => document.getElementById("team")?.scrollIntoView({ behavior: "smooth" })}

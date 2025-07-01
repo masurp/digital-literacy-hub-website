@@ -66,7 +66,7 @@ export default function TeamSection() {
               onClick={() => setSelectedMember(member)}
               className="bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 min-h-[400px] sm:min-h-[450px] flex flex-col"
             >
-              <div className="w-44 h-44 sm:w-52 sm:h-52 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden">
+              <div className="w-44 h-44 sm:w-62 sm:h-62 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden">
                 <img
                   src={member.image || "/placeholder.svg"}
                   alt={member.name}
@@ -98,7 +98,7 @@ export default function TeamSection() {
               className="bg-white rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto max-h-[90vh] overflow-y-auto w-full"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="w-36 h-36 sm:w-44 sm:h-44 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden">
+              <div className="w-36 h-36 sm:w-64 sm:h-64 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden">
                 <img
                   src={selectedMember.image || "/placeholder.svg"}
                   alt={selectedMember.name}

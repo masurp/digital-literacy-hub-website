@@ -249,36 +249,10 @@ export default function ContactSection() {
                     </p>
                   </div>
                 </div>
-
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm sm:text-base">
-                    🐦
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800 text-sm sm:text-base">Twitter</p>
-                    <p className="text-gray-600 text-sm sm:text-base">@DigitalLiteracyVU</p>
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-3">
-                  <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center text-sm sm:text-base">
-                    💼
-                  </div>
-                  <div>
-                    <p className="font-medium text-gray-800 text-sm sm:text-base">LinkedIn</p>
-                    <p className="text-gray-600 text-sm sm:text-base">Digital Literacy Hub VU</p>
-                  </div>
-                </div>
               </div>
             </div>
 
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl">
-              <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4">Response Time</h3>
-              <p className="text-gray-600 text-sm sm:text-base">
-                We typically respond to inquiries within 2-3 business days. For urgent matters, please mention it in
-                your message.
-              </p>
-            </div>
+                
           </motion.div>
         </div>
       </div>

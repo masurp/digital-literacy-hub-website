@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
       // Send the email - using the correct from address
       const result = await resend.emails.send({
         from: "onboarding@resend.dev", // This is the key change - use Resend's verified domain
-        to: "p.k.masur@vu.nl",
+        to: ['delivered@resend.dev'],
         subject: `Digital Literacy Hub Contact Form: Message from ${name}`,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
