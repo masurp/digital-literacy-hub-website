@@ -253,30 +253,9 @@ export default function Footer() {
               className="border-t border-blue-400/30 mt-6 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-blue-200"
             >
               <div className="mb-2 sm:mb-0">
-                <p>© 2024 Digital Literacy Hub, VU Amsterdam. All rights reserved.</p>
+                <p>© 2025 Digital Literacy Hub, VU Amsterdam. All rights reserved.</p>
               </div>
               <div className="flex items-center space-x-4">
-                <a href="mailto:digitalliteracy@vu.nl" className="hover:text-white transition-colors" title="Email us">
-                  📧
-                </a>
-                <a
-                  href="https://twitter.com/DigitalLiteracyVU"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                  title="Follow us on Twitter"
-                >
-                  🐦
-                </a>
-                <a
-                  href="https://linkedin.com/company/digital-literacy-hub-vu"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-white transition-colors"
-                  title="Connect on LinkedIn"
-                >
-                  💼
-                </a>
               </div>
             </motion.div>
           </div>

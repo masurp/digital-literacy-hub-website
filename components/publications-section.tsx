@@ -175,6 +175,364 @@ const publications = [
       journal: "https://doi.org/10.1007/978-94-017-9385-8",
     },
   },
+  {
+    id: 12,
+    title: "Social Media and Youth Mental Health: Simple Narratives Produce Biased Interpretations",
+    authors: ["Sewall, C.", "Parry, D. A."],
+    year: 2024,
+    journal: "Journal of Psychopathology and Clinical Science",
+    theme: ["Mental Health", "Media Effects"],
+    abstract:
+      "This article critiques the use of simplistic narratives in interpreting the relationship between social media and youth mental health. The authors argue that such narratives can lead to biased conclusions, overlooking complex mechanisms and heterogeneity in effects. The paper calls for more nuanced approaches to media effects research.",
+    summary:
+      "Argues that oversimplified narratives distort understanding of social media’s impact on youth mental health and calls for more nuanced interpretations.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1037/abn0000950",
+    },
+  },
+  {
+    id: 13,
+    title: "Mapping a Pluralistic Continuum of Approaches to Digital Disconnection",
+    authors: ["Ross, M.", "Gilbert, A.", "Klingelhoefer, J.", "Matassi, M.", "Nassen, L.", "Van Bruyssel, S.", "Verlinden, A.", "Parry, D. A."],
+    year: 2024,
+    journal: "Media, Culture & Society",
+    theme: ["Digital Wellbeing", "Media Use"],
+    abstract:
+      "This article proposes a pluralistic framework for understanding digital disconnection. Based on empirical research, it identifies a continuum of motivations, strategies, and consequences that individuals experience when disconnecting from digital media.",
+    summary:
+      "Outlines a continuum of strategies and motivations for digital disconnection, promoting a pluralistic understanding of digital wellbeing.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1177/01634437241228785",
+    },
+  },
+  {
+    id: 14,
+    title: "Does the Mere Presence of a Smartphone Impact Cognitive Performance? A Meta-Analysis of the 'Brain Drain Effect'",
+    authors: ["Parry, D. A."],
+    year: 2024,
+    journal: "Media Psychology",
+    theme: ["Cognition", "Smartphone Use"],
+    abstract:
+      "This meta-analysis evaluates the 'brain drain effect'—the hypothesis that the mere presence of a smartphone impairs cognitive performance. Findings suggest a small but significant effect, moderated by study design and task complexity.",
+    summary:
+      "Conducts a meta-analysis on how smartphone presence impacts cognition, confirming a small negative effect under certain conditions.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1080/15213269.2023.2286647",
+    },
+  },
+  {
+    id: 15,
+    title: "Using Browser Data to Understand Desires to Spend Time Online",
+    authors: ["McCrosky, J.", "Parry, D. A.", "Sewall, C. J. R.", "Orben, A."],
+    year: 2023,
+    journal: "Technology, Mind, and Behavior",
+    theme: ["Digital Behavior", "Self-Regulation"],
+    abstract:
+      "By analyzing browser data, this study examines users’ momentary desires to spend time online. It provides insights into how actual online behavior aligns with internal states, contributing to the understanding of digital self-regulation.",
+    summary:
+      "Uses browser data to link momentary online behavior with internal desires, providing insight into digital self-regulation.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1037/tmb0000095",
+    },
+  },
+  {
+    id: 16,
+    title: "Digital Wellbeing Applications: Adoption, Use and Perceived Effects",
+    authors: ["Parry, D. A.", "le Roux, D. B.", "Morton, J.", "Pons, R.", "Pretorius, R.", "Schoeman, A."],
+    year: 2023,
+    journal: "Computers in Human Behavior",
+    theme: ["Digital Wellbeing", "App Use"],
+    abstract:
+      "This study investigates the adoption and usage of digital wellbeing apps among a diverse population. It explores perceived effectiveness and barriers to sustained use, offering implications for app design and public health messaging.",
+    summary:
+      "Explores who uses digital wellbeing apps, how they use them, and how effective users perceive them to be.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.chb.2022.107542",
+    },
+  },
+  {
+    id: 17,
+    title: "Investigating Predictors of Online Vigilance among University Students",
+    authors: ["le Roux, D. B.", "Parry, D. A."],
+    year: 2022,
+    journal: "Information Technology & People",
+    theme: ["Digital Behavior", "Media Vigilance"],
+    abstract:
+      "This paper explores psychological and situational predictors of online vigilance—defined as persistent monitoring of digital channels. Results suggest that perceived obligation, FOMO, and academic demands shape online vigilance among students.",
+    summary:
+      "Examines drivers of students’ persistent digital monitoring and highlights FOMO and academic expectations as key predictors.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1108/ITP-04-2020-0226",
+    },
+  },
+  {
+    id: 18,
+    title: "A Systematic Review and Meta-Analysis of Discrepancies Between Logged and Self-Reported Digital Media Use",
+    authors: ["Parry, D. A.", "Davidson, B. I.", "Sewall, C. J.", "Fisher, J. T.", "Mieczkowski, H.", "Quintana, D. S."],
+    year: 2021,
+    journal: "Nature Human Behaviour",
+    theme: ["Methodology", "Digital Media Use"],
+    abstract:
+      "This meta-analysis compares self-reported and objectively logged digital media use. Findings reveal consistent overreporting and underscore the importance of incorporating behavioral data in media effects research.",
+    summary:
+      "Reveals systematic discrepancies between logged and self-reported media use, emphasizing need for behavioral tracking in research.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1038/s41562-021-01117-5",
+    },
+  },
+  {
+    id: 19,
+    title: "The Role of Depression in the Discrepancy Between Estimated and Actual Smartphone Use: A Cubic Response Surface Analysis",
+    authors: ["Sewall, C.", "Parry, D. A."],
+    year: 2021,
+    journal: "Technology, Mind, and Behavior",
+    theme: ["Mental Health", "Smartphone Use"],
+    abstract:
+      "Using response surface analysis, this study finds that depressive symptoms are linked to larger discrepancies between actual and estimated smartphone use, offering a nuanced perspective on self-monitoring accuracy.",
+    summary:
+      "Finds that depressive symptoms are linked to greater mismatches between actual and perceived smartphone use.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1037/tmb0000036",
+    },
+  },
+  {
+    id: 20,
+    title: "An Exploratory Investigation of the Use and Effects of Academic Instant Messaging Groups among University Students",
+    authors: ["le Roux, D. B.", "Parry, D. A."],
+    year: 2021,
+    journal: "Education and Information Technologies",
+    theme: ["Education", "Digital Communication"],
+    abstract:
+      "This exploratory study examines how students use academic instant messaging groups (AIMGs), their perceived benefits, and unintended consequences such as overload or pressure to respond.",
+    summary:
+      "Explores how university students use academic messaging groups and the resulting social and academic implications.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1007/s10639-021-10631-y",
+    },
+  },
+  {
+    id: 21,
+    title: "“Cognitive Control in Media Multitaskers” Ten Years On: A Meta-Analysis",
+    authors: ["Parry, D. A.", "le Roux, D. B."],
+    year: 2021,
+    journal: "Cyberpsychology: Journal of Psychosocial Research on Cyberspace",
+    theme: ["Cognition", "Media Multitasking"],
+    abstract:
+      "A decade after the original media multitasking research, this meta-analysis reevaluates the evidence on whether multitaskers show deficits in cognitive control, finding only limited support for such claims.",
+    summary:
+      "A meta-analysis revisiting cognitive control in media multitaskers; finds only modest support for impairment.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.5817/CP2021-2-7",
+    },
+  },
+  {
+    id: 22,
+    title:
+      "The active-passive dichotomy refined: How types of photo sharing and photo viewing coincide with adolescents’ mental health and body image",
+    authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E. A."],
+    year: 2024,
+    journal: "Telematics and Informatics",
+    theme: ["Mental Health", "Body Image", "Social Media"],
+    abstract:
+      "This study refines the active-passive social media use dichotomy by distinguishing types of photo sharing and viewing. It examines how these behaviors are associated with adolescents' mental health and body image outcomes.",
+    summary:
+      "Refines the active-passive media use framework by exploring how photo sharing and viewing relate to adolescents’ mental health and body image.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.tele.2024.102160",
+    },
+  },
+  {
+    id: 23,
+    title:
+      "Motives for using social networking sites: a uses & gratifications perspective amongst people with eating disorder symptoms",
+    authors: ["Dingemans, A. E.", "Veldhuis, J.", "Lähde, I."],
+    year: 2023,
+    journal: "Journal of Eating Disorders",
+    theme: ["Eating Disorders", "Social Media Use"],
+    abstract:
+      "This study applies uses and gratifications theory to explore social networking motives among individuals experiencing eating disorder symptoms, identifying specific needs driving their engagement.",
+    summary:
+      "Explores social media motives among people with eating disorder symptoms using a uses and gratifications framework.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1186/s40337-023-00991-6",
+    },
+  },
+  {
+    id: 24,
+    title:
+      "The impact of seeing and posting photos on mental health and body satisfaction: A panel study among Dutch and Japanese adolescents",
+    authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E. A."],
+    year: 2023,
+    journal: "Computers in Human Behavior",
+    theme: ["Mental Health", "Cross-Cultural", "Body Image"],
+    abstract:
+      "This panel study explores the longitudinal relationship between photo-related social media behaviors and body satisfaction among adolescents in the Netherlands and Japan.",
+    summary:
+      "Panel study showing how photo viewing/posting on social media affects body satisfaction among Dutch and Japanese adolescents.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.chb.2023.107906",
+    },
+  },
+  {
+    id: 25,
+    title:
+      "Follow, filter, filler? Social media usage and cosmetic procedure intention, acceptance, and normalization among young adults",
+    authors: ["Hermans, A. M.", "Boerman, S. C.", "Veldhuis, J."],
+    year: 2022,
+    journal: "Body Image",
+    theme: ["Body Image", "Social Media", "Cosmetic Surgery"],
+    abstract:
+      "This study examines how different types of social media usage relate to intentions and attitudes toward cosmetic procedures in young adults.",
+    summary:
+      "Explores how various social media behaviors predict young adults' cosmetic surgery intentions and attitudes.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.bodyim.2022.10.004",
+    },
+  },
+  {
+    id: 26,
+    title:
+      "Plurality in the measurement of social media use and mental health: An exploratory study among adolescents and young adults",
+    authors: [
+      "Petropoulos Petalas, D.",
+      "Konijn, E. A.",
+      "Johnson, B. K.",
+      "Veldhuis, J.",
+      "Bij de Vaate, N. A. J. D.",
+      "Burgers, C.",
+      "Droog, E.",
+      "Międzobrodzka, E.",
+      "Balint, K. E.",
+      "van de Schoot, R.",
+    ],
+    year: 2021,
+    journal: "Social Media + Society",
+    theme: ["Mental Health", "Measurement", "Social Media"],
+    abstract:
+      "This exploratory study investigates various operationalizations of social media use and their differential associations with mental health outcomes.",
+    summary:
+      "Examines how different ways of measuring social media use affect observed links to adolescent and young adult mental health.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1177/20563051211033836",
+    },
+  },
+  {
+    id: 27,
+    title:
+      "How online self-presentation affects well-being and body image: A systematic review",
+    authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E."],
+    year: 2020,
+    journal: "Telematics and Informatics",
+    theme: ["Self-Presentation", "Body Image", "Well-being"],
+    abstract:
+      "This systematic review synthesizes literature on the relationship between online self-presentation and outcomes like body image and well-being.",
+    summary:
+      "Reviews how presenting oneself online affects well-being and body image, highlighting both risks and benefits.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.tele.2020.101316",
+    },
+  },
+  {
+    id: 28,
+    title:
+      "Me, my selfie, and I: the relations between selfie behaviors, body image, self-objectification, and self-esteem in young women",
+    authors: ["Veldhuis, J.", "Alleva, J. M.", "Bij de Vaate, N. A. J. D.", "Keijer, M. G.", "Konijn, E. A."],
+    year: 2020,
+    journal: "Psychology of Popular Media",
+    theme: ["Selfie", "Body Image", "Self-Esteem"],
+    abstract:
+      "This study investigates associations between selfie-taking and viewing behavior and psychological outcomes including body image, self-objectification, and self-esteem in young women.",
+    summary:
+      "Links selfie behavior to body image, self-objectification, and self-esteem in young women.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1037/ppm0000206",
+    },
+  },
+  {
+    id: 29,
+    title:
+      "Face yourself(ie): Investigating selfie-behavior in females with severe eating disorder symptoms",
+    authors: ["Yellowlees, R.", "Dingemans, A. E.", "Veldhuis, J.", "Bij de Vaate, N. A. J. D."],
+    year: 2019,
+    journal: "Computers in Human Behavior",
+    theme: ["Selfie", "Eating Disorders", "Mental Health"],
+    abstract:
+      "This study explores selfie behavior among females with severe eating disorder symptoms, aiming to understand potential psychological correlates.",
+    summary:
+      "Investigates selfie use in females with severe eating disorder symptoms, linking it to mental health concerns.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.chb.2019.07.009",
+    },
+  },
+  {
+    id: 30,
+    title:
+      "Is that my friend or an advert? The Effectiveness of Instagram Native Advertisements Posing as Social Posts",
+    authors: ["Johnson, B.", "Potocki, B.", "Veldhuis, J."],
+    year: 2019,
+    journal: "Journal of Computer-Mediated Communication",
+    theme: ["Advertising", "Social Media"],
+    abstract:
+      "This article examines how users perceive and respond to Instagram native ads disguised as social posts, evaluating their persuasive effectiveness and transparency.",
+    summary:
+      "Analyzes how native ads on Instagram influence perception and effectiveness when posed as regular posts.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1093/jcmc/zmz006",
+    },
+  },
+  {
+    id: 31,
+    title:
+      "The effect of Instagram 'likes' on women's social comparison and body dissatisfaction",
+    authors: ["Tiggemann, M.", "Hayden, S.", "Brown, Z.", "Veldhuis, J."],
+    year: 2018,
+    journal: "Body Image",
+    theme: ["Social Comparison", "Body Image"],
+    abstract:
+      "This study examines whether the number of 'likes' on Instagram posts influences women's social comparison tendencies and feelings of body dissatisfaction.",
+    summary:
+      "Shows how Instagram likes can intensify body dissatisfaction via social comparison processes.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.bodyim.2018.07.002",
+    },
+  },
+  {
+    id: 32,
+    title:
+      "Show your best self(ie): An exploratory study on selfie-related motivations and behavior in emerging adulthood",
+    authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Alleva, J. M.", "Konijn, E. A.", "van Hugten, C. H. M."],
+    year: 2018,
+    journal: "Telematics and Informatics",
+    theme: ["Selfie", "Emerging Adulthood", "Motivation"],
+    abstract:
+      "This exploratory study investigates young adults’ motivations for taking and sharing selfies, relating them to underlying psychological needs and behavioral tendencies.",
+    summary:
+      "Explores why young adults take selfies, linking behavior to motivations like self-expression and self-presentation.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1016/j.tele.2018.03.010",
+    },
+  }
 ]
 
 const themes = ["All", "Literacy", "Privacy", "Education", "Wellbeing", "Algorithms", "Social Media"]
@@ -183,8 +541,9 @@ export default function PublicationsSection() {
   const [selectedPublication, setSelectedPublication] = useState<(typeof publications)[0] | null>(null)
   const [selectedTheme, setSelectedTheme] = useState("All")
 
-  const filteredPublications =
+  const filteredPublications = (
     selectedTheme === "All" ? publications : publications.filter((pub) => pub.theme.includes(selectedTheme))
+  ).sort((a, b) => b.year - a.year)
 
   const handleLinkClick = (url: string, e: React.MouseEvent) => {
     e.stopPropagation()
