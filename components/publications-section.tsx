@@ -194,7 +194,16 @@ const publications = [
   {
     id: 13,
     title: "Mapping a Pluralistic Continuum of Approaches to Digital Disconnection",
-    authors: ["Ross, M.", "Gilbert, A.", "Klingelhoefer, J.", "Matassi, M.", "Nassen, L.", "Van Bruyssel, S.", "Verlinden, A.", "Parry, D. A."],
+    authors: [
+      "Ross, M.",
+      "Gilbert, A.",
+      "Klingelhoefer, J.",
+      "Matassi, M.",
+      "Nassen, L.",
+      "Van Bruyssel, S.",
+      "Verlinden, A.",
+      "Parry, D. A.",
+    ],
     year: 2024,
     journal: "Media, Culture & Society",
     theme: ["Digital Wellbeing", "Media Use"],
@@ -209,7 +218,8 @@ const publications = [
   },
   {
     id: 14,
-    title: "Does the Mere Presence of a Smartphone Impact Cognitive Performance? A Meta-Analysis of the 'Brain Drain Effect'",
+    title:
+      "Does the Mere Presence of a Smartphone Impact Cognitive Performance? A Meta-Analysis of the 'Brain Drain Effect'",
     authors: ["Parry, D. A."],
     year: 2024,
     journal: "Media Psychology",
@@ -274,7 +284,14 @@ const publications = [
   {
     id: 18,
     title: "A Systematic Review and Meta-Analysis of Discrepancies Between Logged and Self-Reported Digital Media Use",
-    authors: ["Parry, D. A.", "Davidson, B. I.", "Sewall, C. J.", "Fisher, J. T.", "Mieczkowski, H.", "Quintana, D. S."],
+    authors: [
+      "Parry, D. A.",
+      "Davidson, B. I.",
+      "Sewall, C. J.",
+      "Fisher, J. T.",
+      "Mieczkowski, H.",
+      "Quintana, D. S.",
+    ],
     year: 2021,
     journal: "Nature Human Behaviour",
     theme: ["Methodology", "Digital Media Use"],
@@ -289,7 +306,8 @@ const publications = [
   },
   {
     id: 19,
-    title: "The Role of Depression in the Discrepancy Between Estimated and Actual Smartphone Use: A Cubic Response Surface Analysis",
+    title:
+      "The Role of Depression in the Discrepancy Between Estimated and Actual Smartphone Use: A Cubic Response Surface Analysis",
     authors: ["Sewall, C.", "Parry, D. A."],
     year: 2021,
     journal: "Technology, Mind, and Behavior",
@@ -305,7 +323,8 @@ const publications = [
   },
   {
     id: 20,
-    title: "An Exploratory Investigation of the Use and Effects of Academic Instant Messaging Groups among University Students",
+    title:
+      "An Exploratory Investigation of the Use and Effects of Academic Instant Messaging Groups among University Students",
     authors: ["le Roux, D. B.", "Parry, D. A."],
     year: 2021,
     journal: "Education and Information Technologies",
@@ -433,8 +452,7 @@ const publications = [
   },
   {
     id: 27,
-    title:
-      "How online self-presentation affects well-being and body image: A systematic review",
+    title: "How online self-presentation affects well-being and body image: A systematic review",
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E."],
     year: 2020,
     journal: "Telematics and Informatics",
@@ -458,8 +476,7 @@ const publications = [
     theme: ["Selfie", "Body Image", "Self-Esteem"],
     abstract:
       "This study investigates associations between selfie-taking and viewing behavior and psychological outcomes including body image, self-objectification, and self-esteem in young women.",
-    summary:
-      "Links selfie behavior to body image, self-objectification, and self-esteem in young women.",
+    summary: "Links selfie behavior to body image, self-objectification, and self-esteem in young women.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1037/ppm0000206",
@@ -467,8 +484,7 @@ const publications = [
   },
   {
     id: 29,
-    title:
-      "Face yourself(ie): Investigating selfie-behavior in females with severe eating disorder symptoms",
+    title: "Face yourself(ie): Investigating selfie-behavior in females with severe eating disorder symptoms",
     authors: ["Yellowlees, R.", "Dingemans, A. E.", "Veldhuis, J.", "Bij de Vaate, N. A. J. D."],
     year: 2019,
     journal: "Computers in Human Behavior",
@@ -492,8 +508,7 @@ const publications = [
     theme: ["Advertising", "Social Media"],
     abstract:
       "This article examines how users perceive and respond to Instagram native ads disguised as social posts, evaluating their persuasive effectiveness and transparency.",
-    summary:
-      "Analyzes how native ads on Instagram influence perception and effectiveness when posed as regular posts.",
+    summary: "Analyzes how native ads on Instagram influence perception and effectiveness when posed as regular posts.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1093/jcmc/zmz006",
@@ -501,16 +516,14 @@ const publications = [
   },
   {
     id: 31,
-    title:
-      "The effect of Instagram 'likes' on women's social comparison and body dissatisfaction",
+    title: "The effect of Instagram 'likes' on women's social comparison and body dissatisfaction",
     authors: ["Tiggemann, M.", "Hayden, S.", "Brown, Z.", "Veldhuis, J."],
     year: 2018,
     journal: "Body Image",
     theme: ["Social Comparison", "Body Image"],
     abstract:
       "This study examines whether the number of 'likes' on Instagram posts influences women's social comparison tendencies and feelings of body dissatisfaction.",
-    summary:
-      "Shows how Instagram likes can intensify body dissatisfaction via social comparison processes.",
+    summary: "Shows how Instagram likes can intensify body dissatisfaction via social comparison processes.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1016/j.bodyim.2018.07.002",
@@ -532,7 +545,7 @@ const publications = [
     links: {
       journal: "https://doi.org/10.1016/j.tele.2018.03.010",
     },
-  }
+  },
 ]
 
 const themes = ["All", "Literacy", "Privacy", "Education", "Wellbeing", "Algorithms", "Social Media"]
@@ -678,9 +691,18 @@ export default function PublicationsSection() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
-              className="bg-white rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto max-h-[90vh] overflow-y-auto"
+              className="bg-white rounded-2xl p-6 sm:p-8 max-w-4xl mx-auto max-h-[90vh] overflow-y-auto relative"
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Close X button */}
+              <button
+                onClick={() => setSelectedPublication(null)}
+                className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800 transition-all duration-200 z-10"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
               <div className="flex flex-col lg:flex-row gap-6">
                 {/* Main Content */}
                 <div className="flex-1">
@@ -791,15 +813,6 @@ export default function PublicationsSection() {
                     </div>
                   </div>
                 )}
-              </div>
-
-              <div className="flex justify-end mt-6 pt-4 border-t border-gray-200">
-                <button
-                  onClick={() => setSelectedPublication(null)}
-                  className="px-6 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors text-sm sm:text-base"
-                >
-                  Close
-                </button>
               </div>
             </motion.div>
           </motion.div>
