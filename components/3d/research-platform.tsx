@@ -62,10 +62,10 @@ export default function ResearchPlatform({ onProjectClick }: ResearchPlatformPro
           <line key={`line-${i}`}>
             <bufferGeometry>
               <bufferAttribute
-                attach="attributes-position"
-                count={2}
+                attachObject={["attributes", "position"]}
                 array={new Float32Array([0, 0, 0, Math.cos(angle) * radius, 0, Math.sin(angle) * radius])}
                 itemSize={3}
+                count={2}
               />
             </bufferGeometry>
             <lineBasicMaterial color="#059669" transparent opacity={0.5} />

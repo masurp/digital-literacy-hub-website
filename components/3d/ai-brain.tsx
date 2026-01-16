@@ -81,7 +81,12 @@ export default function AIBrain({ onPublicationClick }: AIBrainProps) {
       {/* Neural connections */}
       <lineSegments ref={synapseRef}>
         <bufferGeometry>
-          <bufferAttribute attach="attributes-position" count={synapses.length / 3} array={synapses} itemSize={3} />
+          <bufferAttribute
+            attachObject={["attributes", "position"]}
+            array={synapses}
+            itemSize={3}
+            count={synapses.length / 3}
+          />
         </bufferGeometry>
         <lineBasicMaterial color="#a855f7" transparent opacity={0.4} />
       </lineSegments>

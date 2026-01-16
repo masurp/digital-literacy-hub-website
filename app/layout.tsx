@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     title: "Digital Literacy Hub @ VU Amsterdam",
     description: "Empowering digital citizenship through research, design, and dialogue",
   },
-    generator: 'v0.dev'
+    generator: 'v0.app'
 }
 
 export default function RootLayout({

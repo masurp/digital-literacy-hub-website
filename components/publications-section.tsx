@@ -9,15 +9,15 @@ const publications = [
   {
     id: 1,
     title:
-      "Examining learners’ engagement patterns and knowledge outcome in an experiential learning intervention for youth’s social media literacy",
-    authors: ["Zou, W.", "Purington Drake, A.", "Masur, P. K.", "Whitlock, J.", "Bazarova, N. N."],
+      "Examining learners' engagement patterns and knowledge outcome in an experiential learning intervention for youth's social media literacy",
+    authors: ["Zou, W.", "Purington Drake, A.", "Masur, P. K.", "Whitlock, J.", "Bazarova, N. N."],
     year: 2024,
     journal: "Computers & Education",
     theme: ["Education", "Literacy", "Social Media"],
     abstract:
       "Social media has become an integral part of youth's daily lives. Though it brings many benefits such as creative self‑expression and opportunities for social connection and support, studies have revealed that exposure to cyberbullying, misinformation and disinformation, or phishing and scams pose great risks to youth's mental health and long‑term development. ... This study seeks to fill in this gap by examining how learners' engagement patterns predict learning outcomes (social media literacy) in a simulated environment that embodies the core components of experiential learning. The findings revealed learners' engagement patterns (e.g., time spent, completion rate of actions etc.) ... highlighted the importance of active participation ... in predicting better learning outcomes. ... offers practical implications for the improvement of instructional design to enhance experiential learning.",
     summary:
-      "Analyzes how youth’s active engagement (e.g. time spent, completion rate) in an experiential learning simulation predicts gains in social media literacy; emphasizes active participation for better outcomes.",
+      "Analyzes how youth's active engagement (e.g. time spent, completion rate) in an experiential learning simulation predicts gains in social media literacy; emphasizes active participation for better outcomes.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1016/j.compedu.2024.105046",
@@ -26,12 +26,12 @@ const publications = [
   {
     id: 2,
     title: "The Youth Social Media Literacy Inventory: Development and Validation Using Item Response Theory",
-    authors: ["Purington Drake, A.", "Masur, P. K.", "Bazarova, N. N.", "Zou, E. W.", "Whitlock, J."],
+    authors: ["Purington Drake, A.", "Masur, P. K.", "Bazarova, N. N.", "Zou, E. W.", "Whitlock, J."],
     year: 2023,
     journal: "Journal of Children and Media",
     theme: ["Literacy", "Social Media"],
     abstract:
-      "Social media has opened new doors of opportunities and risks for youth. Potential risks include exposure to harmful content, engagement with strangers, or unwanted consequences from irresponsible or naive use. ... This paper aimed to develop a comprehensive Youth Social Media Literacy Inventory (YSMLI) to objectively assess young adolescents’ (9–13 years) knowledge and skills in the context of social media use. The development process included four consecutive steps: ... 4) empirical validation of the final 90‑item pool using item response theory based on a sample of n = 306 youth participants in the US. ... The final item bank is well‑fitting, reliable, and valid, offering scales with varying lengths for different purposes including domain‑specific assessment and parallel testing.",
+      "Social media has opened new doors of opportunities and risks for youth. Potential risks include exposure to harmful content, engagement with strangers, or unwanted consequences from irresponsible or naive use. ... This paper aimed to develop a comprehensive Youth Social Media Literacy Inventory (YSMLI) to objectively assess young adolescents' (9–13 years) knowledge and skills in the context of social media use. The development process included four consecutive steps: ... 4) empirical validation of the final 90‑item pool using item response theory based on a sample of n = 306 youth participants in the US. ... The final item bank is well‑fitting, reliable, and valid, offering scales with varying lengths for different purposes including domain‑specific assessment and parallel testing.",
     summary:
       "Introduces the YSMLI, a 90‑item inventory assessing six domains of social media literacy for ages 9–13, thoroughly validated using IRT.",
     figure: "",
@@ -43,13 +43,13 @@ const publications = [
     id: 3,
     title:
       "Behavioral Contagion on Social Media: Effects of Social Norms, Design Interventions, and Critical Media Literacy on Self-Disclosure",
-    authors: ["Masur, P. K.", "DiFranzo, D. J.", "Bazarova, N. N."],
+    authors: ["Masur, P. K.", "DiFranzo, D. J.", "Bazarova, N. N."],
     year: 2021,
     journal: "PLOS One",
     theme: ["Literacy"],
     abstract: "",
     summary:
-      "Investigates how social norms, UI interventions, and critical media literacy influence users’ willingness to self‑disclose on social media.",
+      "Investigates how social norms, UI interventions, and critical media literacy influence users' willingness to self‑disclose on social media.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1371/journal.pone.0254670",
@@ -59,7 +59,7 @@ const publications = [
     id: 4,
     title:
       "Learning by doing oder doing by learning? Die Wechselwirkung zwischen Online-Privatheitskompetenz und Datenschutzverhalten",
-    authors: ["Schäwel, J.", "Frener, R.", "Masur, P. K.", "Trepte, S."],
+    authors: ["Schäwel, J.", "Frener, R.", "Masur, P. K.", "Trepte, S."],
     year: 2021,
     journal: "Medien & Kommunikationswissenschaft",
     theme: ["Literacy", "Privacy"],
@@ -74,7 +74,7 @@ const publications = [
   {
     id: 5,
     title: "How online privacy literacy supports self-data protection and self-determination in the age of information",
-    authors: ["Masur, P. K."],
+    authors: ["Masur, P. K."],
     year: 2020,
     journal: "Media and Communication",
     theme: ["Literacy", "Privacy"],
@@ -90,7 +90,7 @@ const publications = [
     id: 6,
     title:
       "Mehr als Bewusstsein für Privatheitsrisiken: Eine Rekonzeptualisierung der Online‑Privatheitskompetenz als Kombination aus Wissen, Fähig‑ und Fertigkeiten",
-    authors: ["Masur, P. K."],
+    authors: ["Masur, P. K."],
     year: 2018,
     journal: "Medien & Kommunikationswissenschaft",
     theme: ["Literacy", "Privacy"],
@@ -105,7 +105,7 @@ const publications = [
   {
     id: 7,
     title: "Online-Privatheitskompetenz und deren Bedeutung für demokratische Gesellschaften",
-    authors: ["Masur, P. K.", "Teutsch, D.", "Dienlin, T.", "Trepte, S."],
+    authors: ["Masur, P. K.", "Teutsch, D.", "Dienlin, T.", "Trepte, S."],
     year: 2017,
     journal: "Forschungsjournal Soziale Bewegungen",
     theme: ["Literacy", "Privacy"],
@@ -120,13 +120,13 @@ const publications = [
   {
     id: 8,
     title: "Development and validation of an algorithm literacy scale for Internet users",
-    authors: ["Dogruel, L.", "Masur, P. K.", "Jöckel, S."],
+    authors: ["Dogruel, L.", "Masur, P. K.", "Jöckel, S."],
     year: 2022,
     journal: "Communication Methods & Measures",
     theme: ["Literacy", "Algorithms"],
     abstract: "",
     summary:
-      "Develops and validates a scale to assess ‘algorithm literacy’—users’ understanding of algorithmic processes—filling a measurement gap.",
+      "Develops and validates a scale to assess 'algorithm literacy'—users' understanding of algorithmic processes—filling a measurement gap.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1080/19312458.2021.1968361",
@@ -135,7 +135,7 @@ const publications = [
   {
     id: 9,
     title: "Entwicklung und Validierung der Online-Privatheitskompetenzskala (OPLIS)",
-    authors: ["Masur, P. K.", "Teutsch, D.", "Trepte, S."],
+    authors: ["Masur, P. K.", "Teutsch, D.", "Trepte, S."],
     year: 2017,
     journal: "Diagnostica",
     theme: ["Literacy", "Privacy"],
@@ -149,9 +149,9 @@ const publications = [
   {
     id: 10,
     title: "Challenges in Studying Social Media Privacy Literacy",
-    authors: ["Masur, P. K.", "Hagendorff, T.", "Trepte, S."],
+    authors: ["Masur, P. K.", "Hagendorff, T.", "Trepte, S."],
     year: 2023,
-    journal: "In S. Trepte & P. K. Masur (Eds.), The Routledge Handbook of Privacy and Social Media",
+    journal: "In S. Trepte & P. K. Masur (Eds.), The Routledge Handbook of Privacy and Social Media",
     theme: ["Literacy", "Privacy", "Social Media"],
     abstract: "",
     summary:
@@ -162,14 +162,14 @@ const publications = [
   {
     id: 11,
     title:
-      "Do people know about privacy and data protection strategies? Towards the “Online Privacy Literacy Scale” (OPLIS)",
-    authors: ["Trepte, S.", "Teutsch, D.", "Masur, P. K.", "Eicher, C.", "Fischer, M.", "Hennhöfer, A.", "Lind, F."],
+      'Do people know about privacy and data protection strategies? Towards the "Online Privacy Literacy Scale" (OPLIS)',
+    authors: ["Trepte, S.", "Teutsch, D.", "Masur, P. K.", "Eicher, C.", "Fischer, M.", "Hennhöfer, A.", "Lind, F."],
     year: 2015,
     journal: "In S. Gutwirth, R. Leenes & P. de Hert (Eds.), Reforming European Data Protection Law",
     theme: ["Literacy", "Privacy"],
     abstract: "",
     summary:
-      "A book chapter discussing public awareness of privacy/data protection strategies and contributing to the development of OPLIS.",
+      "A book chapter discussing public awareness of privacy/data-protection strategies and contributing to the development of OPLIS.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1007/978-94-017-9385-8",
@@ -185,7 +185,7 @@ const publications = [
     abstract:
       "This article critiques the use of simplistic narratives in interpreting the relationship between social media and youth mental health. The authors argue that such narratives can lead to biased conclusions, overlooking complex mechanisms and heterogeneity in effects. The paper calls for more nuanced approaches to media effects research.",
     summary:
-      "Argues that oversimplified narratives distort understanding of social media’s impact on youth mental health and calls for more nuanced interpretations.",
+      "Argues that oversimplified narratives distort understanding of social media's impact on youth mental health and calls for more nuanced interpretations.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1037/abn0000950",
@@ -241,7 +241,7 @@ const publications = [
     journal: "Technology, Mind, and Behavior",
     theme: ["Digital Behavior", "Self-Regulation"],
     abstract:
-      "By analyzing browser data, this study examines users’ momentary desires to spend time online. It provides insights into how actual online behavior aligns with internal states, contributing to the understanding of digital self-regulation.",
+      "By analyzing browser data, this study examines users' momentary desires to spend time online. It provides insights into how actual online behavior aligns with internal states, contributing to the understanding of digital self-regulation.",
     summary:
       "Uses browser data to link momentary online behavior with internal desires, providing insight into digital self-regulation.",
     figure: "",
@@ -275,7 +275,7 @@ const publications = [
     abstract:
       "This paper explores psychological and situational predictors of online vigilance—defined as persistent monitoring of digital channels. Results suggest that perceived obligation, FOMO, and academic demands shape online vigilance among students.",
     summary:
-      "Examines drivers of students’ persistent digital monitoring and highlights FOMO and academic expectations as key predictors.",
+      "Examines drivers of students' persistent digital monitoring and highlights FOMO and academic expectations as key predictors.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1108/ITP-04-2020-0226",
@@ -340,7 +340,7 @@ const publications = [
   },
   {
     id: 21,
-    title: "“Cognitive Control in Media Multitaskers” Ten Years On: A Meta-Analysis",
+    title: '"Cognitive Control in Media Multitaskers" Ten Years On: A Meta-Analysis',
     authors: ["Parry, D. A.", "le Roux, D. B."],
     year: 2021,
     journal: "Cyberpsychology: Journal of Psychosocial Research on Cyberspace",
@@ -357,7 +357,7 @@ const publications = [
   {
     id: 22,
     title:
-      "The active-passive dichotomy refined: How types of photo sharing and photo viewing coincide with adolescents’ mental health and body image",
+      "The active-passive dichotomy refined: How types of photo sharing and photo viewing coincide with adolescents' mental health and body image",
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E. A."],
     year: 2024,
     journal: "Telematics and Informatics",
@@ -365,7 +365,7 @@ const publications = [
     abstract:
       "This study refines the active-passive social media use dichotomy by distinguishing types of photo sharing and viewing. It examines how these behaviors are associated with adolescents' mental health and body image outcomes.",
     summary:
-      "Refines the active-passive media use framework by exploring how photo sharing and viewing relate to adolescents’ mental health and body image.",
+      "Refines the active-passive media use framework by exploring how photo sharing and viewing relate to adolescents' mental health and body image.",
     figure: "",
     links: {
       journal: "https://doi.org/10.1016/j.tele.2024.102160",
@@ -538,7 +538,7 @@ const publications = [
     journal: "Telematics and Informatics",
     theme: ["Selfie", "Emerging Adulthood", "Motivation"],
     abstract:
-      "This exploratory study investigates young adults’ motivations for taking and sharing selfies, relating them to underlying psychological needs and behavioral tendencies.",
+      "This exploratory study investigates young adults' motivations for taking and sharing selfies, relating them to underlying psychological needs and behavioral tendencies.",
     summary:
       "Explores why young adults take selfies, linking behavior to motivations like self-expression and self-presentation.",
     figure: "",
@@ -549,6 +549,32 @@ const publications = [
 ]
 
 const themes = ["All", "Literacy", "Privacy", "Education", "Wellbeing", "Algorithms", "Social Media"]
+
+// Team member names to bold
+const teamMembers = [
+  "Masur, P. K.",
+  "Parry, D. A.",
+  "Veldhuis, J.",
+  "Philipp Masur",
+  "Douglas Parry",
+  "Jolanda Veldhuis",
+]
+
+// Function to bold team member names in author list
+const formatAuthors = (authors: string[]) => {
+  return authors.map((author, index) => {
+    const isTeamMember = teamMembers.some(
+      (member) => author.includes(member) || member.includes(author.replace(/\./g, "")),
+    )
+
+    return (
+      <span key={index}>
+        {isTeamMember ? <strong>{author}</strong> : author}
+        {index < authors.length - 1 ? ", " : ""}
+      </span>
+    )
+  })
+}
 
 export default function PublicationsSection() {
   const [selectedPublication, setSelectedPublication] = useState<(typeof publications)[0] | null>(null)
@@ -621,7 +647,7 @@ export default function PublicationsSection() {
                   {publication.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-600 mb-2">
-                  {publication.authors.join(", ")} ({publication.year})
+                  {formatAuthors(publication.authors)} ({publication.year})
                 </p>
                 <p className="text-xs sm:text-sm text-indigo-600 font-medium mb-2">{publication.journal}</p>
                 <div className="flex items-center justify-between">
@@ -712,7 +738,7 @@ export default function PublicationsSection() {
 
                   <div className="mb-4">
                     <p className="text-gray-600 mb-2 text-sm sm:text-base">
-                      <strong>Authors:</strong> {selectedPublication.authors.join(", ")}
+                      <strong>Authors:</strong> {formatAuthors(selectedPublication.authors)}
                     </p>
                     <p className="text-gray-600 mb-2 text-sm sm:text-base">
                       <strong>Year:</strong> {selectedPublication.year}

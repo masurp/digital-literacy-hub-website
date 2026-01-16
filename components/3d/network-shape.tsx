@@ -79,8 +79,10 @@ export default function NetworkShape({ mousePosition }: NetworkShapeProps) {
       <lineSegments ref={linesRef}>
         <bufferGeometry>
           <bufferAttribute
-            attach="attributes-position"
-            args={[connections, 3]} // Float32Array, itemSize = 3
+            attachObject={["attributes", "position"]}
+            array={connections}
+            itemSize={3}
+            count={connections.length / 3}
           />
         </bufferGeometry>
         <lineBasicMaterial color="#3b82f6" transparent opacity={0.3} />
