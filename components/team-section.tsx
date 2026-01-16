@@ -9,7 +9,7 @@ const teamMembers = [
     name: "Philipp K. Masur",
     role: "Co-Director",
     bio: "Philipp Masur is an Associate Professor at the Department of Communication Science at the Vrije Universiteit Amsterdam and Managing Director of the Digital Media and Behavior Lab. His research is concerned with applying socio-psychological and communication theories to study online communication. Particularly, he investigates social norm effects and social influences on social media, privacy and self-disclosure dynamics, and technology uses' implications for well-being. In doing so, he aims to identify and foster knowledge and skills necessary to navigate online environments in a healthy and self-determined way.",
-    image: "https://dmb-lab.nl/wp-content/uploads/2024/07/AGU5929_Philipp-Masur.jpg",
+    image: "https://research.vu.nl/files-asset/447630676/Portrait_01a_klein.jpg",
     personalWebpage: "https://www.philippmasur.de/",
     institutionalPage: "https://research.vu.nl/en/persons/philipp-k-masur",
   },

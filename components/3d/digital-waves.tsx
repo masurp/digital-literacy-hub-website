@@ -9,8 +9,9 @@ export default function DigitalWaves() {
   const particlesRef = useRef<THREE.Points>(null)
 
   // Create wave geometry
-  const { geometry, particlePositions } = useMemo(() => {
+  const { geometry, particleGeometry } = useMemo(() => {
     const geometry = new THREE.PlaneGeometry(8, 8, 50, 50)
+
     const particleCount = 100
     const particlePositions = new Float32Array(particleCount * 3)
 
@@ -20,7 +21,10 @@ export default function DigitalWaves() {
       particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 10
     }
 
-    return { geometry, particlePositions }
+    const particleGeometry = new THREE.BufferGeometry()
+    particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3))
+
+    return { geometry, particleGeometry }
   }, [])
 
   useFrame(({ clock }) => {
@@ -48,14 +52,7 @@ export default function DigitalWaves() {
         <meshStandardMaterial color="#06b6d4" transparent opacity={0.6} wireframe />
       </mesh>
 
-      {/* Floating data particles */}
-      <points ref={particlesRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attach="attributes-position"
-            args={[particlePositions, 3]} // Float32Array, itemSize = 3
-          />
-        </bufferGeometry>
+      <points ref={particlesRef} geometry={particleGeometry}>
         <pointsMaterial color="#0ea5e9" size={0.05} transparent opacity={0.8} />
       </points>
     </group>
