@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 export default function MissionSection() {
   return (
@@ -45,6 +46,13 @@ export default function MissionSection() {
               practical tools and strategies that support digital citizenship, safeguard privacy, and promote media
               wellbeing for all.
             </p>
+            <Link href="/digital-literacy">
+              <p className="text-center mt-6 sm:mt-8">
+                <span className="text-teal-600 hover:text-teal-700 font-semibold cursor-pointer transition-colors duration-300">
+                  Learn more about how we view digital literacy →
+                </span>
+              </p>
+            </Link>
           </motion.div>
 
           {/* Key Values Grid */}

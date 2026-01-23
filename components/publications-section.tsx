@@ -119,7 +119,8 @@ const publications = [
   },
   {
     id: 8,
-    title: "Development and validation of an algorithm literacy scale for Internet users",
+    title:
+      "Development and validation of an algorithm literacy scale for Internet users",
     authors: ["Dogruel, L.", "Masur, P. K.", "Jöckel, S."],
     year: 2022,
     journal: "Communication Methods & Measures",
@@ -579,10 +580,24 @@ const formatAuthors = (authors: string[]) => {
 export default function PublicationsSection() {
   const [selectedPublication, setSelectedPublication] = useState<(typeof publications)[0] | null>(null)
   const [selectedTheme, setSelectedTheme] = useState("All")
+  const [searchQuery, setSearchQuery] = useState("")
+  const [displayCount, setDisplayCount] = useState(6)
 
   const filteredPublications = (
     selectedTheme === "All" ? publications : publications.filter((pub) => pub.theme.includes(selectedTheme))
-  ).sort((a, b) => b.year - a.year)
+  )
+    .filter((pub) => {
+      const query = searchQuery.toLowerCase()
+      return (
+        pub.title.toLowerCase().includes(query) ||
+        pub.authors.some((author) => author.toLowerCase().includes(query)) ||
+        pub.journal.toLowerCase().includes(query)
+      )
+    })
+    .sort((a, b) => b.year - a.year)
+
+  const displayedPublications = filteredPublications.slice(0, displayCount)
+  const hasMore = displayCount < filteredPublications.length
 
   const handleLinkClick = (url: string, e: React.MouseEvent) => {
     e.stopPropagation()
@@ -630,76 +645,99 @@ export default function PublicationsSection() {
           ))}
         </motion.div>
 
-        {/* Publications Grid */}
-        <div className="w-full max-w-4xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 max-h-[70vh] sm:max-h-[600px] overflow-y-auto max-w-5xl">
-            {filteredPublications.map((publication, index) => (
-              <motion.div
-                key={publication.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                whileHover={{ scale: 1.02 }}
-                onClick={() => setSelectedPublication(publication)}
-                className="bg-white/80 backdrop-blur-sm rounded-lg p-3 sm:p-4 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300"
-              >
-                <h3 className="text-sm sm:text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
-                  {publication.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-gray-600 mb-2">
-                  {formatAuthors(publication.authors)} ({publication.year})
-                </p>
-                <p className="text-xs sm:text-sm text-indigo-600 font-medium mb-2">{publication.journal}</p>
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-wrap gap-1">
-                    {publication.theme.map((theme, index) => (
-                      <span
-                        key={index}
-                        className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                          theme === "Privacy"
-                            ? "bg-red-100 text-red-800"
-                            : theme === "Education"
-                              ? "bg-blue-100 text-blue-800"
-                              : theme === "Wellbeing"
-                                ? "bg-green-100 text-green-800"
-                                : theme === "Literacy"
-                                  ? "bg-purple-100 text-purple-800"
-                                  : theme === "Social Media"
-                                    ? "bg-pink-100 text-pink-800"
-                                    : theme === "Algorithms"
-                                      ? "bg-orange-100 text-orange-800"
-                                      : "bg-gray-100 text-gray-800"
-                        }`}
-                      >
-                        {theme}
-                      </span>
-                    ))}
-                  </div>
-                  {/* Quick access links */}
-                  <div className="flex gap-1">
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="w-full max-w-2xl mb-6 sm:mb-8 px-4"
+        >
+          <input
+            type="text"
+            placeholder="Search by title, author, or journal..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full px-4 py-3 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all duration-300"
+          />
+          {searchQuery && (
+            <p className="text-sm text-gray-600 mt-2">
+              {filteredPublications.length} publication{filteredPublications.length !== 1 ? "s" : ""} found
+            </p>
+          )}
+        </motion.div>
+
+        {/* Publications Grid - Full Width List */}
+        <div className="w-full max-w-6xl mx-auto px-4">
+          {filteredPublications.length > 0 ? (
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                {displayedPublications.map((publication, index) => (
+                  <motion.div
+                    key={publication.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, delay: index * 0.05 }}
+                    whileHover={{ scale: 1.02 }}
+                    onClick={() => setSelectedPublication(publication)}
+                    className="bg-white/80 backdrop-blur-sm rounded-lg p-4 sm:p-5 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 h-full flex flex-col"
+                  >
+                    <div className="flex flex-wrap gap-1 mb-2">
+                      {publication.theme.map((t) => (
+                        <span key={t} className="inline-block bg-indigo-100 text-indigo-700 text-xs px-2 py-1 rounded">
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 mb-2 flex-grow">
+                      {publication.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-gray-600 mb-2">{formatAuthors(publication.authors)}</p>
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-500">
+                      <span>{publication.year}</span>
+                      <span className="line-clamp-1">{publication.journal}</span>
+                    </div>
                     {publication.links.preprint && (
                       <button
                         onClick={(e) => handleLinkClick(publication.links.preprint!, e)}
-                        className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
-                        title="View preprint"
+                        className="mt-3 w-full text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 transition-colors"
                       >
                         Preprint
                       </button>
                     )}
-                    {publication.links.journal && (
+                    {publication.links.journal && !publication.links.preprint && (
                       <button
-                        onClick={(e) => handleLinkClick(publication.links.journal!, e)}
-                        className="text-xs text-indigo-600 hover:text-indigo-800 font-medium"
-                        title="View journal article"
+                        onClick={(e) => handleLinkClick(publication.links.journal, e)}
+                        className="mt-3 w-full text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors"
                       >
-                        Journal
+                        View Article
                       </button>
                     )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* Load More Button */}
+              {hasMore && (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="flex justify-center mt-8 sm:mt-12"
+                >
+                  <button
+                    onClick={() => setDisplayCount((prev) => prev + 6)}
+                    className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    Load More Publications
+                  </button>
+                </motion.div>
+              )}
+            </>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-600">No publications found matching your search.</p>
+            </div>
+          )}
         </div>
       </div>
 

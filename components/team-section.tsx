@@ -31,6 +31,24 @@ const teamMembers = [
     personalWebpage: "",
     institutionalPage: "https://research.vu.nl/en/persons/jolanda-veldhuis",
   },
+  {
+    id: 4,
+    name: "Tilo Hartmann",
+    role: "Member",
+    bio: "Tilo Hartmann is Professor for Virtual Reality and Communication at the Department of Communication Science at Vrije Universiteit Amsterdam. His research draws on media psychology to examine how people experience media, with a particular focus on presence, perceptual illusions, and biased perceptions of reality. More recently, his work centers on immersive technologies such as virtual and augmented reality, aiming to understand the determinants and effects of presence in highly immersive media. In addition, he studies media use in the context of entertainment and personal wellbeing.",
+    image: "https://dmb-lab.nl/wp-content/uploads/2024/07/AGU6021-Tilo-Hartmann.jpg",
+    personalWebpage: "",
+    institutionalPage: "https://research.vu.nl/en/persons/tilo-hartmann/",
+  },
+  {
+    id: 5,
+    name: "Martin Baars",
+    role: "Member",
+    bio: "Martin Baars is a PhD candidate at the Department of Communication Science at Vrije Universiteit Amsterdam. His research advances the emerging field of immersive disinformation by examining how immersive media shape people’s beliefs.",
+    image: "https://dmb-lab.nl/wp-content/uploads/2026/01/Martin_Baars.jpg",
+    personalWebpage: "",
+    institutionalPage: "https://research.vu.nl/en/persons/martin-baars/",
+  },
 ]
 
 const partners = [

@@ -1,9 +1,9 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
 import { Box, Cylinder, Torus } from "@react-three/drei"
-import type * as THREE from "three"
+import * as THREE from "three"
 
 interface ResearchPlatformProps {
   onProjectClick: (project: any) => void
@@ -12,6 +12,20 @@ interface ResearchPlatformProps {
 export default function ResearchPlatform({ onProjectClick }: ResearchPlatformProps) {
   const platformRef = useRef<THREE.Mesh>(null)
   const torusRef = useRef<THREE.Mesh>(null)
+
+  // Pre-generate line geometries
+  const lineGeometries = useMemo(() => {
+    return Array.from({ length: 4 }).map((_, i) => {
+      const angle = (i / 4) * Math.PI * 2
+      const radius = 3
+      const geo = new THREE.BufferGeometry()
+      geo.setAttribute(
+        "position",
+        new THREE.BufferAttribute(new Float32Array([0, 0, 0, Math.cos(angle) * radius, 0, Math.sin(angle) * radius]), 3),
+      )
+      return geo
+    })
+  }, [])
 
   useFrame((state) => {
     if (platformRef.current) {
@@ -55,23 +69,11 @@ export default function ResearchPlatform({ onProjectClick }: ResearchPlatformPro
       })}
 
       {/* Connecting lines */}
-      {Array.from({ length: 4 }).map((_, i) => {
-        const angle = (i / 4) * Math.PI * 2
-        const radius = 3
-        return (
-          <line key={`line-${i}`}>
-            <bufferGeometry>
-              <bufferAttribute
-                attachObject={["attributes", "position"]}
-                array={new Float32Array([0, 0, 0, Math.cos(angle) * radius, 0, Math.sin(angle) * radius])}
-                itemSize={3}
-                count={2}
-              />
-            </bufferGeometry>
-            <lineBasicMaterial color="#059669" transparent opacity={0.5} />
-          </line>
-        )
-      })}
+      {Array.from({ length: 4 }).map((_, i) => (
+        <line key={`line-${i}`} geometry={lineGeometries[i]}>
+          <lineBasicMaterial color="#059669" transparent opacity={0.5} />
+        </line>
+      ))}
     </group>
   )
 }

@@ -2,8 +2,7 @@
 
 import { useRef, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
-import { Points, PointMaterial } from "@react-three/drei"
-import type * as THREE from "three"
+import * as THREE from "three"
 
 interface AIBrainProps {
   onPublicationClick: (publication: any) => void
@@ -14,8 +13,8 @@ export default function AIBrain({ onPublicationClick }: AIBrainProps) {
   const synapseRef = useRef<THREE.LineSegments>(null)
   const orbitGroupRef = useRef<THREE.Group>(null)
 
-  // Generate brain-like structure
-  const { positions, synapses } = useMemo(() => {
+  // Generate brain-like structure and geometries
+  const { brainGeometry, synapseGeometry } = useMemo(() => {
     const nodeCount = 200
     const positions = new Float32Array(nodeCount * 3)
     const synapses = []
@@ -52,7 +51,15 @@ export default function AIBrain({ onPublicationClick }: AIBrainProps) {
       }
     }
 
-    return { positions, synapses: new Float32Array(synapses) }
+    // Create brain geometry
+    const brainGeo = new THREE.BufferGeometry()
+    brainGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+
+    // Create synapse geometry
+    const synapseGeo = new THREE.BufferGeometry()
+    synapseGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(synapses), 3))
+
+    return { brainGeometry: brainGeo, synapseGeometry: synapseGeo }
   }, [])
 
   useFrame(({ clock }) => {
@@ -74,20 +81,12 @@ export default function AIBrain({ onPublicationClick }: AIBrainProps) {
   return (
     <group>
       {/* Brain neurons */}
-      <Points ref={brainRef} positions={positions}>
-        <PointMaterial transparent color="#6366f1" size={0.03} sizeAttenuation={true} depthWrite={false} />
-      </Points>
+      <points ref={brainRef} geometry={brainGeometry}>
+        <pointsMaterial transparent color="#6366f1" size={0.03} sizeAttenuation={true} depthWrite={false} />
+      </points>
 
       {/* Neural connections */}
-      <lineSegments ref={synapseRef}>
-        <bufferGeometry>
-          <bufferAttribute
-            attachObject={["attributes", "position"]}
-            array={synapses}
-            itemSize={3}
-            count={synapses.length / 3}
-          />
-        </bufferGeometry>
+      <lineSegments ref={synapseRef} geometry={synapseGeometry}>
         <lineBasicMaterial color="#a855f7" transparent opacity={0.4} />
       </lineSegments>
 
