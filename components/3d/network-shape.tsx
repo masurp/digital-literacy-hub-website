@@ -52,11 +52,18 @@ export default function NetworkShape({ mousePosition }: NetworkShapeProps) {
 
     // Create points geometry
     const pointsGeo = new THREE.BufferGeometry()
-    pointsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+    if (positions && positions.length > 0) {
+      pointsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3))
+    }
 
     // Create lines geometry
     const linesGeo = new THREE.BufferGeometry()
-    linesGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(connections), 3))
+    if (connections.length > 0) {
+      linesGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(connections), 3))
+    } else {
+      // Create a dummy geometry to avoid errors
+      linesGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3))
+    }
 
     return { pointsGeometry: pointsGeo, linesGeometry: linesGeo }
   }, [])

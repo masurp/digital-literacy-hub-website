@@ -57,7 +57,13 @@ export default function AIBrain({ onPublicationClick }: AIBrainProps) {
 
     // Create synapse geometry
     const synapseGeo = new THREE.BufferGeometry()
-    synapseGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(synapses), 3))
+    // Only set position attribute if synapses array has data
+    if (synapses.length > 0) {
+      synapseGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(synapses), 3))
+    } else {
+      // Create a dummy single-point geometry to avoid errors
+      synapseGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3))
+    }
 
     return { brainGeometry: brainGeo, synapseGeometry: synapseGeo }
   }, [])
