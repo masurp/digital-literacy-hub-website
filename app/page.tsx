@@ -65,12 +65,16 @@ export default function Home() {
     areaServed: "International",
     keywords: [
       "digital literacy",
+      "media literacy",
       "digital citizenship",
       "social media literacy",
+      "news literacy",
       "privacy",
+      "misinformation",
       "AI ethics",
       "media psychology",
       "communication science",
+      "communication,"
     ],
   }
 
