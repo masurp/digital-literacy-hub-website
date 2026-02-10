@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "Digital Literacy Hub @ VU Amsterdam",
   description:
-    "Research hub empowering digital citizenship. Evidence-based insights on social media literacy, privacy, AI ethics at VU Amsterdam.",
+    "Research hub empowering digital citizenship. Evidence-based insights on digital literacy, social media literacy, privacy, AI ethics at VU Amsterdam.",
   keywords: [
     "digital literacy",
     "VU Amsterdam",
