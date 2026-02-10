@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import Image from "next/image"
 
 const teamMembers = [
   {
@@ -136,11 +137,13 @@ export default function TeamSection() {
                 onClick={() => setSelectedMember(member)}
                 className="bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 min-h-[400px] sm:min-h-[450px] flex flex-col"
               >
-                <div className="w-44 h-44 sm:w-62 sm:h-62 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden">
-                  <img
+                <div className="w-44 h-44 sm:w-62 sm:h-62 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden relative">
+                  <Image
                     src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    className="w-full h-full object-cover"
+                    alt={`${member.name} - ${member.role} at Digital Literacy Hub`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 176px, 248px"
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{member.name}</h3>
@@ -186,11 +189,13 @@ export default function TeamSection() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col items-center justify-center group"
               >
-                <div className="w-full h-16 sm:h-20 mb-3 flex items-center justify-center">
-                  <img
+                <div className="w-full h-16 sm:h-20 mb-3 flex items-center justify-center relative">
+                  <Image
                     src={partner.logo || "/placeholder.svg"}
-                    alt={`${partner.name} logo`}
-                    className="max-w-full max-h-full object-contain filter group-hover:brightness-110 transition-all duration-300"
+                    alt={`${partner.name} - Partner Institution Logo`}
+                    fill
+                    className="object-contain filter group-hover:brightness-110 transition-all duration-300"
+                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                   />
                 </div>
                 <p className="text-xs sm:text-sm text-gray-700 text-center font-medium group-hover:text-purple-600 transition-colors duration-300">
@@ -228,11 +233,13 @@ export default function TeamSection() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <div className="w-36 h-36 sm:w-64 sm:h-64 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden">
-                <img
+              <div className="w-36 h-36 sm:w-64 sm:h-64 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden relative">
+                <Image
                   src={selectedMember.image || "/placeholder.svg"}
-                  alt={selectedMember.name}
-                  className="w-full h-full object-cover"
+                  alt={`${selectedMember.name} - ${selectedMember.role}`}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 144px, 256px"
                 />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 text-center">{selectedMember.name}</h3>

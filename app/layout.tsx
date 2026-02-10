@@ -6,9 +6,9 @@ import "./globals.css"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Digital Literacy Hub @ VU",
+  title: "Digital Literacy Hub @ VU Amsterdam",
   description:
-    "Empowering digital citizenship through research, design, and dialogue. The Digital Literacy Hub at VU Amsterdam explores how people navigate, resist, and reshape the digital world.",
+    "Research hub empowering digital citizenship. Evidence-based insights on social media literacy, privacy, AI ethics at VU Amsterdam.",
   keywords: [
     "digital literacy",
     "VU Amsterdam",
@@ -17,19 +17,40 @@ export const metadata: Metadata = {
     "privacy",
     "social media",
     "AI ethics",
+    "media psychology",
+    "communication science",
   ],
   authors: [{ name: "Digital Literacy Hub" }],
   openGraph: {
     title: "Digital Literacy Hub @ VU Amsterdam",
-    description: "Empowering digital citizenship through research, design, and dialogue",
+    description: "Research hub empowering digital citizenship through evidence-based insights on social media literacy, privacy, and AI ethics",
     url: "https://digitalliteracyhub.vu.nl",
     siteName: "Digital Literacy Hub",
     type: "website",
+    images: [
+      {
+        url: "https://digitalliteracyhub.vu.nl/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Digital Literacy Hub - Empowering Digital Citizenship",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Digital Literacy Hub @ VU Amsterdam",
-    description: "Empowering digital citizenship through research, design, and dialogue",
+    description: "Research hub empowering digital citizenship through evidence-based insights on social media literacy, privacy, and AI ethics",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
     generator: 'v0.app'
 }
