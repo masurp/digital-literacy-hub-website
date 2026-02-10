@@ -59,7 +59,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1 }}
             className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 mb-4 sm:mb-6"
           >
-            Digital Literacy Hub @ VU Amsterdam<strong>VU Amsterdam</strong>
+            Digital Literacy Hub @ <strong>VU Amsterdam</strong>
           </motion.p>
 
           <motion.p
