@@ -47,7 +47,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight"
           >
-            <strong>Digital Literacy Hub:</strong> Empowering digital citizenship through{" "}
+            Empowering digital citizenship through{" "}
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               research, design, and dialogue
             </span>
