@@ -20,10 +20,9 @@ export default function HeroSection() {
   }
 
   return (
-    <header
+    <div
       className="relative w-full h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 overflow-hidden"
       onMouseMove={handleMouseMove}
-      role="banner"
     >
       {/* 3D Background */}
       <div className="absolute inset-0" aria-hidden="true">
@@ -40,27 +39,27 @@ export default function HeroSection() {
 
       {/* Content Overlay */}
       <div className="relative z-10 flex items-center justify-center h-full px-4 py-8 sm:py-12">
-        <article className="text-center max-w-4xl mx-auto">
+        <div className="text-center max-w-4xl mx-auto">
           <motion.h1
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.5 }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight"
           >
-            Empowering digital citizenship through{" "}
+            Empowering <strong>digital citizenship</strong> through{" "}
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
               research, design, and dialogue
             </span>
           </motion.h1>
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1 }}
             className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 mb-4 sm:mb-6"
           >
-            Digital Literacy Hub @ <strong>VU Amsterdam</strong>
-          </motion.p>
+            <strong>Digital Literacy Hub</strong> @ <strong>VU Amsterdam</strong>
+          </motion.div>
 
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -68,8 +67,8 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1.2 }}
             className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto px-2"
           >
-            We explore <strong>digital literacy</strong>{" "}
-            to help people navigate the digital world with knowledge and autonomy
+            Research hub advancing <strong>digital literacy</strong> through evidence-based insights on{" "}
+            <strong>social media</strong>, <strong>privacy</strong>, and <strong>AI ethics</strong>
           </motion.p>
 
           <motion.div
@@ -95,7 +94,7 @@ export default function HeroSection() {
               Meet the Team
             </motion.button>
           </motion.div>
-        </article>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
@@ -117,6 +116,6 @@ export default function HeroSection() {
           />
         </motion.div>
       </motion.div>
-    </header>
+    </div>
   )
 }

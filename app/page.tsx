@@ -74,7 +74,6 @@ export default function Home() {
       "AI ethics",
       "media psychology",
       "communication science",
-      "communication,"
     ],
   }
 

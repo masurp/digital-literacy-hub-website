@@ -19,7 +19,7 @@ export default function MissionSection() {
             <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Mission</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-            Empowering digital citizenship through research, collaboration, and innovation
+            Empowering digital citizenship through research and  collaboration
           </p>
         </motion.div>
 
