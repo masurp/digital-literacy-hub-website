@@ -59,8 +59,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1 }}
             className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-700 mb-4 sm:mb-6"
           >
-            <strong>VU Amsterdam</strong> research hub advancing <strong>digital citizenship</strong> through{" "}
-            <strong>evidence-based insights</strong>
+            Digital Literacy Hub @ VU Amsterdam<strong>VU Amsterdam</strong>
           </motion.p>
 
           <motion.p
@@ -69,7 +68,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1.2 }}
             className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto px-2"
           >
-            We explore <strong>social media literacy</strong>, <strong>privacy</strong>, and <strong>AI ethics</strong>{" "}
+            We explore <strong>digital literacy</strong>{" "}
             to help people navigate the digital world with knowledge and autonomy
           </motion.p>
 
