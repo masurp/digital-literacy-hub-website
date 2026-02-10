@@ -20,7 +20,7 @@ export default function DigitalLiteracyPage() {
           >
             <Link href="/#mission">
               <span className="text-teal-600 hover:text-teal-700 font-semibold cursor-pointer transition-colors duration-300 flex items-center gap-2">
-                ← Back to Hub
+                ← Back
               </span>
             </Link>
           </motion.div>
