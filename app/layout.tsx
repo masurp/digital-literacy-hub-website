@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     template: "%s | Digital Literacy Hub",
   },
   description:
-    "Research hub empowering digital citizenship. Evidence-based insights on digital literacy, social media literacy, privacy, and AI ethics at VU Amsterdam.",
+    "Research group at VU Amsterdam studying how people navigate digital media, privacy, and AI. Led by Dr. Philipp Masur, we produce evidence-based insights on digital literacy, social media, and algorithmic literacy.",
   keywords: [
     "digital literacy",
     "VU Amsterdam",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Digital Literacy Hub @ VU Amsterdam",
     description:
-      "Research hub empowering digital citizenship through evidence-based insights on social media literacy, privacy, and AI ethics",
+      "Research group at VU Amsterdam studying how people navigate digital media, privacy, and AI. Evidence-based insights on digital literacy, social media, and algorithmic literacy.",
     url: BASE_URL,
     siteName: "Digital Literacy Hub",
     type: "website",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Digital Literacy Hub @ VU Amsterdam",
     description:
-      "Research hub empowering digital citizenship through evidence-based insights on social media literacy, privacy, and AI ethics",
+      "Research group at VU Amsterdam studying how people navigate digital media, privacy, and AI. Evidence-based insights on digital literacy, social media, and algorithmic literacy.",
   },
   robots: {
     index: true,
