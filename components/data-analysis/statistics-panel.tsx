@@ -1,7 +1,6 @@
 "use client"
 
 import { useState, useMemo } from "react"
-import { motion } from "framer-motion"
 
 interface Project {
   id: string
@@ -15,211 +14,190 @@ interface StatisticsPanelProps {
   project?: Project | null
 }
 
+function humanize(col: string) {
+  return col.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
 export default function StatisticsPanel({ dataset, filteredData, project }: StatisticsPanelProps) {
-  // Get numeric columns, excluding ID variables
-  const numericColumns = dataset.columns.filter(
+  const numericCols = dataset.columns.filter(
     (col) => dataset.columnTypes[col] === "numeric" && !col.toLowerCase().includes("id"),
   )
-  const [selectedColumn, setSelectedColumn] = useState(numericColumns[0] || "")
+  const [selectedCol, setSelectedCol] = useState(numericCols[0] || "")
 
-  // Update selectedColumn if it becomes invalid
-  if (selectedColumn && !numericColumns.includes(selectedColumn)) {
-    setSelectedColumn(numericColumns[0] || "")
+  if (selectedCol && !numericCols.includes(selectedCol)) {
+    setSelectedCol(numericCols[0] || "")
   }
 
-  const statistics = useMemo(() => {
-    if (!selectedColumn || numericColumns.length === 0) return null
-    if (!numericColumns.includes(selectedColumn)) return null
-
-    const values = filteredData.map((row) => Number(row[selectedColumn])).filter((v) => !isNaN(v))
-
-    if (values.length === 0) return null
-
+  const stats = useMemo(() => {
+    if (!selectedCol || !numericCols.includes(selectedCol)) return null
+    const values = filteredData.map((r) => Number(r[selectedCol])).filter((v) => !isNaN(v))
+    if (!values.length) return null
     const sorted = [...values].sort((a, b) => a - b)
-    const sum = values.reduce((a, b) => a + b, 0)
-    const mean = sum / values.length
-    const median = sorted[Math.floor(sorted.length / 2)]
-    const min = Math.min(...values)
-    const max = Math.max(...values)
-
-    // Quartiles
-    const q1Index = Math.floor(sorted.length * 0.25)
-    const q3Index = Math.floor(sorted.length * 0.75)
-    const q1 = sorted[q1Index]
-    const q3 = sorted[q3Index]
-
-    // Standard deviation
-    const variance = values.reduce((acc, val) => acc + Math.pow(val - mean, 2), 0) / values.length
-    const stdDev = Math.sqrt(variance)
-
-    return {
-      count: values.length,
-      mean,
-      median,
-      stdDev,
-      min,
-      max,
-      q1,
-      q3,
+    const n = values.length
+    const mean = values.reduce((a, b) => a + b, 0) / n
+    const variance = values.reduce((a, v) => a + (v - mean) ** 2, 0) / n
+    const sd = Math.sqrt(variance)
+    const q = (p: number) => {
+      const i = p * (sorted.length - 1)
+      const lo = Math.floor(i)
+      return sorted[lo] + (sorted[Math.ceil(i)] - sorted[lo]) * (i - lo)
     }
-  }, [selectedColumn, filteredData, numericColumns.join(",")])
+    const skewness =
+      values.reduce((a, v) => a + ((v - mean) / sd) ** 3, 0) / n
+    const kurtosis =
+      values.reduce((a, v) => a + ((v - mean) / sd) ** 4, 0) / n - 3
+    return {
+      n,
+      mean: mean.toFixed(3),
+      median: q(0.5).toFixed(3),
+      sd: sd.toFixed(3),
+      se: (sd / Math.sqrt(n)).toFixed(3),
+      min: sorted[0].toFixed(3),
+      max: sorted[sorted.length - 1].toFixed(3),
+      q1: q(0.25).toFixed(3),
+      q3: q(0.75).toFixed(3),
+      skewness: skewness.toFixed(3),
+      kurtosis: kurtosis.toFixed(3),
+    }
+  }, [selectedCol, filteredData, numericCols.join(",")])
 
-  // Calculate correlations
   const correlations = useMemo(() => {
-    if (numericColumns.length < 2) return {}
-
-    const result: { [key: string]: number } = {}
-
-    for (let i = 0; i < numericColumns.length; i++) {
-      for (let j = i + 1; j < numericColumns.length; j++) {
-        const col1 = numericColumns[i]
-        const col2 = numericColumns[j]
-
-        const values1 = filteredData.map((row) => Number(row[col1])).filter((v) => !isNaN(v))
-        const values2 = filteredData.map((row) => Number(row[col2])).filter((v) => !isNaN(v))
-
-        if (values1.length === 0 || values2.length === 0) continue
-
-        const mean1 = values1.reduce((a, b) => a + b, 0) / values1.length
-        const mean2 = values2.reduce((a, b) => a + b, 0) / values2.length
-
-        let numerator = 0
-        let denom1 = 0
-        let denom2 = 0
-
-        for (let k = 0; k < Math.min(values1.length, values2.length); k++) {
-          const diff1 = values1[k] - mean1
-          const diff2 = values2[k] - mean2
-          numerator += diff1 * diff2
-          denom1 += diff1 * diff1
-          denom2 += diff2 * diff2
+    if (numericCols.length < 2) return {}
+    const result: Record<string, number> = {}
+    for (let i = 0; i < numericCols.length; i++) {
+      for (let j = i + 1; j < numericCols.length; j++) {
+        const c1 = numericCols[i], c2 = numericCols[j]
+        const v1 = filteredData.map((r) => +r[c1]).filter((v) => !isNaN(v))
+        const v2 = filteredData.map((r) => +r[c2]).filter((v) => !isNaN(v))
+        if (!v1.length || !v2.length) continue
+        const m1 = v1.reduce((a, b) => a + b, 0) / v1.length
+        const m2 = v2.reduce((a, b) => a + b, 0) / v2.length
+        const len = Math.min(v1.length, v2.length)
+        let num = 0, d1 = 0, d2 = 0
+        for (let k = 0; k < len; k++) {
+          num += (v1[k] - m1) * (v2[k] - m2)
+          d1 += (v1[k] - m1) ** 2
+          d2 += (v2[k] - m2) ** 2
         }
-
-        const correlation = numerator / Math.sqrt(denom1 * denom2)
-        result[`${col1} vs ${col2}`] = isNaN(correlation) ? 0 : correlation
+        const r = num / Math.sqrt(d1 * d2)
+        result[`${c1}|||${c2}`] = isNaN(r) ? 0 : r
       }
     }
-
     return result
-  }, [numericColumns.join(","), filteredData])
+  }, [numericCols.join(","), filteredData])
+
+  if (numericCols.length === 0) {
+    return (
+      <div className="bg-white border border-gray-200 rounded-xl p-8 text-center shadow-sm">
+        <p className="text-gray-400">No numeric variables available</p>
+      </div>
+    )
+  }
+
+  const getCorr = (c1: string, c2: string) => {
+    if (c1 === c2) return 1
+    const key = correlations[`${c1}|||${c2}`] !== undefined ? `${c1}|||${c2}` : `${c2}|||${c1}`
+    return correlations[key] ?? 0
+  }
+
+  const corrColor = (r: number) => {
+    const a = Math.abs(r)
+    if (r === 1) return "bg-gray-100 text-gray-500"
+    if (r > 0) {
+      if (a > 0.7) return "bg-blue-600 text-white"
+      if (a > 0.4) return "bg-blue-400 text-white"
+      if (a > 0.2) return "bg-blue-200 text-blue-800"
+      return "bg-gray-50 text-gray-500"
+    }
+    if (a > 0.7) return "bg-red-600 text-white"
+    if (a > 0.4) return "bg-red-400 text-white"
+    if (a > 0.2) return "bg-red-200 text-red-800"
+    return "bg-gray-50 text-gray-500"
+  }
+
+  const statRows = stats
+    ? [
+        { label: "N", value: String(stats.n) },
+        { label: "Mean", value: stats.mean },
+        { label: "Median", value: stats.median },
+        { label: "Std. Deviation", value: stats.sd },
+        { label: "Std. Error", value: stats.se },
+        { label: "Min", value: stats.min },
+        { label: "Max", value: stats.max },
+        { label: "Q1 (25th pct.)", value: stats.q1 },
+        { label: "Q3 (75th pct.)", value: stats.q3 },
+        { label: "Skewness", value: stats.skewness },
+        { label: "Excess Kurtosis", value: stats.kurtosis },
+      ]
+    : []
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="space-y-6"
-    >
-      {numericColumns.length === 0 ? (
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-          <p className="text-gray-400">No numeric variables available for analysis</p>
+    <div className="space-y-6">
+      {/* Descriptive stats */}
+      <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+        <div className="px-6 pt-5 pb-3">
+          <h3 className="text-base font-semibold text-gray-800">Descriptive Statistics</h3>
         </div>
-      ) : (
-        <>
-          {/* Descriptive Statistics */}
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-            <h3 className="text-lg font-bold text-teal-300 mb-4">Descriptive Statistics</h3>
-            
-            <div className="mb-4">
-              <label className="block text-sm font-semibold text-teal-300 mb-2">Select Variable</label>
-              <select
-                value={selectedColumn}
-                onChange={(e) => setSelectedColumn(e.target.value)}
-                className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-              >
-                {numericColumns.map((col) => (
-                  <option key={col} value={col}>
-                    {col}
-                  </option>
-                ))}
-              </select>
-
-              {project?.variableExplanations && selectedColumn && project.variableExplanations[selectedColumn] && (
-                <div className="p-3 bg-cyan-900/30 border border-cyan-500/30 rounded-lg mt-3">
-                  <p className="text-sm text-cyan-300">{project.variableExplanations[selectedColumn]}</p>
-                </div>
-              )}
-            </div>
-
-            {statistics && (
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: "Count", value: String(statistics.count) },
-                  { label: "Mean", value: statistics.mean?.toFixed(2) || "N/A" },
-                  { label: "Median", value: statistics.median?.toFixed(2) || "N/A" },
-                  { label: "Std Dev", value: statistics.stdDev?.toFixed(2) || "N/A" },
-                  { label: "Min", value: statistics.min?.toFixed(2) || "N/A" },
-                  { label: "Max", value: statistics.max?.toFixed(2) || "N/A" },
-                  { label: "Q1", value: statistics.q1?.toFixed(2) || "N/A" },
-                  { label: "Q3", value: statistics.q3?.toFixed(2) || "N/A" },
-                ].map((stat) => (
-                  <div key={stat.label} className="bg-slate-700/50 border border-teal-500/20 rounded-lg p-3">
-                    <p className="text-xs text-gray-400 mb-1">{stat.label}</p>
-                    <p className="text-lg font-bold text-teal-300">{stat.value}</p>
-                  </div>
-                ))}
-              </div>
+        <div className="px-6 pb-5 space-y-3">
+          <div>
+            <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Variable</label>
+            <select
+              value={selectedCol}
+              onChange={(e) => setSelectedCol(e.target.value)}
+              className="w-full sm:w-72 px-3 py-2 bg-white text-gray-700 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+            >
+              {numericCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+            </select>
+            {project?.variableExplanations?.[selectedCol] && (
+              <p className="mt-2 text-xs text-gray-400 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2">
+                {project.variableExplanations[selectedCol]}
+              </p>
             )}
           </div>
-        </>
-      )}
 
-      {/* Correlations - Zero-Order Correlation Matrix */}
-      {Object.keys(correlations).length > 0 && (
-        <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-          <h3 className="text-lg font-bold text-teal-300 mb-4">Zero-Order Correlations</h3>
-          <div className="overflow-x-auto">
-            <table className="w-full text-sm">
+          {statRows.length > 0 && (
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              {statRows.map(({ label, value }) => (
+                <div key={label} className="bg-gray-50 border border-gray-100 rounded-lg px-4 py-3">
+                  <p className="text-xs text-gray-400 mb-0.5">{label}</p>
+                  <p className="text-base font-semibold text-gray-800 tabular-nums">{value}</p>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Correlation matrix */}
+      {numericCols.length >= 2 && (
+        <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="px-6 pt-5 pb-3">
+            <h3 className="text-base font-semibold text-gray-800">Zero-Order Correlations</h3>
+            <p className="text-xs text-gray-400 mt-0.5">Pearson r · Blue = positive, Red = negative</p>
+          </div>
+          <div className="px-6 pb-5 overflow-x-auto">
+            <table className="text-xs">
               <thead>
                 <tr>
-                  <th className="text-left text-gray-400 font-semibold px-3 py-2"></th>
-                  {numericColumns.map((col) => (
-                    <th key={col} className="text-center text-gray-400 font-semibold px-3 py-2 whitespace-nowrap text-xs">
-                      {col}
+                  <th className="px-2 py-1.5 text-left text-gray-400 font-semibold min-w-[100px]"></th>
+                  {numericCols.map((col) => (
+                    <th key={col} className="px-2 py-1.5 text-center text-gray-500 font-semibold whitespace-nowrap min-w-[60px]">
+                      {humanize(col)}
                     </th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {numericColumns.map((col1, i) => (
+                {numericCols.map((col1) => (
                   <tr key={col1}>
-                    <td className="text-gray-400 font-semibold px-3 py-2 text-xs">{col1}</td>
-                    {numericColumns.map((col2, j) => {
-                      let corr = 0
-                      if (i === j) {
-                        corr = 1
-                      } else if (i < j) {
-                        corr = correlations[`${col1} vs ${col2}`] || 0
-                      } else {
-                        corr = correlations[`${col2} vs ${col1}`] || 0
-                      }
-
-                      // Color scale: 0 = white, ±1 = red/green
-                      const absCorr = Math.abs(corr)
-                      let bgColor = "bg-slate-700"
-                      if (corr > 0) {
-                        bgColor =
-                          absCorr > 0.7
-                            ? "bg-emerald-700"
-                            : absCorr > 0.4
-                              ? "bg-emerald-600"
-                              : absCorr > 0.2
-                                ? "bg-emerald-500"
-                                : "bg-slate-700"
-                      } else if (corr < 0) {
-                        bgColor =
-                          absCorr > 0.7
-                            ? "bg-red-700"
-                            : absCorr > 0.4
-                              ? "bg-red-600"
-                              : absCorr > 0.2
-                                ? "bg-red-500"
-                                : "bg-slate-700"
-                      }
-
+                    <td className="px-2 py-1.5 text-gray-600 font-semibold whitespace-nowrap">{humanize(col1)}</td>
+                    {numericCols.map((col2) => {
+                      const r = getCorr(col1, col2)
                       return (
-                        <td key={`${col1}-${col2}`} className={`text-center px-3 py-2 ${bgColor} rounded`}>
-                          <span className="text-white font-semibold text-xs">{corr.toFixed(2)}</span>
+                        <td key={col2} className="px-1 py-1">
+                          <div className={`rounded px-2 py-1.5 text-center font-semibold tabular-nums ${corrColor(r)}`}>
+                            {r.toFixed(2)}
+                          </div>
                         </td>
                       )
                     })}
@@ -228,11 +206,8 @@ export default function StatisticsPanel({ dataset, filteredData, project }: Stat
               </tbody>
             </table>
           </div>
-          <div className="mt-4 text-xs text-gray-400">
-            <p>Color scale: Green = positive correlation, Red = negative correlation, Intensity = strength</p>
-          </div>
         </div>
       )}
-    </motion.div>
+    </div>
   )
 }

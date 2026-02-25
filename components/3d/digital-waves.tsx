@@ -10,15 +10,15 @@ export default function DigitalWaves() {
 
   // Create wave geometry
   const { geometry, particleGeometry } = useMemo(() => {
-    const geometry = new THREE.PlaneGeometry(8, 8, 50, 50)
+    const geometry = new THREE.PlaneGeometry(18, 18, 70, 70)
 
-    const particleCount = 100
+    const particleCount = 250
     const particlePositions = new Float32Array(particleCount * 3)
 
     for (let i = 0; i < particleCount; i++) {
-      particlePositions[i * 3] = (Math.random() - 0.5) * 10
-      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 10
-      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 10
+      particlePositions[i * 3] = (Math.random() - 0.5) * 18
+      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 18
+      particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 6
     }
 
     const particleGeometry = new THREE.BufferGeometry()
@@ -35,7 +35,7 @@ export default function DigitalWaves() {
       for (let i = 0; i < array.length; i += 3) {
         const x = array[i]
         const y = array[i + 1]
-        array[i + 2] = Math.sin(x * 0.5 + clock.elapsedTime) * 0.3 + Math.cos(y * 0.5 + clock.elapsedTime * 0.7) * 0.2
+        array[i + 2] = Math.sin(x * 0.5 + clock.elapsedTime) * 0.6 + Math.cos(y * 0.5 + clock.elapsedTime * 0.7) * 0.4
       }
       positions.needsUpdate = true
     }
@@ -48,12 +48,12 @@ export default function DigitalWaves() {
   return (
     <group>
       {/* Flowing wave surface */}
-      <mesh ref={meshRef} geometry={geometry} rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]}>
-        <meshStandardMaterial color="#06b6d4" transparent opacity={0.6} wireframe />
+      <mesh ref={meshRef} geometry={geometry} rotation={[-Math.PI / 2.5, 0, 0]} position={[0, -1, 0]}>
+        <meshStandardMaterial color="#22d3ee" transparent opacity={0.85} wireframe />
       </mesh>
 
       <points ref={particlesRef} geometry={particleGeometry}>
-        <pointsMaterial color="#0ea5e9" size={0.05} transparent opacity={0.8} />
+        <pointsMaterial color="#67e8f9" size={0.1} transparent opacity={0.9} />
       </points>
     </group>
   )

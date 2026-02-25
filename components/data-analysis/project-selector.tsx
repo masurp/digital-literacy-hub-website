@@ -8,6 +8,7 @@ interface Project {
   id: string
   name: string
   description: string
+  authors?: string
   url: string
   variableExplanations?: { [key: string]: string }
 }
@@ -34,20 +35,6 @@ const PROJECTS: Project[] = [
       data_concern: "Level of concern about data privacy (1-5 scale)",
     },
   },
-  {
-    id: "project2",
-    name: "Social Media & Well-being Study",
-    authors: "Philipp K. Masur",
-    description: "Research on social media usage patterns and digital well-being",
-    url: "https://example.com/data2.csv",
-    variableExplanations: {
-      participant_id: "Unique participant identifier",
-      age_group: "Age group category",
-      daily_usage: "Daily social media usage in minutes",
-      well_being_score: "Self-reported well-being score (1-10)",
-      platform: "Primary social media platform used",
-    },
-  },
 ]
 
 export default function ProjectSelector({ onDataLoaded, loading, setLoading }: ProjectSelectorProps) {
@@ -68,7 +55,7 @@ export default function ProjectSelector({ onDataLoaded, loading, setLoading }: P
       Papa.parse(csvText, {
         header: true,
         skipEmptyLines: true,
-        complete: (results) => {
+        complete: (results: Papa.ParseResult<Record<string, string>>) => {
           const data = results.data as any[]
 
           if (data.length === 0) {

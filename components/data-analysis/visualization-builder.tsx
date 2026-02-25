@@ -1,8 +1,22 @@
 "use client"
 
-import { useState, useMemo } from "react"
-import { motion } from "framer-motion"
-import { BarChart, Bar, LineChart, Line, ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceLine } from "recharts"
+import { useState, useMemo, useRef } from "react"
+import {
+  ComposedChart,
+  BarChart,
+  Bar,
+  Area,
+  Line,
+  Scatter,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  ErrorBar,
+  Cell,
+} from "recharts"
 import html2canvas from "html2canvas"
 
 interface VisualizationBuilderProps {
@@ -10,427 +24,586 @@ interface VisualizationBuilderProps {
   filteredData: any[]
 }
 
+// ─── Helpers ──────────────────────────────────────────────────────────────────
+
+function humanize(col: string) {
+  return col.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+}
+
+const PALETTE = ["#3b82f6", "#f59e0b", "#10b981", "#ef4444", "#8b5cf6", "#06b6d4", "#f97316", "#ec4899"]
+
+/** OLS regression — returns params needed for ribbon + line */
+function ols(data: { x: number; y: number }[]) {
+  const n = data.length
+  if (n < 3) return null
+  const meanX = data.reduce((s, d) => s + d.x, 0) / n
+  const meanY = data.reduce((s, d) => s + d.y, 0) / n
+  const ssXX = data.reduce((s, d) => s + (d.x - meanX) ** 2, 0)
+  const ssXY = data.reduce((s, d) => s + (d.x - meanX) * (d.y - meanY), 0)
+  if (ssXX === 0) return null
+  const slope = ssXY / ssXX
+  const intercept = meanY - slope * meanX
+  const residuals = data.map((d) => d.y - (slope * d.x + intercept))
+  const mse = residuals.reduce((s, r) => s + r * r, 0) / (n - 2)
+  const se = Math.sqrt(mse)
+  return { slope, intercept, se, minX: Math.min(...data.map((d) => d.x)), maxX: Math.max(...data.map((d) => d.x)), meanX, ssXX, n }
+}
+
+/** Build ribbon points: fitted values ± 1.96 * SE_fit */
+function regressionRibbon(reg: NonNullable<ReturnType<typeof ols>>, steps = 50) {
+  const { slope, intercept, se, minX, maxX, meanX, ssXX, n } = reg
+  return Array.from({ length: steps + 1 }, (_, i) => {
+    const x = minX + ((maxX - minX) * i) / steps
+    const yHat = slope * x + intercept
+    const seFit = se * Math.sqrt(1 / n + (x - meanX) ** 2 / ssXX)
+    return { x, yHat, upper: yHat + 1.96 * seFit, lower: yHat - 1.96 * seFit }
+  })
+}
+
+/** Gaussian KDE (Silverman bandwidth) */
+function kde(values: number[], steps = 80) {
+  if (values.length < 2) return []
+  const n = values.length
+  const mean = values.reduce((a, b) => a + b, 0) / n
+  const std = Math.sqrt(values.reduce((a, v) => a + (v - mean) ** 2, 0) / n)
+  const h = 1.06 * std * Math.pow(n, -0.2)
+  if (h === 0) return []
+  const minV = Math.min(...values)
+  const maxV = Math.max(...values)
+  return Array.from({ length: steps + 1 }, (_, i) => {
+    const x = minV + ((maxV - minV) * i) / steps
+    const density =
+      values.reduce((s, v) => s + Math.exp(-0.5 * ((x - v) / h) ** 2), 0) /
+      (n * h * Math.sqrt(2 * Math.PI))
+    return { x: +x.toFixed(3), density: +density.toFixed(6) }
+  })
+}
+
+/** Mean + 95% CI */
+function meanCI(values: number[]) {
+  if (!values.length) return { mean: 0, ciHalf: 0 }
+  const n = values.length
+  const mean = values.reduce((a, b) => a + b, 0) / n
+  const variance = values.reduce((a, v) => a + (v - mean) ** 2, 0) / Math.max(n - 1, 1)
+  return { mean, ciHalf: 1.96 * Math.sqrt(variance / n) }
+}
+
+/** Boxplot stats */
+function boxStats(values: number[]) {
+  if (!values.length) return null
+  const s = [...values].sort((a, b) => a - b)
+  const q = (p: number) => {
+    const i = p * (s.length - 1)
+    const lo = Math.floor(i)
+    return s[lo] + (s[Math.ceil(i)] - s[lo]) * (i - lo)
+  }
+  const q1 = q(0.25), q2 = q(0.5), q3 = q(0.75)
+  const iqr = q3 - q1
+  const wLo = s.find((v) => v >= q1 - 1.5 * iqr) ?? q1
+  const wHi = [...s].reverse().find((v) => v <= q3 + 1.5 * iqr) ?? q3
+  return { q1, q2, q3, iqr, wLo, wHi }
+}
+
+// ─── Boxplot SVG shape ────────────────────────────────────────────────────────
+
+function BoxShape(props: any) {
+  const { x, y: _y, width, payload, yAxis } = props
+  if (!payload?.boxKey || !yAxis?.scale) return null
+  const box = payload[payload.boxKey]
+  if (!box) return null
+  const { q1, q2, q3, wLo, wHi, fill } = box
+  const sc = yAxis.scale
+  const cx = x + width / 2
+  const bL = x + width * 0.2
+  const bR = x + width * 0.8
+
+  return (
+    <g>
+      <line x1={cx} y1={sc(wHi)} x2={cx} y2={sc(q3)} stroke={fill} strokeWidth={1.5} />
+      <line x1={bL} y1={sc(wHi)} x2={bR} y2={sc(wHi)} stroke={fill} strokeWidth={1.5} />
+      <line x1={cx} y1={sc(wLo)} x2={cx} y2={sc(q1)} stroke={fill} strokeWidth={1.5} />
+      <line x1={bL} y1={sc(wLo)} x2={bR} y2={sc(wLo)} stroke={fill} strokeWidth={1.5} />
+      <rect
+        x={bL} y={sc(q3)} width={bR - bL} height={Math.abs(sc(q1) - sc(q3))}
+        fill={fill} fillOpacity={0.18} stroke={fill} strokeWidth={1.5}
+      />
+      <line x1={bL} y1={sc(q2)} x2={bR} y2={sc(q2)} stroke={fill} strokeWidth={2.5} />
+    </g>
+  )
+}
+
+// ─── Export button ────────────────────────────────────────────────────────────
+
+function ExportButton({ chartRef }: { chartRef: React.RefObject<HTMLDivElement | null> }) {
+  const run = async () => {
+    if (!chartRef.current) return
+    const canvas = await html2canvas(chartRef.current, { backgroundColor: "#ffffff", scale: 2 })
+    const a = document.createElement("a")
+    a.href = canvas.toDataURL("image/png")
+    a.download = `chart-${Date.now()}.png`
+    a.click()
+  }
+  return (
+    <button
+      onClick={run}
+      title="Export as PNG"
+      className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-500 border border-gray-200 bg-white hover:bg-gray-50 rounded-lg transition-colors"
+    >
+      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+      </svg>
+      Export PNG
+    </button>
+  )
+}
+
+// ─── Shared styles ────────────────────────────────────────────────────────────
+
+const selectCls = "w-full px-3 py-2 bg-white text-gray-700 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+const labelCls = "block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1"
+const axisStyle = { fill: "#6b7280", fontSize: 11 }
+const gridStroke = "#f3f4f6"
+const tooltipStyle = {
+  contentStyle: {
+    backgroundColor: "#fff",
+    border: "1px solid #e5e7eb",
+    borderRadius: "8px",
+    fontSize: "12px",
+    boxShadow: "0 4px 6px -1px rgb(0 0 0 / 0.1)",
+  },
+}
+
+// ─── Main component ───────────────────────────────────────────────────────────
+
 export default function VisualizationBuilder({ dataset, filteredData }: VisualizationBuilderProps) {
-  const numericColumns = dataset.columns.filter(
+  const numericCols = dataset.columns.filter(
     (col) => dataset.columnTypes[col] === "numeric" && !col.toLowerCase().includes("id"),
   )
-  const categoricalColumns = dataset.columns.filter(
+  const catCols = dataset.columns.filter(
     (col) => dataset.columnTypes[col] === "categorical" && !col.toLowerCase().includes("id"),
   )
 
   const [chartType, setChartType] = useState<"histogram" | "scatter" | "bar">("histogram")
-  const [binWidth, setBinWidth] = useState(10)
-  const [histColumn, setHistColumn] = useState(numericColumns[0] || "")
-  const [scatterX, setScatterX] = useState(numericColumns[0] || "")
-  const [scatterY, setScatterY] = useState(numericColumns.length > 1 ? numericColumns[1] : numericColumns[0] || "")
-  const [scatterRegressionLine, setScatterRegressionLine] = useState(false)
-  const [barColumn, setBarColumn] = useState(numericColumns[0] || "")
-  const [barCategories, setBarCategories] = useState<string[]>(categoricalColumns.slice(0, 1))
-  const [barShowCI, setBarShowCI] = useState(false)
-  const [barUseLineChart, setBarUseLineChart] = useState(false)
-  const [scatterFacet, setScatterFacet] = useState<string | null>(null)
 
-  const getUniqueValues = (column: string) => {
-    return [...new Set(filteredData.map((row) => String(row[column])))].sort()
-  }
+  // Histogram
+  const [histCol, setHistCol] = useState(numericCols[0] || "")
+  const [numBins, setNumBins] = useState(20)
+  const [showDensity, setShowDensity] = useState(false)
+  const histRef = useRef<HTMLDivElement>(null)
 
-  // Histogram data
-  const histogramData = useMemo(() => {
-    if (!histColumn) return []
-    const values = filteredData.map((row) => Number(row[histColumn])).filter((v) => !isNaN(v))
-    if (values.length === 0) return []
+  // Scatter
+  const [scatterX, setScatterX] = useState(numericCols[0] || "")
+  const [scatterY, setScatterY] = useState(numericCols[1] ?? numericCols[0] ?? "")
+  const [scatterGroup, setScatterGroup] = useState("none")
+  const [showRegLine, setShowRegLine] = useState(false)
+  const [showRibbon, setShowRibbon] = useState(false)
+  const scatterRef = useRef<HTMLDivElement>(null)
 
-    const min = Math.min(...values)
-    const max = Math.max(...values)
-    const bins: { [key: number]: number } = {}
+  // Bar / Boxplot
+  const [barY, setBarY] = useState(numericCols[0] || "")
+  const [barX, setBarX] = useState("none")
+  const [barGroup, setBarGroup] = useState("none")
+  const [showBoxplot, setShowBoxplot] = useState(false)
+  const barRef = useRef<HTMLDivElement>(null)
 
-    for (let i = min; i <= max; i += binWidth) {
-      bins[i] = 0
-    }
+  const getGroups = (col: string) =>
+    col === "none" ? ["All"] : [...new Set(filteredData.map((r) => String(r[col])))].sort()
 
+  // ── Histogram ───────────────────────────────────────────────────────────────
+
+  const { histBins, densityCurve, histTotal } = useMemo(() => {
+    const values = filteredData.map((r) => Number(r[histCol])).filter((v) => !isNaN(v))
+    if (!values.length || !histCol) return { histBins: [], densityCurve: [], histTotal: 0 }
+    const min = Math.min(...values), max = Math.max(...values)
+    const bw = (max - min) / numBins || 1
+    const counts = Array(numBins).fill(0)
     values.forEach((v) => {
-      const binKey = Math.floor(v / binWidth) * binWidth
-      bins[binKey] = (bins[binKey] || 0) + 1
+      const idx = Math.min(numBins - 1, Math.floor((v - min) / bw))
+      counts[idx]++
     })
+    const histBins = counts.map((count, i) => {
+      const x0 = min + i * bw
+      return { mid: +(( x0 + bw / 2)).toFixed(3), count }
+    })
+    return { histBins, densityCurve: kde(values), histTotal: values.length }
+  }, [histCol, numBins, filteredData])
 
-    return Object.entries(bins).map(([key, count]) => ({
-      range: `${key}-${Number(key) + binWidth}`,
-      count,
-    }))
-  }, [histColumn, binWidth, filteredData])
+  // ── Scatter ──────────────────────────────────────────────────────────────────
 
-  // Scatter data - simplified without faceting
-  const scatterData = useMemo(() => {
-    if (!scatterX || !scatterY) return []
+  const scatterGroups = getGroups(scatterGroup)
 
-    const data = filteredData
-      .map((row) => ({
-        x: Number(row[scatterX]),
-        y: Number(row[scatterY]),
-      }))
-      .filter((d) => !isNaN(d.x) && !isNaN(d.y))
+  const scatterPoints = useMemo(() => {
+    const result: Record<string, { x: number; y: number }[]> = {}
+    scatterGroups.forEach((g) => {
+      const rows = scatterGroup === "none" ? filteredData : filteredData.filter((r) => String(r[scatterGroup]) === g)
+      result[g] = rows.map((r) => ({ x: +r[scatterX], y: +r[scatterY] })).filter((d) => !isNaN(d.x) && !isNaN(d.y))
+    })
+    return result
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [scatterX, scatterY, scatterGroup, filteredData])
 
-    return data
-  }, [scatterX, scatterY, filteredData])
+  const ribbons = useMemo(() => {
+    if (!showRegLine) return {}
+    const result: Record<string, ReturnType<typeof regressionRibbon>> = {}
+    scatterGroups.forEach((g) => {
+      const reg = ols(scatterPoints[g] || [])
+      if (reg) result[g] = regressionRibbon(reg)
+    })
+    return result
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showRegLine, scatterPoints])
 
-  // Calculate regression line if requested
-  const regressionLine = useMemo(() => {
-    if (!scatterRegressionLine || scatterData.length < 2) return { slope: 0, intercept: 0, data: [] }
+  // ── Bar / Boxplot ────────────────────────────────────────────────────────────
 
-    const n = scatterData.length
-    const sumX = scatterData.reduce((acc, d) => acc + d.x, 0)
-    const sumY = scatterData.reduce((acc, d) => acc + d.y, 0)
-    const sumXY = scatterData.reduce((acc, d) => acc + d.x * d.y, 0)
-    const sumX2 = scatterData.reduce((acc, d) => acc + d.x * d.x, 0)
+  const barXGroups = getGroups(barX)
+  const barColorGroups = getGroups(barGroup)
 
-    const slope = (n * sumXY - sumX * sumY) / (n * sumX2 - sumX * sumX)
-    const intercept = (sumY - slope * sumX) / n
-
-    // Calculate residuals for confidence interval
-    const residuals = scatterData.map((d) => d.y - (slope * d.x + intercept))
-    const mse = residuals.reduce((acc, r) => acc + r * r, 0) / (n - 2)
-    const se = Math.sqrt(mse)
-
-    const minX = Math.min(...scatterData.map((d) => d.x))
-    const maxX = Math.max(...scatterData.map((d) => d.x))
-
-    const regressionData = [
-      { x: minX, y: slope * minX + intercept, upper: slope * minX + intercept + 1.96 * se, lower: slope * minX + intercept - 1.96 * se },
-      { x: maxX, y: slope * maxX + intercept, upper: slope * maxX + intercept + 1.96 * se, lower: slope * maxX + intercept - 1.96 * se },
-    ]
-
-    return { slope, intercept, data: regressionData }
-  }, [scatterRegressionLine, scatterData])
-
-  // Bar chart data with multiple categorical variables
   const barData = useMemo(() => {
-    if (barCategories.length === 0 || !barColumn) return []
-
-    if (barCategories.length === 1) {
-      // Single category: simple grouping by category
-      const grouped: { [key: string]: number } = {}
-
-      filteredData.forEach((row) => {
-        const key = String(row[barCategories[0]])
-        grouped[key] = (grouped[key] || 0) + Number(row[barColumn])
+    return barXGroups.map((xg) => {
+      const xRows = barX === "none" ? filteredData : filteredData.filter((r) => String(r[barX]) === xg)
+      const entry: any = { category: xg }
+      barColorGroups.forEach((cg, idx) => {
+        const cgRows = barGroup === "none" ? xRows : xRows.filter((r) => String(r[barGroup]) === cg)
+        const vals = cgRows.map((r) => Number(r[barY])).filter((v) => !isNaN(v))
+        if (showBoxplot) {
+          const b = boxStats(vals)
+          if (b) entry[`_box_${idx}`] = { ...b, fill: PALETTE[idx % PALETTE.length], label: cg }
+        } else {
+          const { mean, ciHalf } = meanCI(vals)
+          entry[`mean_${idx}`] = mean
+          entry[`ci_${idx}`] = ciHalf
+        }
       })
+      return entry
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [barY, barX, barGroup, showBoxplot, filteredData])
 
-      return Object.entries(grouped).map(([key, value]) => ({
-        category: key,
-        value,
-      }))
-    } else {
-      // Multiple categories: group by first category, color by second
-      const grouped: { [key: string]: { [key: string]: number } } = {}
-
-      filteredData.forEach((row) => {
-        const xKey = String(row[barCategories[0]])
-        const colorKey = String(row[barCategories[1]])
-
-        if (!grouped[xKey]) grouped[xKey] = {}
-        grouped[xKey][colorKey] = (grouped[xKey][colorKey] || 0) + Number(row[barColumn])
+  // Y-domain for boxplot
+  const boxYDomain = useMemo(() => {
+    if (!showBoxplot) return ["auto", "auto"] as [string, string]
+    const vals: number[] = []
+    barData.forEach((d) => {
+      barColorGroups.forEach((_, idx) => {
+        const b = d[`_box_${idx}`]
+        if (b) vals.push(b.wLo, b.wHi)
       })
+    })
+    if (!vals.length) return ["auto", "auto"] as [string, string]
+    const pad = (Math.max(...vals) - Math.min(...vals)) * 0.1
+    return [Math.min(...vals) - pad, Math.max(...vals) + pad] as [number, number]
+  }, [showBoxplot, barData, barColorGroups])
 
-      // Flatten to array format for Recharts with color groups
-      const allColorKeys = [...new Set(filteredData.map((row) => String(row[barCategories[1]])))]
-
-      return Object.entries(grouped).map(([xKey, colorGroups]) => {
-        const dataPoint: any = { name: xKey }
-        allColorKeys.forEach((colorKey) => {
-          dataPoint[colorKey] = colorGroups[colorKey] || 0
-        })
-        return dataPoint
-      })
-    }
-  }, [barColumn, barCategories, filteredData])
-
-  const exportChart = async (chartId: string) => {
-    const element = document.getElementById(chartId)
-    if (element) {
-      const canvas = await html2canvas(element, { backgroundColor: "#0f172a" })
-      const link = document.createElement("a")
-      link.href = canvas.toDataURL("image/png")
-      link.download = `chart-${Date.now()}.png`
-      link.click()
-    }
-  }
-
-  const COLORS = ["#14b8a6", "#06b6d4", "#0891b2", "#0284c7", "#2563eb", "#7c3aed", "#a855f7", "#d946ef"]
+  // ─────────────────────────────────────────────────────────────────────────────
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-      className="space-y-6"
-    >
-      {/* Chart Type Selector */}
-      <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-        <h3 className="text-lg font-bold text-teal-300 mb-4">Choose Visualization</h3>
-        <div className="flex flex-wrap gap-2">
-          {["histogram", "scatter", "bar"].map((type) => (
-            <button
-              key={type}
-              onClick={() => setChartType(type as "histogram" | "scatter" | "bar")}
-              className={`px-4 py-2 rounded-lg font-semibold transition-all ${
-                chartType === type
-                  ? "bg-gradient-to-r from-teal-600 to-emerald-600 text-white"
-                  : "bg-slate-700 text-gray-300 hover:bg-slate-600"
-              }`}
-            >
-              {type.charAt(0).toUpperCase() + type.slice(1)}
-            </button>
-          ))}
-        </div>
+    <div className="space-y-6">
+      {/* Chart type pills */}
+      <div className="flex flex-wrap gap-2">
+        {([
+          { id: "histogram", label: "Histogram" },
+          { id: "scatter", label: "Scatter Plot" },
+          { id: "bar", label: "Bar / Boxplot" },
+        ] as const).map(({ id, label }) => (
+          <button
+            key={id}
+            onClick={() => setChartType(id)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+              chartType === id
+                ? "bg-blue-600 text-white border-blue-600 shadow-sm"
+                : "bg-white text-gray-600 border-gray-300 hover:bg-gray-50"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
 
-      {/* Histogram */}
+      {/* ═══ HISTOGRAM ═══════════════════════════════════════════════════════ */}
       {chartType === "histogram" && (
         <div className="space-y-4">
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-            <div className="grid grid-cols-2 gap-4">
+          <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-4">Settings</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">Variable</label>
-                <select
-                  value={histColumn}
-                  onChange={(e) => setHistColumn(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-                  {numericColumns.map((col) => (
-                    <option key={col} value={col}>
-                      {col}
-                    </option>
-                  ))}
+                <label className={labelCls}>Variable</label>
+                <select value={histCol} onChange={(e) => setHistCol(e.target.value)} className={selectCls}>
+                  {numericCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">Bin Width</label>
-                <input
-                  type="number"
-                  value={binWidth}
-                  onChange={(e) => setBinWidth(Math.max(1, Number(e.target.value)))}
-                  className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
+                <label className={labelCls}>Bins</label>
+                <input type="number" min={3} max={100} value={numBins}
+                  onChange={(e) => setNumBins(Math.max(3, Math.min(100, +e.target.value)))}
+                  className={selectCls}
                 />
               </div>
-            </div>
-          </div>
-
-          {histogramData.length > 0 && (
-            <div id="histogram-chart" className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-              <ResponsiveContainer width="100%" height={400}>
-                <BarChart data={histogramData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis dataKey="range" tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                  <YAxis tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: "#1e293b", border: "1px solid #14b8a6", borderRadius: "8px" }}
-                    formatter={(value) => (typeof value === "number" ? value.toFixed(2) : value)}
-                  />
-                  <Bar dataKey="count" fill="#14b8a6" radius={[8, 8, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
-              <button
-                onClick={() => exportChart("histogram-chart")}
-                className="mt-4 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg transition-colors font-semibold"
-              >
-                Export as PNG
-              </button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Scatter Plot */}
-      {chartType === "scatter" && (
-        <div className="space-y-4">
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">X Variable</label>
-                <select
-                  value={scatterX}
-                  onChange={(e) => setScatterX(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-                  {numericColumns.map((col) => (
-                    <option key={col} value={col}>
-                      {col}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">Y Variable</label>
-                <select
-                  value={scatterY}
-                  onChange={(e) => setScatterY(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-                  {numericColumns.map((col) => (
-                    <option key={col} value={col}>
-                      {col}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="flex items-end">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    checked={scatterRegressionLine}
-                    onChange={(e) => setScatterRegressionLine(e.target.checked)}
-                    className="w-4 h-4 rounded bg-slate-700 border-teal-500/50 accent-teal-500"
-                  />
-                  <span className="text-sm text-teal-300 font-semibold">Add Regression Line</span>
+              <div className="flex items-end pb-1">
+                <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                  <input type="checkbox" checked={showDensity} onChange={(e) => setShowDensity(e.target.checked)} className="rounded accent-blue-600" />
+                  Overlay density curve
                 </label>
               </div>
             </div>
           </div>
 
-          {scatterData.length > 0 && (
-            <div id="scatter-chart" className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-              <ResponsiveContainer width="100%" height={400}>
-                <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                  <XAxis type="number" dataKey="x" tick={{ fill: "#cbd5e1", fontSize: 12 }} label={{ value: scatterX, position: "right", offset: 0, fill: "#cbd5e1" }} />
-                  <YAxis type="number" dataKey="y" tick={{ fill: "#cbd5e1", fontSize: 12 }} label={{ value: scatterY, angle: -90, position: "left", fill: "#cbd5e1" }} />
-                  <Tooltip
-                    contentStyle={{ backgroundColor: "#1e293b", border: "1px solid #14b8a6", borderRadius: "8px" }}
-                    formatter={(value) => (typeof value === "number" ? value.toFixed(2) : value)}
-                  />
-                  <Scatter name="Data" data={scatterData} fill="#14b8a6" />
-                  {scatterRegressionLine && regressionLine.data.length > 0 && (
-                    <Scatter name="Regression" data={regressionLine.data} line={{ stroke: "#f97316", strokeWidth: 2 }} fill="none" />
-                  )}
-                </ScatterChart>
-              </ResponsiveContainer>
-              <button
-                onClick={() => exportChart("scatter-chart")}
-                className="mt-4 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg transition-colors font-semibold"
-              >
-                Export as PNG
-              </button>
+          {histBins.length > 0 && (
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
+              <div className="flex items-center justify-between px-5 pt-4 pb-2">
+                <div>
+                  <p className="text-sm font-semibold text-gray-700">Distribution of {humanize(histCol)}</p>
+                  <p className="text-xs text-gray-400">n = {histTotal} observations</p>
+                </div>
+                <ExportButton chartRef={histRef} />
+              </div>
+              <div ref={histRef} className="px-5 pb-5 bg-white">
+                <ResponsiveContainer width="100%" height={380}>
+                  <ComposedChart data={histBins} margin={{ top: 10, right: 20, bottom: 40, left: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+                    <XAxis dataKey="mid" type="number" domain={["auto", "auto"]} tick={axisStyle}
+                      label={{ value: humanize(histCol), position: "insideBottom", offset: -26, fill: "#6b7280", fontSize: 12 }}
+                      tickFormatter={(v) => (+v).toFixed(1)}
+                    />
+                    <YAxis tick={axisStyle}
+                      label={{ value: "Count", angle: -90, position: "insideLeft", offset: 15, fill: "#6b7280", fontSize: 12 }}
+                    />
+                    <Tooltip {...tooltipStyle}
+                      formatter={(val, name) => [val, name === "count" ? "Count" : "Density"]}
+                      labelFormatter={(v) => `Value ≈ ${(+v).toFixed(2)}`}
+                    />
+                    <Bar dataKey="count" fill="#3b82f6" fillOpacity={0.75} radius={[3, 3, 0, 0]} />
+                  </ComposedChart>
+                </ResponsiveContainer>
+                {showDensity && densityCurve.length > 0 && (
+                  <div className="mt-1">
+                    <p className="text-xs text-gray-400 text-center mb-1">Density curve (Gaussian KDE, Silverman bandwidth)</p>
+                    <ResponsiveContainer width="100%" height={120}>
+                      <ComposedChart data={densityCurve} margin={{ top: 5, right: 20, bottom: 10, left: 20 }}>
+                        <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+                        <XAxis dataKey="x" type="number" domain={["auto", "auto"]} tick={{ ...axisStyle, fontSize: 10 }}
+                          tickFormatter={(v) => (+v).toFixed(1)}
+                        />
+                        <YAxis tick={{ ...axisStyle, fontSize: 10 }}
+                          label={{ value: "Density", angle: -90, position: "insideLeft", offset: 15, fill: "#6b7280", fontSize: 10 }}
+                          tickFormatter={(v) => (+v).toFixed(4)}
+                        />
+                        <Area dataKey="density" type="monotone" stroke="#ef4444" fill="#ef4444" fillOpacity={0.15} strokeWidth={2} dot={false} />
+                      </ComposedChart>
+                    </ResponsiveContainer>
+                  </div>
+                )}
+              </div>
             </div>
           )}
         </div>
       )}
 
-      {/* Bar/Line Chart */}
-      {chartType === "bar" && (
+      {/* ═══ SCATTER PLOT ════════════════════════════════════════════════════ */}
+      {chartType === "scatter" && (
         <div className="space-y-4">
-          <div className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-4">Settings</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
               <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">Value Variable</label>
-                <select
-                  value={barColumn}
-                  onChange={(e) => setBarColumn(e.target.value)}
-                  className="w-full px-4 py-2 bg-slate-700 text-gray-100 border border-teal-500/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-                >
-                  {numericColumns.map((col) => (
-                    <option key={col} value={col}>
-                      {col}
-                    </option>
-                  ))}
+                <label className={labelCls}>X axis</label>
+                <select value={scatterX} onChange={(e) => setScatterX(e.target.value)} className={selectCls}>
+                  {numericCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-semibold text-teal-300 mb-2">Category Variables</label>
-                <div className="flex flex-wrap gap-2">
-                  {categoricalColumns.map((col) => (
-                    <button
-                      key={col}
-                      onClick={() =>
-                        setBarCategories(
-                          barCategories.includes(col) ? barCategories.filter((c) => c !== col) : [...barCategories, col],
-                        )
-                      }
-                      className={`px-3 py-1 rounded text-xs font-semibold transition-all ${
-                        barCategories.includes(col)
-                          ? "bg-teal-600 text-white"
-                          : "bg-slate-700 text-gray-300 hover:bg-slate-600"
-                      }`}
-                    >
-                      {col}
-                    </button>
-                  ))}
-                </div>
+                <label className={labelCls}>Y axis</label>
+                <select value={scatterY} onChange={(e) => setScatterY(e.target.value)} className={selectCls}>
+                  {numericCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className={labelCls}>Color groups</label>
+                <select value={scatterGroup} onChange={(e) => setScatterGroup(e.target.value)} className={selectCls}>
+                  <option value="none">None</option>
+                  {catCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+                </select>
               </div>
             </div>
-
-            <div className="mt-4 flex flex-wrap gap-4 border-t border-teal-500/10 pt-4">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={barUseLineChart}
-                  onChange={(e) => setBarUseLineChart(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-700 border-teal-500/50 accent-teal-500"
-                />
-                <span className="text-sm text-teal-300 font-semibold">Use Line Chart</span>
+            <div className="flex flex-wrap gap-5 pt-3 border-t border-gray-100">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                <input type="checkbox" checked={showRegLine} onChange={(e) => setShowRegLine(e.target.checked)} className="rounded accent-blue-600" />
+                Regression line
               </label>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={barShowCI}
-                  onChange={(e) => setBarShowCI(e.target.checked)}
-                  className="w-4 h-4 rounded bg-slate-700 border-teal-500/50 accent-teal-500"
-                />
-                <span className="text-sm text-teal-300 font-semibold">Show 95% Confidence Intervals</span>
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                <input type="checkbox" checked={showRibbon} onChange={(e) => setShowRibbon(e.target.checked)} disabled={!showRegLine} className="rounded accent-blue-600 disabled:opacity-40" />
+                95% confidence ribbon
               </label>
             </div>
           </div>
 
-          {barData.length > 0 && (
-            <div id="bar-chart" className="bg-slate-800/50 backdrop-blur-sm border border-teal-500/20 rounded-xl p-6">
-              <ResponsiveContainer width="100%" height={400}>
-                {barUseLineChart ? (
-                  <LineChart data={barData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="name" tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                    <YAxis tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                    <Tooltip
-                      contentStyle={{ backgroundColor: "#1e293b", border: "1px solid #14b8a6", borderRadius: "8px" }}
-                      formatter={(value) => (typeof value === "number" ? value.toFixed(2) : value)}
+          {Object.values(scatterPoints).some((pts) => pts.length > 0) && (
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
+              <div className="flex items-center justify-between px-5 pt-4 pb-2">
+                <div>
+                  <p className="text-sm font-semibold text-gray-700">{humanize(scatterY)} vs. {humanize(scatterX)}</p>
+                  {scatterGroup !== "none" && <p className="text-xs text-gray-400">Grouped by {humanize(scatterGroup)}</p>}
+                </div>
+                <ExportButton chartRef={scatterRef} />
+              </div>
+              <div ref={scatterRef} className="px-5 pb-5 bg-white">
+                <ResponsiveContainer width="100%" height={420}>
+                  <ComposedChart margin={{ top: 10, right: 30, bottom: 40, left: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+                    <XAxis dataKey="x" type="number" domain={["auto", "auto"]} tick={axisStyle} name={humanize(scatterX)}
+                      label={{ value: humanize(scatterX), position: "insideBottom", offset: -26, fill: "#6b7280", fontSize: 12 }}
                     />
-                    {barCategories.length > 1 && <Legend />}
-                    {barCategories.length > 1 ? (
-                      [...new Set(filteredData.map((row) => String(row[barCategories[1]])))].map((colorKey, idx) => (
-                        <Line key={colorKey} type="monotone" dataKey={colorKey} stroke={COLORS[idx % COLORS.length]} dot={{ fill: COLORS[idx % COLORS.length] }} />
-                      ))
-                    ) : (
-                      <Line type="monotone" dataKey="value" stroke="#14b8a6" dot={{ fill: "#14b8a6" }} />
-                    )}
-                  </LineChart>
-                ) : (
-                  <BarChart data={barData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis dataKey="name" tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                    <YAxis tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-                    <Tooltip
-                      contentStyle={{ backgroundColor: "#1e293b", border: "1px solid #14b8a6", borderRadius: "8px" }}
-                      formatter={(value) => (typeof value === "number" ? value.toFixed(2) : value)}
+                    <YAxis dataKey="y" type="number" domain={["auto", "auto"]} tick={axisStyle} name={humanize(scatterY)}
+                      label={{ value: humanize(scatterY), angle: -90, position: "insideLeft", offset: 15, fill: "#6b7280", fontSize: 12 }}
                     />
-                    {barCategories.length > 1 && <Legend />}
-                    {barCategories.length > 1 ? (
-                      [...new Set(filteredData.map((row) => String(row[barCategories[1]])))].map((colorKey, idx) => (
-                        <Bar key={colorKey} dataKey={colorKey} fill={COLORS[idx % COLORS.length]} />
-                      ))
-                    ) : (
-                      <Bar dataKey="value" fill="#14b8a6" />
-                    )}
-                  </BarChart>
-                )}
-              </ResponsiveContainer>
-              <button
-                onClick={() => exportChart("bar-chart")}
-                className="mt-4 w-full px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg transition-colors font-semibold"
-              >
-                Export as PNG
-              </button>
+                    <Tooltip {...tooltipStyle} formatter={(v, name) => [typeof v === "number" ? v.toFixed(2) : v, name]} />
+                    {scatterGroups.length > 1 && <Legend verticalAlign="top" />}
+
+                    {scatterGroups.map((g, idx) => (
+                      <Scatter key={`pts-${g}`} name={g} data={scatterPoints[g] || []}
+                        fill={PALETTE[idx % PALETTE.length]} fillOpacity={0.55} r={3}
+                      />
+                    ))}
+
+                    {showRegLine && showRibbon && scatterGroups.map((g, idx) => {
+                      const pts = ribbons[g]
+                      if (!pts) return null
+                      return (
+                        <Area key={`rib-${g}`} data={pts} dataKey="upper" stroke="none"
+                          fill={PALETTE[idx % PALETTE.length]} fillOpacity={0.1} type="monotone"
+                          legendType="none" isAnimationActive={false}
+                        />
+                      )
+                    })}
+
+                    {showRegLine && scatterGroups.map((g, idx) => {
+                      const pts = ribbons[g]
+                      if (!pts) return null
+                      return (
+                        <Line key={`reg-${g}`} data={pts.map((p) => ({ x: p.x, y: p.yHat }))} dataKey="y"
+                          stroke={PALETTE[idx % PALETTE.length]} strokeWidth={2} dot={false} type="monotone"
+                          legendType="none" isAnimationActive={false}
+                        />
+                      )
+                    })}
+                  </ComposedChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           )}
         </div>
       )}
-    </motion.div>
+
+      {/* ═══ BAR / BOXPLOT ═══════════════════════════════════════════════════ */}
+      {chartType === "bar" && (
+        <div className="space-y-4">
+          <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm">
+            <h3 className="text-sm font-semibold text-gray-700 mb-4">Settings</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+              <div>
+                <label className={labelCls}>Numeric variable (Y)</label>
+                <select value={barY} onChange={(e) => setBarY(e.target.value)} className={selectCls}>
+                  {numericCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className={labelCls}>X axis groups</label>
+                <select value={barX} onChange={(e) => setBarX(e.target.value)} className={selectCls}>
+                  <option value="none">None (overall)</option>
+                  {catCols.map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+                </select>
+              </div>
+              <div>
+                <label className={labelCls}>Color groups</label>
+                <select value={barGroup} onChange={(e) => setBarGroup(e.target.value)} className={selectCls}>
+                  <option value="none">None</option>
+                  {catCols.filter((c) => c !== barX).map((col) => <option key={col} value={col}>{humanize(col)}</option>)}
+                </select>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-5 pt-3 border-t border-gray-100">
+              <label className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+                <input type="checkbox" checked={showBoxplot} onChange={(e) => setShowBoxplot(e.target.checked)} className="rounded accent-blue-600" />
+                Show boxplots
+              </label>
+              {!showBoxplot && <span className="text-xs text-gray-400 self-center">Bars show group means ± 95% CI</span>}
+            </div>
+          </div>
+
+          {barData.length > 0 && (
+            <div className="bg-white border border-gray-200 rounded-xl shadow-sm">
+              <div className="flex items-center justify-between px-5 pt-4 pb-2">
+                <div>
+                  <p className="text-sm font-semibold text-gray-700">
+                    {showBoxplot ? "Distribution of" : "Mean"} {humanize(barY)}
+                    {barX !== "none" && ` by ${humanize(barX)}`}
+                    {barGroup !== "none" && `, grouped by ${humanize(barGroup)}`}
+                  </p>
+                  {!showBoxplot && <p className="text-xs text-gray-400">Error bars = 95% CI for the mean</p>}
+                </div>
+                <ExportButton chartRef={barRef} />
+              </div>
+              <div ref={barRef} className="px-5 pb-5 bg-white">
+                <ResponsiveContainer width="100%" height={380}>
+                  <BarChart data={barData} margin={{ top: 10, right: 30, bottom: 40, left: 20 }} barCategoryGap="25%" barGap={4}>
+                    <CartesianGrid strokeDasharray="3 3" stroke={gridStroke} />
+                    <XAxis dataKey="category" tick={axisStyle}
+                      label={barX !== "none" ? { value: humanize(barX), position: "insideBottom", offset: -26, fill: "#6b7280", fontSize: 12 } : undefined}
+                    />
+                    <YAxis domain={boxYDomain} tick={axisStyle}
+                      label={{ value: showBoxplot ? humanize(barY) : `Mean ${humanize(barY)}`, angle: -90, position: "insideLeft", offset: 15, fill: "#6b7280", fontSize: 12 }}
+                    />
+                    <Tooltip
+                      {...tooltipStyle}
+                      content={showBoxplot ? ({ active, payload }) => {
+                        if (!active || !payload?.length) return null
+                        const d = payload[0]?.payload
+                        return (
+                          <div className="bg-white border border-gray-200 rounded-lg p-3 text-xs shadow-lg space-y-2">
+                            <p className="font-semibold text-gray-700">{d?.category}</p>
+                            {barColorGroups.map((cg, idx) => {
+                              const b = d?.[`_box_${idx}`]
+                              if (!b) return null
+                              return (
+                                <div key={cg}>
+                                  {barColorGroups.length > 1 && <p className="text-gray-500 font-medium capitalize">{cg}</p>}
+                                  <p>Median: <span className="font-semibold">{b.q2.toFixed(2)}</span></p>
+                                  <p>Q1–Q3: {b.q1.toFixed(2)} – {b.q3.toFixed(2)}</p>
+                                  <p>Whiskers: {b.wLo.toFixed(2)} – {b.wHi.toFixed(2)}</p>
+                                </div>
+                              )
+                            })}
+                          </div>
+                        )
+                      } : undefined}
+                      formatter={!showBoxplot ? (val, name) => [typeof val === "number" ? val.toFixed(2) : val, name] : undefined}
+                    />
+                    {barColorGroups.length > 1 && <Legend verticalAlign="top" />}
+
+                    {barColorGroups.map((cg, idx) => (
+                      showBoxplot ? (
+                        <Bar key={cg} dataKey={`_box_${idx}`} name={cg === "All" ? humanize(barY) : cg}
+                          fill="transparent" stroke="transparent"
+                          shape={(props: any) => (
+                            <BoxShape {...props} payload={{ ...props.payload, boxKey: `_box_${idx}` }} />
+                          )}
+                        >
+                          {barData.map((_, i) => <Cell key={i} fill={PALETTE[idx % PALETTE.length]} />)}
+                        </Bar>
+                      ) : (
+                        <Bar key={cg} dataKey={`mean_${idx}`} name={cg === "All" ? humanize(barY) : cg}
+                          fill={PALETTE[idx % PALETTE.length]} fillOpacity={0.8} radius={[4, 4, 0, 0]}
+                        >
+                          <ErrorBar dataKey={`ci_${idx}`} width={4} strokeWidth={1.5} stroke={PALETTE[idx % PALETTE.length]} />
+                        </Bar>
+                      )
+                    ))}
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   )
 }

@@ -2,97 +2,117 @@
 
 import { useRef, useMemo } from "react"
 import { useFrame } from "@react-three/fiber"
+import { Html } from "@react-three/drei"
 import * as THREE from "three"
+
+const TERMS = [
+  "privacy literacy",
+  "AI literacy",
+  "news literacy",
+  "advertising literacy",
+  "computer literacy",
+  "social media literacy",
+  "data literacy",
+  "information literacy",
+  "media literacy",
+  "digital citizenship",
+  "visual literacy",
+  "algorithmic literacy",
+]
 
 interface NetworkShapeProps {
   mousePosition: { x: number; y: number }
 }
 
 export default function NetworkShape({ mousePosition }: NetworkShapeProps) {
-  const pointsRef = useRef<THREE.Points>(null)
-  const linesRef = useRef<THREE.LineSegments>(null)
+  const groupRef = useRef<THREE.Group>(null)
 
-  // Generate network nodes and geometries
-  const { pointsGeometry, linesGeometry } = useMemo(() => {
+  const { pointsGeometry, linesGeometry, labelPositions } = useMemo(() => {
     const nodeCount = 100
     const positions = new Float32Array(nodeCount * 3)
-    const connections = []
+    const connections: number[] = []
 
-    // Create nodes in a sphere
     for (let i = 0; i < nodeCount; i++) {
       const radius = 2 + Math.random() * 2
       const theta = Math.random() * Math.PI * 2
       const phi = Math.random() * Math.PI
 
-      positions[i * 3] = radius * Math.sin(phi) * Math.cos(theta)
+      positions[i * 3]     = radius * Math.sin(phi) * Math.cos(theta)
       positions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta)
       positions[i * 3 + 2] = radius * Math.cos(phi)
     }
 
-    // Create connections between nearby nodes
     for (let i = 0; i < nodeCount; i++) {
       for (let j = i + 1; j < nodeCount; j++) {
         const dx = positions[i * 3] - positions[j * 3]
         const dy = positions[i * 3 + 1] - positions[j * 3 + 1]
         const dz = positions[i * 3 + 2] - positions[j * 3 + 2]
-        const distance = Math.sqrt(dx * dx + dy * dy + dz * dz)
-
-        if (distance < 1.5 && Math.random() > 0.7) {
+        if (Math.sqrt(dx * dx + dy * dy + dz * dz) < 1.5 && Math.random() > 0.7) {
           connections.push(
-            positions[i * 3],
-            positions[i * 3 + 1],
-            positions[i * 3 + 2],
-            positions[j * 3],
-            positions[j * 3 + 1],
-            positions[j * 3 + 2],
+            positions[i * 3], positions[i * 3 + 1], positions[i * 3 + 2],
+            positions[j * 3], positions[j * 3 + 1], positions[j * 3 + 2],
           )
         }
       }
     }
 
-    // Create points geometry
     const pointsGeo = new THREE.BufferGeometry()
-    if (positions && positions.length > 0) {
-      pointsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3))
-    }
+    pointsGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3))
 
-    // Create lines geometry
     const linesGeo = new THREE.BufferGeometry()
-    if (connections.length > 0) {
-      linesGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array(connections), 3))
-    } else {
-      // Create a dummy geometry to avoid errors
-      linesGeo.setAttribute("position", new THREE.BufferAttribute(new Float32Array([0, 0, 0]), 3))
-    }
+    linesGeo.setAttribute(
+      "position",
+      new THREE.BufferAttribute(
+        connections.length > 0 ? new Float32Array(connections) : new Float32Array([0, 0, 0]),
+        3,
+      ),
+    )
 
-    return { pointsGeometry: pointsGeo, linesGeometry: linesGeo }
+    // Evenly pick nodes across the sphere for label anchors
+    const step = Math.floor(nodeCount / TERMS.length)
+    const labelPositions: [number, number, number][] = TERMS.map((_, i) => {
+      const idx = i * step
+      return [positions[idx * 3], positions[idx * 3 + 1], positions[idx * 3 + 2]]
+    })
+
+    return { pointsGeometry: pointsGeo, linesGeometry: linesGeo, labelPositions }
   }, [])
 
-  useFrame((state) => {
-    if (pointsRef.current) {
-      pointsRef.current.rotation.y += 0.002
-      pointsRef.current.rotation.x = mousePosition.y * 0.2
-      pointsRef.current.rotation.z = mousePosition.x * 0.2
-    }
-
-    if (linesRef.current) {
-      linesRef.current.rotation.y += 0.002
-      linesRef.current.rotation.x = mousePosition.y * 0.2
-      linesRef.current.rotation.z = mousePosition.x * 0.2
+  useFrame(() => {
+    if (groupRef.current) {
+      groupRef.current.rotation.y += 0.002
+      groupRef.current.rotation.x = mousePosition.y * 0.2
+      groupRef.current.rotation.z = mousePosition.x * 0.2
     }
   })
 
   return (
-    <group>
-      {/* Network nodes */}
-      <points ref={pointsRef} geometry={pointsGeometry}>
-        <pointsMaterial transparent color="#3b82f6" size={0.05} sizeAttenuation={true} depthWrite={false} />
+    <group ref={groupRef}>
+      <points geometry={pointsGeometry}>
+        <pointsMaterial transparent color="#3b82f6" size={0.05} sizeAttenuation opacity={0.35} depthWrite={false} />
       </points>
 
-      {/* Network connections */}
-      <lineSegments ref={linesRef} geometry={linesGeometry}>
-        <lineBasicMaterial color="#3b82f6" transparent opacity={0.3} />
+      <lineSegments geometry={linesGeometry}>
+        <lineBasicMaterial color="#3b82f6" transparent opacity={0.15} />
       </lineSegments>
+
+      {TERMS.map((term, i) => (
+        <Html
+          key={term}
+          position={[labelPositions[i][0] + 0.15, labelPositions[i][1], labelPositions[i][2]]}
+          style={{
+            color: "#2563eb",
+            fontSize: "8px",
+            opacity: 0.38,
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+            userSelect: "none",
+            fontFamily: "inherit",
+          }}
+        >
+          {term}
+        </Html>
+      ))}
     </group>
   )
 }

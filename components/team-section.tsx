@@ -3,6 +3,9 @@
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import Image from "next/image"
+import { Canvas } from "@react-three/fiber"
+import { Suspense } from "react"
+import FloatingNodes from "@/components/3d/floating-nodes"
 
 const teamMembers = [
   {
@@ -106,6 +109,16 @@ export default function TeamSection() {
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 overflow-hidden">
+      {/* 3D Background */}
+      <div className="absolute inset-0">
+        <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
+          <Suspense fallback={null}>
+            <ambientLight intensity={1} />
+            <FloatingNodes />
+          </Suspense>
+        </Canvas>
+      </div>
+
       {/* Content Overlay */}
       <div className="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-12 sm:py-16">
         <motion.div

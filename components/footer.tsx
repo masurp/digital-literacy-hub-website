@@ -1,28 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 
 export default function Footer() {
-  const [isVisible, setIsVisible] = useState(false)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollHeight = document.documentElement.scrollHeight
-      const scrollTop = document.documentElement.scrollTop
-      const clientHeight = document.documentElement.clientHeight
-
-      // Show footer when scrolled to within 100px of the bottom
-      const isAtBottom = scrollTop + clientHeight >= scrollHeight - 100
-      setIsVisible(isAtBottom)
-    }
-
-    window.addEventListener("scroll", handleScroll)
-    handleScroll() // Check initial position
-
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
-
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -31,14 +11,13 @@ export default function Footer() {
   }
 
   return (
-    <AnimatePresence>
-      {isVisible && (
+    <>
         <motion.footer
-          initial={{ opacity: 0, y: 100 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 100 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed bottom-0 left-0 right-0 z-30 bg-[#238acc] text-white"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="bg-[#238acc] text-white"
         >
           <div className="container mx-auto px-4 py-6 sm:py-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
@@ -260,7 +239,6 @@ export default function Footer() {
             </motion.div>
           </div>
         </motion.footer>
-      )}
-    </AnimatePresence>
+    </>
   )
 }

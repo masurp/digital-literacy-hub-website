@@ -8,7 +8,7 @@ import DigitalWaves from "@/components/3d/digital-waves"
 
 export default function ContactSection() {
   return (
-    <div className="relative w-full min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-indigo-50 overflow-hidden">
+    <div className="relative w-full min-h-screen bg-gradient-to-br from-slate-900 via-teal-950 to-blue-950 overflow-hidden">
       {/* 3D Background */}
       <div className="absolute inset-0">
         <Canvas camera={{ position: [0, 0, 8], fov: 75 }}>
@@ -29,11 +29,11 @@ export default function ContactSection() {
           transition={{ duration: 1 }}
           className="text-center mb-8 sm:mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-3 sm:mb-4">
             Get in{" "}
-            <span className="bg-gradient-to-r from-teal-600 to-blue-600 bg-clip-text text-transparent">Touch</span>
+            <span className="bg-gradient-to-r from-teal-400 to-blue-400 bg-clip-text text-transparent">Touch</span>
           </h2>
-          <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg text-blue-100 max-w-2xl mx-auto px-4">
             Ready to collaborate or learn more about our research? We'd love to hear from you.
           </p>
         </motion.div>
@@ -44,15 +44,15 @@ export default function ContactSection() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl"
+            className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl border border-white/20"
           >
-            <h3 className="text-xl sm:text-2xl font-semibold text-gray-800 mb-4 sm:mb-6 text-center">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-4 sm:mb-6 text-center">
               Contact Information
             </h3>
 
             <div className="space-y-4 sm:space-y-5">
               <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-800 to-blue-800 rounded-full flex items-center justify-center">
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 text-teal-600"
                     fill="none"
@@ -68,10 +68,10 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-800 text-sm sm:text-base">Email</p>
+                  <p className="font-medium text-white text-sm sm:text-base">Email</p>
                   <a
                     href="mailto:p.k.masur@vu.nl"
-                    className="text-teal-600 hover:text-teal-700 transition-colors text-sm sm:text-base"
+                    className="text-teal-300 hover:text-teal-200 transition-colors text-sm sm:text-base"
                   >
                     p.k.masur@vu.nl
                   </a>
@@ -79,7 +79,7 @@ export default function ContactSection() {
               </div>
 
               <div className="flex items-center space-x-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-100 to-blue-100 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-teal-800 to-blue-800 rounded-full flex items-center justify-center">
                   <svg
                     className="w-5 h-5 sm:w-6 sm:h-6 text-teal-600"
                     fill="none"
@@ -101,8 +101,8 @@ export default function ContactSection() {
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-800 text-sm sm:text-base">Address</p>
-                  <p className="text-gray-600 text-sm sm:text-base">
+                  <p className="font-medium text-white text-sm sm:text-base">Address</p>
+                  <p className="text-blue-100 text-sm sm:text-base">
                     VU Amsterdam
                     <br />
                     De Boelelaan 1105
@@ -112,8 +112,8 @@ export default function ContactSection() {
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-gray-200">
-                <p className="font-medium text-gray-800 text-sm sm:text-base mb-3 text-center">Connect with us</p>
+              <div className="pt-4 border-t border-white/20">
+                <p className="font-medium text-white text-sm sm:text-base mb-3 text-center">Connect with us</p>
                 <div className="flex justify-center space-x-4">
                   <a
                     href="mailto:p.k.masur@vu.nl"
