@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import Link from "next/link"
 
 export default function Footer() {
   const scrollToSection = (sectionId: string) => {
@@ -181,44 +182,24 @@ export default function Footer() {
                   className="space-y-2 text-center md:text-left"
                 >
                   <li>
-                    <a
-                      href="https://vu.nl/en/about-vu/privacy-statement"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
+                    <Link href="/privacy" className="text-blue-200 hover:text-white transition-colors text-sm">
                       Privacy Policy
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a
-                      href="https://vu.nl/en/about-vu/legal-information"
+                      href="https://research.vu.nl/en/persons/philipp-k-masur/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-200 hover:text-white transition-colors text-sm"
                     >
-                      Legal Information
+                      Contact (VU Profile)
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="https://vu.nl/en/about-vu/contact"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      VU Contact
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://vu.nl/en/about-vu/accessibility"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
+                    <Link href="/accessibility" className="text-blue-200 hover:text-white transition-colors text-sm">
                       Accessibility
-                    </a>
+                    </Link>
                   </li>
                 </motion.ul>
               </div>
