@@ -7,6 +7,23 @@ import { motion, AnimatePresence } from "framer-motion"
 
 const publications = [
   {
+    id: 33,
+    title:
+      "Escaping the Digital Panopticon? Longitudinal Effects of Dataveillance Salience Shocks on Privacy Attitudes and Inhibited Behaviors",
+    authors: ["Meier, Y.", "Masur, P. K."],
+    year: 2025,
+    journal: "Human Communication Research",
+    theme: ["Privacy", "Literacy"],
+    abstract:
+      "This study examines how sudden increases in the salience of dataveillance practices — the systematic collection and analysis of personal data by companies and platforms — affect individuals' privacy attitudes and inhibited online communication behaviors over time. Using a longitudinal design, the authors investigate whether dataveillance salience shocks lead to lasting changes in privacy concern and self-censorship or whether these effects dissipate over time.",
+    summary:
+      "Longitudinal study on how sudden awareness spikes of corporate dataveillance affect privacy attitudes and inhibited online communication behaviors over time.",
+    figure: "",
+    links: {
+      journal: "https://doi.org/10.1093/hcr/hqaf025",
+    },
+  },
+  {
     id: 1,
     title:
       "Examining learners' engagement patterns and knowledge outcome in an experiential learning intervention for youth's social media literacy",
@@ -46,7 +63,7 @@ const publications = [
     authors: ["Masur, P. K.", "DiFranzo, D. J.", "Bazarova, N. N."],
     year: 2021,
     journal: "PLOS One",
-    theme: ["Literacy"],
+    theme: ["Literacy", "Social Media"],
     abstract: "",
     summary:
       "Investigates how social norms, UI interventions, and critical media literacy influence users' willingness to self‑disclose on social media.",
@@ -182,7 +199,7 @@ const publications = [
     authors: ["Sewall, C.", "Parry, D. A."],
     year: 2024,
     journal: "Journal of Psychopathology and Clinical Science",
-    theme: ["Mental Health", "Media Effects"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This article critiques the use of simplistic narratives in interpreting the relationship between social media and youth mental health. The authors argue that such narratives can lead to biased conclusions, overlooking complex mechanisms and heterogeneity in effects. The paper calls for more nuanced approaches to media effects research.",
     summary:
@@ -207,7 +224,7 @@ const publications = [
     ],
     year: 2024,
     journal: "Media, Culture & Society",
-    theme: ["Digital Wellbeing", "Media Use"],
+    theme: ["Well-Being"],
     abstract:
       "This article proposes a pluralistic framework for understanding digital disconnection. Based on empirical research, it identifies a continuum of motivations, strategies, and consequences that individuals experience when disconnecting from digital media.",
     summary:
@@ -224,7 +241,7 @@ const publications = [
     authors: ["Parry, D. A."],
     year: 2024,
     journal: "Media Psychology",
-    theme: ["Cognition", "Smartphone Use"],
+    theme: ["Well-Being"],
     abstract:
       "This meta-analysis evaluates the 'brain drain effect'—the hypothesis that the mere presence of a smartphone impairs cognitive performance. Findings suggest a small but significant effect, moderated by study design and task complexity.",
     summary:
@@ -240,7 +257,7 @@ const publications = [
     authors: ["McCrosky, J.", "Parry, D. A.", "Sewall, C. J. R.", "Orben, A."],
     year: 2023,
     journal: "Technology, Mind, and Behavior",
-    theme: ["Digital Behavior", "Self-Regulation"],
+    theme: ["Well-Being"],
     abstract:
       "By analyzing browser data, this study examines users' momentary desires to spend time online. It provides insights into how actual online behavior aligns with internal states, contributing to the understanding of digital self-regulation.",
     summary:
@@ -256,7 +273,7 @@ const publications = [
     authors: ["Parry, D. A.", "le Roux, D. B.", "Morton, J.", "Pons, R.", "Pretorius, R.", "Schoeman, A."],
     year: 2023,
     journal: "Computers in Human Behavior",
-    theme: ["Digital Wellbeing", "App Use"],
+    theme: ["Well-Being"],
     abstract:
       "This study investigates the adoption and usage of digital wellbeing apps among a diverse population. It explores perceived effectiveness and barriers to sustained use, offering implications for app design and public health messaging.",
     summary:
@@ -272,7 +289,7 @@ const publications = [
     authors: ["le Roux, D. B.", "Parry, D. A."],
     year: 2022,
     journal: "Information Technology & People",
-    theme: ["Digital Behavior", "Media Vigilance"],
+    theme: ["Well-Being"],
     abstract:
       "This paper explores psychological and situational predictors of online vigilance—defined as persistent monitoring of digital channels. Results suggest that perceived obligation, FOMO, and academic demands shape online vigilance among students.",
     summary:
@@ -295,7 +312,7 @@ const publications = [
     ],
     year: 2021,
     journal: "Nature Human Behaviour",
-    theme: ["Methodology", "Digital Media Use"],
+    theme: ["Well-Being"],
     abstract:
       "This meta-analysis compares self-reported and objectively logged digital media use. Findings reveal consistent overreporting and underscore the importance of incorporating behavioral data in media effects research.",
     summary:
@@ -312,7 +329,7 @@ const publications = [
     authors: ["Sewall, C.", "Parry, D. A."],
     year: 2021,
     journal: "Technology, Mind, and Behavior",
-    theme: ["Mental Health", "Smartphone Use"],
+    theme: ["Well-Being"],
     abstract:
       "Using response surface analysis, this study finds that depressive symptoms are linked to larger discrepancies between actual and estimated smartphone use, offering a nuanced perspective on self-monitoring accuracy.",
     summary:
@@ -329,7 +346,7 @@ const publications = [
     authors: ["le Roux, D. B.", "Parry, D. A."],
     year: 2021,
     journal: "Education and Information Technologies",
-    theme: ["Education", "Digital Communication"],
+    theme: ["Education"],
     abstract:
       "This exploratory study examines how students use academic instant messaging groups (AIMGs), their perceived benefits, and unintended consequences such as overload or pressure to respond.",
     summary:
@@ -345,7 +362,7 @@ const publications = [
     authors: ["Parry, D. A.", "le Roux, D. B."],
     year: 2021,
     journal: "Cyberpsychology: Journal of Psychosocial Research on Cyberspace",
-    theme: ["Cognition", "Media Multitasking"],
+    theme: ["Well-Being"],
     abstract:
       "A decade after the original media multitasking research, this meta-analysis reevaluates the evidence on whether multitaskers show deficits in cognitive control, finding only limited support for such claims.",
     summary:
@@ -362,7 +379,7 @@ const publications = [
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E. A."],
     year: 2024,
     journal: "Telematics and Informatics",
-    theme: ["Mental Health", "Body Image", "Social Media"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study refines the active-passive social media use dichotomy by distinguishing types of photo sharing and viewing. It examines how these behaviors are associated with adolescents' mental health and body image outcomes.",
     summary:
@@ -379,7 +396,7 @@ const publications = [
     authors: ["Dingemans, A. E.", "Veldhuis, J.", "Lähde, I."],
     year: 2023,
     journal: "Journal of Eating Disorders",
-    theme: ["Eating Disorders", "Social Media Use"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study applies uses and gratifications theory to explore social networking motives among individuals experiencing eating disorder symptoms, identifying specific needs driving their engagement.",
     summary:
@@ -396,7 +413,7 @@ const publications = [
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E. A."],
     year: 2023,
     journal: "Computers in Human Behavior",
-    theme: ["Mental Health", "Cross-Cultural", "Body Image"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This panel study explores the longitudinal relationship between photo-related social media behaviors and body satisfaction among adolescents in the Netherlands and Japan.",
     summary:
@@ -413,7 +430,7 @@ const publications = [
     authors: ["Hermans, A. M.", "Boerman, S. C.", "Veldhuis, J."],
     year: 2022,
     journal: "Body Image",
-    theme: ["Body Image", "Social Media", "Cosmetic Surgery"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study examines how different types of social media usage relate to intentions and attitudes toward cosmetic procedures in young adults.",
     summary:
@@ -441,7 +458,7 @@ const publications = [
     ],
     year: 2021,
     journal: "Social Media + Society",
-    theme: ["Mental Health", "Measurement", "Social Media"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This exploratory study investigates various operationalizations of social media use and their differential associations with mental health outcomes.",
     summary:
@@ -457,7 +474,7 @@ const publications = [
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Konijn, E."],
     year: 2020,
     journal: "Telematics and Informatics",
-    theme: ["Self-Presentation", "Body Image", "Well-being"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This systematic review synthesizes literature on the relationship between online self-presentation and outcomes like body image and well-being.",
     summary:
@@ -474,7 +491,7 @@ const publications = [
     authors: ["Veldhuis, J.", "Alleva, J. M.", "Bij de Vaate, N. A. J. D.", "Keijer, M. G.", "Konijn, E. A."],
     year: 2020,
     journal: "Psychology of Popular Media",
-    theme: ["Selfie", "Body Image", "Self-Esteem"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study investigates associations between selfie-taking and viewing behavior and psychological outcomes including body image, self-objectification, and self-esteem in young women.",
     summary: "Links selfie behavior to body image, self-objectification, and self-esteem in young women.",
@@ -489,7 +506,7 @@ const publications = [
     authors: ["Yellowlees, R.", "Dingemans, A. E.", "Veldhuis, J.", "Bij de Vaate, N. A. J. D."],
     year: 2019,
     journal: "Computers in Human Behavior",
-    theme: ["Selfie", "Eating Disorders", "Mental Health"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study explores selfie behavior among females with severe eating disorder symptoms, aiming to understand potential psychological correlates.",
     summary:
@@ -506,7 +523,7 @@ const publications = [
     authors: ["Johnson, B.", "Potocki, B.", "Veldhuis, J."],
     year: 2019,
     journal: "Journal of Computer-Mediated Communication",
-    theme: ["Advertising", "Social Media"],
+    theme: ["Literacy", "Social Media"],
     abstract:
       "This article examines how users perceive and respond to Instagram native ads disguised as social posts, evaluating their persuasive effectiveness and transparency.",
     summary: "Analyzes how native ads on Instagram influence perception and effectiveness when posed as regular posts.",
@@ -521,7 +538,7 @@ const publications = [
     authors: ["Tiggemann, M.", "Hayden, S.", "Brown, Z.", "Veldhuis, J."],
     year: 2018,
     journal: "Body Image",
-    theme: ["Social Comparison", "Body Image"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This study examines whether the number of 'likes' on Instagram posts influences women's social comparison tendencies and feelings of body dissatisfaction.",
     summary: "Shows how Instagram likes can intensify body dissatisfaction via social comparison processes.",
@@ -537,7 +554,7 @@ const publications = [
     authors: ["Bij de Vaate, N. A. J. D.", "Veldhuis, J.", "Alleva, J. M.", "Konijn, E. A.", "van Hugten, C. H. M."],
     year: 2018,
     journal: "Telematics and Informatics",
-    theme: ["Selfie", "Emerging Adulthood", "Motivation"],
+    theme: ["Well-Being", "Social Media"],
     abstract:
       "This exploratory study investigates young adults' motivations for taking and sharing selfies, relating them to underlying psychological needs and behavioral tendencies.",
     summary:
@@ -549,7 +566,7 @@ const publications = [
   },
 ]
 
-const themes = ["All", "Literacy", "Privacy", "Education", "Wellbeing", "Algorithms", "Social Media"]
+const themes = ["All", "Literacy", "Privacy", "Education", "Well-Being", "Algorithms", "Social Media"]
 
 // Team member names to bold
 const teamMembers = [
