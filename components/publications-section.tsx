@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 
 const publications = [
   {
@@ -595,6 +596,7 @@ const formatAuthors = (authors: string[]) => {
 }
 
 export default function PublicationsSection() {
+  const t = useTranslations("publications")
   const [selectedPublication, setSelectedPublication] = useState<(typeof publications)[0] | null>(null)
   const [selectedTheme, setSelectedTheme] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
@@ -632,13 +634,12 @@ export default function PublicationsSection() {
           className="text-center mb-6 sm:mb-8"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
-            Our{" "}
             <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Publications
+              {t("title")}
             </span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-            Research outputs contributing to the field of digital literacy
+            {t("subtitle")}
           </p>
         </motion.div>
 
@@ -671,14 +672,14 @@ export default function PublicationsSection() {
         >
           <input
             type="text"
-            placeholder="Search by title, author, or journal..."
+            placeholder={t("searchPlaceholder")}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full px-4 py-3 rounded-lg bg-white/80 backdrop-blur-sm border border-gray-200 text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-600 transition-all duration-300"
           />
           {searchQuery && (
             <p className="text-sm text-gray-600 mt-2">
-              {filteredPublications.length} publication{filteredPublications.length !== 1 ? "s" : ""} found
+              {filteredPublications.length !== 1 ? t("foundPlural").replace("{count}", String(filteredPublications.length)) : t("foundSingular").replace("{count}", String(filteredPublications.length))}
             </p>
           )}
         </motion.div>
@@ -726,7 +727,7 @@ export default function PublicationsSection() {
                         onClick={(e) => handleLinkClick(publication.links.journal, e)}
                         className="mt-3 w-full text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors"
                       >
-                        View Article
+                        {t("viewArticle")}
                       </button>
                     )}
                   </motion.div>
@@ -745,14 +746,14 @@ export default function PublicationsSection() {
                     onClick={() => setDisplayCount((prev) => prev + 6)}
                     className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
-                    Load More Publications
+                    {t("loadMore")}
                   </button>
                 </motion.div>
               )}
             </>
           ) : (
             <div className="text-center py-12">
-              <p className="text-gray-600">No publications found matching your search.</p>
+              <p className="text-gray-600">{t("noResults")}</p>
             </div>
           )}
         </div>
@@ -793,13 +794,13 @@ export default function PublicationsSection() {
 
                   <div className="mb-4">
                     <p className="text-gray-600 mb-2 text-sm sm:text-base">
-                      <strong>Authors:</strong> {formatAuthors(selectedPublication.authors)}
+                      <strong>{t("authorsLabel")}</strong> {formatAuthors(selectedPublication.authors)}
                     </p>
                     <p className="text-gray-600 mb-2 text-sm sm:text-base">
-                      <strong>Year:</strong> {selectedPublication.year}
+                      <strong>{t("yearLabel")}</strong> {selectedPublication.year}
                     </p>
                     <p className="text-gray-600 mb-4 text-sm sm:text-base">
-                      <strong>Journal:</strong> {selectedPublication.journal}
+                      <strong>{t("journalLabel")}</strong> {selectedPublication.journal}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       {selectedPublication.theme.map((theme, index) => (
@@ -830,7 +831,7 @@ export default function PublicationsSection() {
                   {/* Summary (if available) */}
                   {selectedPublication.summary && (
                     <div className="mb-4 sm:mb-6">
-                      <h4 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Summary:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">{t("summaryLabel")}</h4>
                       <p className="text-gray-600 leading-relaxed text-sm sm:text-base bg-blue-50 p-4 rounded-lg">
                         {selectedPublication.summary}
                       </p>
@@ -839,13 +840,13 @@ export default function PublicationsSection() {
 
                   {/* Abstract */}
                   <div className="mb-4 sm:mb-6">
-                    <h4 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Abstract:</h4>
+                    <h4 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">{t("abstractLabel")}</h4>
                     <p className="text-gray-600 leading-relaxed text-sm sm:text-base">{selectedPublication.abstract}</p>
                   </div>
 
                   {/* Access Links */}
                   <div className="mb-6">
-                    <h4 className="font-semibold text-gray-800 mb-3 text-sm sm:text-base">Access:</h4>
+                    <h4 className="font-semibold text-gray-800 mb-3 text-sm sm:text-base">{t("accessLabel")}</h4>
                     <div className="flex flex-wrap gap-3">
                       {selectedPublication.links.preprint && (
                         <motion.button
@@ -854,7 +855,7 @@ export default function PublicationsSection() {
                           whileTap={{ scale: 0.95 }}
                           className="px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors text-sm font-medium flex items-center gap-2"
                         >
-                          📄 Preprint
+                          📄 {t("preprint")}
                         </motion.button>
                       )}
                       {selectedPublication.links.journal && (
@@ -864,7 +865,7 @@ export default function PublicationsSection() {
                           whileTap={{ scale: 0.95 }}
                           className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors text-sm font-medium flex items-center gap-2"
                         >
-                          🔗 Journal Article
+                          🔗 {t("viewArticle")}
                         </motion.button>
                       )}
                       {selectedPublication.links.pdf && (
@@ -874,7 +875,7 @@ export default function PublicationsSection() {
                           whileTap={{ scale: 0.95 }}
                           className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors text-sm font-medium flex items-center gap-2"
                         >
-                          📥 Download PDF
+                          📥 {t("downloadPdf")}
                         </motion.button>
                       )}
                     </div>
@@ -885,7 +886,7 @@ export default function PublicationsSection() {
                 {selectedPublication.figure && (
                   <div className="lg:w-1/3">
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h4 className="font-semibold text-gray-800 mb-3 text-sm sm:text-base">Figure:</h4>
+                      <h4 className="font-semibold text-gray-800 mb-3 text-sm sm:text-base">{t("figureLabel")}</h4>
                       <img
                         src={selectedPublication.figure || "/placeholder.svg"}
                         alt={`Figure from ${selectedPublication.title}`}

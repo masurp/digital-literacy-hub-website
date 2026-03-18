@@ -1,0 +1,312 @@
+{
+  "nav": {
+    "home": "Home",
+    "mission": "Mission",
+    "team": "Team",
+    "publications": "Publications",
+    "contact": "Contact"
+  },
+  "hero": {
+    "headingBefore": "Empowering ",
+    "headingStrong": "digital citizenship",
+    "headingMiddle": " through",
+    "headingGradient": "research, design, and dialogue",
+    "descFull": "Research hub advancing digital literacy through evidence-based insights on social media, privacy, and AI ethics",
+    "ctaMission": "Read our Mission",
+    "ctaTeam": "Meet the Team"
+  },
+  "mission": {
+    "title": "Our Mission",
+    "subtitle": "Empowering digital citizenship through research and collaboration",
+    "p1": "At the Digital Literacy Hub, we explore how people navigate, resist, and reshape the digital world. Our mission is to empower individuals and communities through research-driven insights and tailored interventions that foster critical, confident, and responsible digital engagement. We believe that digital literacy is not a static skillset, but a dynamic and evolving capacity—one that must be cultivated in dialogue with rapidly shifting technologies, platforms, and societal norms.",
+    "p2": "Rooted in academic excellence and interdisciplinary collaboration, the Hub brings together researchers, educators, designers, and policymakers to co-create solutions that matter. From AI-driven personalization and social media behavior to platform governance and data ethics, our work addresses the pressing challenges of digital life. We aim to bridge theory and practice—translating complex insights into practical tools and strategies that support digital citizenship, safeguard privacy, and promote media wellbeing for all.",
+    "learnMore": "Learn more about how we view digital literacy →",
+    "values": {
+      "research": {
+        "title": "Research-Driven",
+        "description": "Grounding our work in rigorous academic research and evidence-based insights"
+      },
+      "collaborative": {
+        "title": "Collaborative",
+        "description": "Bringing together diverse perspectives from academia, industry, and civil society"
+      },
+      "ethical": {
+        "title": "Ethical",
+        "description": "Promoting responsible digital practices and safeguarding individual rights and wellbeing"
+      },
+      "inclusive": {
+        "title": "Inclusive",
+        "description": "Ensuring digital literacy solutions work for diverse communities and contexts"
+      },
+      "innovative": {
+        "title": "Innovative",
+        "description": "Developing cutting-edge approaches to address emerging digital challenges"
+      },
+      "impact": {
+        "title": "Impact-Focused",
+        "description": "Translating research into practical tools and strategies that make a real difference"
+      }
+    }
+  },
+  "research": {
+    "title": "Our Research",
+    "subtitle": "Exploring the intersection of technology, society, and human behavior",
+    "clickToLearnMore": "Click to learn more",
+    "teamMembersLabel": "Team Members:",
+    "statusLabel": "Status:",
+    "statusActive": "Active",
+    "statusPlanning": "Planning",
+    "projects": {
+      "privacy": {
+        "title": "Digital Privacy Interventions",
+        "description": "Developing and testing interventions to improve digital privacy awareness and behavior among social media users."
+      },
+      "socialMedia": {
+        "title": "Social Media Literacy",
+        "description": "Creating educational frameworks to enhance critical thinking about social media content and algorithms."
+      },
+      "wellbeing": {
+        "title": "Digital Wellbeing Metrics",
+        "description": "Developing new measures and methodologies for assessing digital wellbeing in various contexts."
+      },
+      "ai": {
+        "title": "AI Ethics Education",
+        "description": "Designing curricula and tools for teaching AI ethics and algorithmic awareness to diverse audiences."
+      }
+    }
+  },
+  "team": {
+    "title": "Our Team",
+    "subtitle": "Meet the researchers shaping the future of digital literacy",
+    "readMore": "read more",
+    "roleCoDirector": "Co-Director",
+    "roleMember": "Member",
+    "personalWebsite": "Personal Website",
+    "vuProfile": "VU Profile",
+    "partnersTitle": "Our Partners",
+    "partnersSubtitle": "Partner Institutions",
+    "members": {
+      "philipp": {
+        "bio": "Philipp Masur is an Associate Professor at the Department of Communication Science at the Vrije Universiteit Amsterdam and Managing Director of the Digital Media and Behavior Lab. His research is concerned with applying socio-psychological and communication theories to study online communication. Particularly, he investigates social norm effects and social influences on social media, privacy and self-disclosure dynamics, and technology uses' implications for well-being. In doing so, he aims to identify and foster knowledge and skills necessary to navigate online environments in a healthy and self-determined way."
+      },
+      "douglas": {
+        "bio": "Doug Parry is an Assistant Professor in the Department of Communication Science at the Vrije Universiteit Amsterdam. His research focuses on the ways in which adolescents and young adults use digital media; the potential effects that this behaviour can have on their cognition, mental health, and well-being; and the knowledge and skills that enable them to thrive in a digital society."
+      },
+      "jolanda": {
+        "bio": "Jolanda Veldhuis is an Associate Professor in the field of Health and Risk Communication as well as Media Psychology at the Department of Communication Science (Vrije Universiteit Amsterdam). She specializes in digital literacy education and intervention design for diverse populations, with a specific focus on body image satisfaction and well-being."
+      },
+      "tilo": {
+        "bio": "Tilo Hartmann is Professor for Virtual Reality and Communication at the Department of Communication Science at Vrije Universiteit Amsterdam. His research draws on media psychology to examine how people experience media, with a particular focus on presence, perceptual illusions, and biased perceptions of reality. More recently, his work centers on immersive technologies such as virtual and augmented reality, aiming to understand the determinants and effects of presence in highly immersive media. In addition, he studies media use in the context of entertainment and personal wellbeing."
+      },
+      "martin": {
+        "bio": "Martin Baars is a PhD candidate at the Department of Communication Science at Vrije Universiteit Amsterdam. His research advances the emerging field of immersive disinformation by examining how immersive media shape people's beliefs."
+      }
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Whether you're shaping policy, teaching the next generation, reporting on digital society, or conducting research — we'd love to connect.",
+    "formTitle": "Send us a message",
+    "iAmA": "I am a…",
+    "selectBackground": "Select your background…",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabel": "Email",
+    "messagePlaceholder": "Tell us about your interest or request…",
+    "errorMessage": "Something went wrong. Please try again or email us directly.",
+    "sending": "Sending…",
+    "sendButton": "Send Message",
+    "successTitle": "Message sent!",
+    "successSubtitle": "We'll get back to you as soon as possible.",
+    "sendAnother": "Send another message",
+    "messageLabel": "Message",
+    "orReachUs": "Or reach us directly at",
+    "subjectWithAudience": "Message from {audience} — Digital Literacy Hub",
+    "subjectDefault": "New message — Digital Literacy Hub",
+    "audiences": {
+      "policymaker": {
+        "label": "Policymakers & Politicians",
+        "description": "We provide expert testimony, policy briefs, and advisory input on digital literacy, online safety, and AI regulation."
+      },
+      "ngo": {
+        "label": "NGOs & Civil Society",
+        "description": "We are open to partner with organizations working on digital rights, digital and media literacy, and online safety."
+      },
+      "educator": {
+        "label": "Schools & Educators",
+        "description": "We offer teacher training and workshops on digital literacy tailored for all age groups. We are also interested in collaborating on curriculum development and educational research projects."
+      },
+      "journalist": {
+        "label": "Journalists & Media",
+        "description": "We provide expert commentary and data on digital media, privacy and data protection, misinformation, and AI for your stories."
+      },
+      "researcher": {
+        "label": "Fellow Researchers",
+        "description": "We are open to collaboration on digital literacy, communication, and media research."
+      },
+      "other": "Other"
+    }
+  },
+  "footer": {
+    "quickLinksTitle": "Quick Links",
+    "resourcesTitle": "Resources",
+    "legalTitle": "Legal & Info",
+    "home": "Home",
+    "mission": "Mission",
+    "ourTeam": "Our Team",
+    "research": "Research",
+    "publications": "Publications",
+    "contact": "Contact",
+    "communicationScience": "Communication Science",
+    "vuResearch": "VU Research",
+    "education": "Education",
+    "privacyPolicy": "Privacy Policy",
+    "vuContact": "Contact (VU Profile)",
+    "accessibility": "Accessibility",
+    "copyright": "© 2025 Digital Literacy Hub, VU Amsterdam. All rights reserved."
+  },
+  "publications": {
+    "title": "Our Publications",
+    "subtitle": "Research outputs contributing to the field of digital literacy",
+    "searchPlaceholder": "Search by title, author, or journal...",
+    "foundSingular": "{count} publication found",
+    "foundPlural": "{count} publications found",
+    "loadMore": "Load More Publications",
+    "noResults": "No publications found matching your search.",
+    "viewArticle": "View Article",
+    "preprint": "Preprint",
+    "downloadPdf": "Download PDF",
+    "authorsLabel": "Authors:",
+    "yearLabel": "Year:",
+    "journalLabel": "Journal:",
+    "summaryLabel": "Summary:",
+    "abstractLabel": "Abstract:",
+    "accessLabel": "Access:",
+    "figureLabel": "Figure:"
+  },
+  "dataAnalysis": {
+    "backToHub": "Back to Hub",
+    "filterButton": "Filter",
+    "filterByLabel": "Filter by",
+    "clearAll": "Clear all",
+    "noCategoricalVars": "No categorical variables available",
+    "authorsLabel": "Authors:",
+    "rows": "Rows",
+    "variables": "Variables",
+    "numeric": "Numeric",
+    "categorical": "Categorical",
+    "numericVarsTitle": "Numeric Variables",
+    "numericVarsSubtitle": "Descriptive summary for filtered rows",
+    "categoricalVarsTitle": "Categorical Variables",
+    "categoricalVarsSubtitle": "Value counts for filtered rows",
+    "tableHeaders": {
+      "variable": "Variable",
+      "n": "N",
+      "mean": "Mean",
+      "sd": "SD",
+      "min": "Min",
+      "max": "Max",
+      "description": "Description"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "visualize": "Visualize",
+      "statistics": "Statistics"
+    },
+    "changeDataset": "Change Dataset",
+    "selectDataset": "Select a Dataset",
+    "loadDataset": "Load Dataset",
+    "loading": "Loading...",
+    "errorLoading": "Failed to load dataset."
+  },
+  "pages": {
+    "digitalLiteracy": {
+      "back": "← Back",
+      "title": "How We View Digital Literacy",
+      "subtitle": "Understanding digital literacy as dynamic competencies for navigating our increasingly complex digital world.",
+      "h2Skills": "Skills do not exist in {gradient}",
+      "h2SkillsGradient": "isolation",
+      "h2Interventions": "The need for {gradient}",
+      "h2InterventionsGradient": "tailored interventions",
+      "p1": "We often think of \"digital literacy\" as a simple checklist — knowing how to use a search engine or change privacy settings. But in a world filled with AI, complex algorithms, and constant connectivity, being digitally literate means much more. At the Digital Literacy Hub, we view literacy not as a static list of technical skills, but as a dynamic set of four core competencies applied to the areas of life that matter most. We view this as a \"map\" that connects key skills —Technical Skills, Information Processing, Communication, and Content Creation — to critical environments: e.g., Computer & Internet, Privacy & Data, News & Misinformation, Advertising, AI & Algorithms, or Digital Well-being. True literacy isn't just about pressing buttons; it is about people having the critical thinking to spot a deepfake, the creativity to use AI tools effectively, and the reflection skills to manage screen time for better mental health.",
+      "p2": "A key part of our philosophy is that these skills do not exist in isolation—they are deeply connected. We believe in a \"ripple effect\" of digital learning: the strengths people build in one area often help them in others. For example, adolescents who are highly skilled at communicating on social media might need help transferring those skills to understand data privacy or the impact of algorithms. Conversely, seniors might approach the digital world with great caution and safety awareness but require more support with basic technical navigation. This interconnected view allows us to see the full picture of a person's digital life. It recognizes that someone isn't simply \"literate\" or \"illiterate,\" but has a unique profile of strengths and gaps—whether they are a \"socializer\" excellent at connection or an \"information seeker\" who excels at research but struggles with digital stress.",
+      "p3": "This holistic view underscores why a \"one-size-fits-all\" approach to digital education falls short. Because every individual—from a teenager navigating social pressures to a professional adapting to AI—has a different \"map\" of competencies, education must be tailored to match. By understanding digital literacy as a flexible, multidimensional web of skills, we can move away from generic lectures and towards personalized learning pathways. Our framework is designed to identify exactly where specific groups shine and where they face challenges, allowing for the creation of adaptive tools that meet people where they are. Ultimately, this tailored approach empowers everyone to move beyond basic participation and navigate the digital world with confidence, safety, and purpose.",
+      "ctaTitle": "Interested in Our Work?",
+      "ctaResearch": "Explore Our Research",
+      "ctaContact": "Get in Touch"
+    },
+    "privacy": {
+      "back": "Back to Hub",
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: {date}",
+      "s1Title": "1. Who we are",
+      "s1Body": "This website is operated by the Digital Literacy Hub, a research group based at the Department of Communication Science, Vrije Universiteit Amsterdam (VU Amsterdam), De Boelelaan 1105, 1081 HV Amsterdam, the Netherlands.",
+      "s1Contact": "The hub is led by Dr. Philipp K. Masur. For questions about this privacy policy or your personal data, please contact us at",
+      "s2Title": "2. What data we collect",
+      "s2Body": "This website does not use cookies, tracking technologies, or analytics tools, and does not collect any personal data from visitors simply browsing the site.",
+      "s2Body2": "The only situation in which personal data is collected is when you voluntarily submit the contact form. In that case, the following data is collected:",
+      "s2Items": ["Your name", "Your email address", "Your message", "Your stated background or role (e.g. researcher, journalist)"],
+      "s3Title": "3. Why we collect it",
+      "s3Body": "Contact form data is collected solely to respond to your enquiry. The legal basis for processing this data is legitimate interest (Article 6(1)(f) GDPR) — specifically, the legitimate interest in being able to respond to messages sent to us through the site.",
+      "s4Title": "4. How data is processed — Formspree",
+      "s4Body": "Contact form submissions are handled by Formspree, a third-party form processing service operated by Formspree, Inc. (United States). When you submit the contact form, your data is transmitted to and temporarily stored on Formspree's servers before being forwarded to us by email.",
+      "s4Body2": "Formspree acts as a data processor on our behalf. The transfer of data to the US is based on Formspree's compliance with applicable data transfer mechanisms. For more information, see Formspree's privacy policy.",
+      "s5Title": "5. How long we keep your data",
+      "s5Body": "We retain contact form submissions only as long as necessary to handle your enquiry, typically no longer than 12 months. You can request deletion at any time by contacting us at",
+      "s6Title": "6. Your rights under GDPR",
+      "s6Intro": "If you are based in the EU/EEA, you have the following rights regarding your personal data:",
+      "s6Items": [
+        "Right of access — you can request a copy of the data we hold about you",
+        "Right to rectification — you can ask us to correct inaccurate data",
+        "Right to erasure — you can ask us to delete your data",
+        "Right to restrict processing — you can ask us to limit how we use your data",
+        "Right to object — you can object to our processing based on legitimate interest"
+      ],
+      "s6Contact": "To exercise any of these rights, contact us at",
+      "s6Response": "We will respond within 30 days.",
+      "s6Authority": "You also have the right to lodge a complaint with the Dutch data protection authority, the Autoriteit Persoonsgegevens.",
+      "s7Title": "7. External links",
+      "s7Body": "This website contains links to external websites (e.g. published research, VU Amsterdam pages). We are not responsible for the privacy practices of those sites and encourage you to review their respective privacy policies.",
+      "s8Title": "8. Changes to this policy",
+      "s8Body": "We may update this privacy policy from time to time. The date at the top of this page reflects when it was last revised. We encourage you to review it periodically."
+    },
+    "accessibility": {
+      "back": "Back to Hub",
+      "title": "Accessibility Statement",
+      "lastReviewed": "Last reviewed: {date}",
+      "s1Title": "Our commitment",
+      "s1Body": "The Digital Literacy Hub is committed to making this website as accessible as possible to all visitors, including people with disabilities. We aim to meet the Web Content Accessibility Guidelines (WCAG) 2.1 at Level AA, in line with the EU Web Accessibility Directive.",
+      "s2Title": "What works well",
+      "s2Items": [
+        "All pages can be navigated using a keyboard",
+        "Text content uses sufficient colour contrast against its background",
+        "The site uses semantic HTML headings to structure content logically",
+        "All form fields are labelled",
+        "The site works without JavaScript for its core informational content",
+        "Text can be resized up to 200% without loss of content or functionality"
+      ],
+      "s3Title": "Known limitations",
+      "s3Intro": "We are transparent about the following areas where the site does not fully meet WCAG 2.1 AA:",
+      "s3Items": [
+        "3D animations — The interactive 3D visualisations on the homepage (network animation, wave background, floating nodes) are decorative and not accessible to screen readers. They do not convey information and are marked as presentational where possible.",
+        "Motion — The site uses animations and motion effects that cannot currently be disabled via a preference setting. We aim to respect the prefers-reduced-motion system setting in a future update.",
+        "Data analysis page — The interactive data analysis tool requires mouse or pointer interaction for some features and may not be fully usable with keyboard-only navigation."
+      ],
+      "s4Title": "Report an issue",
+      "s4Body": "If you encounter an accessibility barrier on this site, or if you need content in an alternative format, please contact us and we will do our best to help:",
+      "s4Response": "We aim to respond to accessibility queries within 5 working days.",
+      "s5Title": "Technical information",
+      "s5Body": "This website is built with Next.js and React. It has been tested in modern versions of Chrome, Firefox, and Safari on desktop and mobile. It has not yet been formally audited by an independent accessibility specialist."
+    }
+  },
+  "metadata": {
+    "title": "Digital Literacy Hub @ VU Amsterdam",
+    "description": "Research group at VU Amsterdam studying how people navigate digital media, privacy, and AI. Led by Dr. Philipp Masur, we produce evidence-based insights on digital literacy, social media, and algorithmic literacy.",
+    "privacyTitle": "Privacy Policy",
+    "privacyDescription": "Privacy policy for the Digital Literacy Hub website, explaining how we handle personal data in compliance with GDPR.",
+    "accessibilityTitle": "Accessibility",
+    "accessibilityDescription": "Accessibility statement for the Digital Literacy Hub website, outlining our commitment to inclusive design and known limitations.",
+    "digitalLiteracyTitle": "Digital Literacy",
+    "digitalLiteracyDescription": "How the Digital Literacy Hub views digital literacy as dynamic competencies for navigating our increasingly complex digital world."
+  }
+}

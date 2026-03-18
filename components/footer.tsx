@@ -2,8 +2,14 @@
 
 import { motion } from "framer-motion"
 import Link from "next/link"
+import { useTranslations } from "next-intl"
+import { useLocale } from "next-intl"
 
 export default function Footer() {
+  const t = useTranslations("footer")
+  const locale = useLocale()
+  const prefix = locale === "nl" ? "" : "/en"
+
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
     if (element) {
@@ -13,213 +19,175 @@ export default function Footer() {
 
   return (
     <>
-        <motion.footer
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="bg-[#238acc] text-white"
-        >
-          <div className="container mx-auto px-4 py-6 sm:py-8">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
-              {/* VU Logo and Branding */}
-              <div className="md:col-span-1 flex flex-col items-center md:items-start">
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.5, delay: 0.2 }}
-                  className="mb-4"
-                >
-                  <img
-                    src="https://keystoneacademic-res.cloudinary.com/image/upload/c_pad,w_640,h_304/dpr_auto/f_auto/q_auto/v1/element/11/119258_VUlogo_NL_Blauw_HR_RGB_tcm289-2013751.png"
-                    alt="VU Amsterdam Logo"
-                    className="h-12 sm:h-16 w-auto"
-                  />
-                </motion.div>
-                <p className="text-sm text-blue-200 text-center md:text-left">Vrije Universiteit Amsterdam</p>
-              </div>
-
-              {/* Quick Navigation */}
-              <div className="md:col-span-1">
-                <motion.h3
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.3 }}
-                  className="text-lg font-semibold mb-4 text-center md:text-left"
-                >
-                  Quick Links
-                </motion.h3>
-                <motion.ul
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.4 }}
-                  className="space-y-2 text-center md:text-left"
-                >
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("hero")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Home
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("mission")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Mission
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("team")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Our Team
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("research")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Research
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("publications")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Publications
-                    </button>
-                  </li>
-                  <li>
-                    <button
-                      onClick={() => scrollToSection("contact")}
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Contact
-                    </button>
-                  </li>
-                </motion.ul>
-              </div>
-
-              {/* Resources */}
-              <div className="md:col-span-1">
-                <motion.h3
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.5 }}
-                  className="text-lg font-semibold mb-4 text-center md:text-left"
-                >
-                  Resources
-                </motion.h3>
-                <motion.ul
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.6 }}
-                  className="space-y-2 text-center md:text-left"
-                >
-                  <li>
-                    <a
-                      href="https://vu.nl/en/about-vu/faculties/faculty-of-social-sciences/departments/communication-science"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Communication Science
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://dmb-lab.nl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      DMB Lab
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://vu.nl/en/research"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      VU Research
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://vu.nl/en/education"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Education
-                    </a>
-                  </li>
-                </motion.ul>
-              </div>
-
-              {/* Legal & Contact */}
-              <div className="md:col-span-1">
-                <motion.h3
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.7 }}
-                  className="text-lg font-semibold mb-4 text-center md:text-left"
-                >
-                  Legal & Info
-                </motion.h3>
-                <motion.ul
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.5, delay: 0.8 }}
-                  className="space-y-2 text-center md:text-left"
-                >
-                  <li>
-                    <Link href="/privacy" className="text-blue-200 hover:text-white transition-colors text-sm">
-                      Privacy Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <a
-                      href="https://research.vu.nl/en/persons/philipp-k-masur/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-200 hover:text-white transition-colors text-sm"
-                    >
-                      Contact (VU Profile)
-                    </a>
-                  </li>
-                  <li>
-                    <Link href="/accessibility" className="text-blue-200 hover:text-white transition-colors text-sm">
-                      Accessibility
-                    </Link>
-                  </li>
-                </motion.ul>
-              </div>
+      <motion.footer
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="bg-[#238acc] text-white"
+      >
+        <div className="container mx-auto px-4 py-6 sm:py-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 sm:gap-8">
+            {/* VU Logo and Branding */}
+            <div className="md:col-span-1 flex flex-col items-center md:items-start">
+              <motion.div
+                initial={{ scale: 0.8, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="mb-4"
+              >
+                <img
+                  src="https://keystoneacademic-res.cloudinary.com/image/upload/c_pad,w_640,h_304/dpr_auto/f_auto/q_auto/v1/element/11/119258_VUlogo_NL_Blauw_HR_RGB_tcm289-2013751.png"
+                  alt="VU Amsterdam Logo"
+                  className="h-12 sm:h-16 w-auto"
+                />
+              </motion.div>
+              <p className="text-sm text-blue-200 text-center md:text-left">Vrije Universiteit Amsterdam</p>
             </div>
 
-            {/* Bottom Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 }}
-              className="border-t border-blue-400/30 mt-6 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-blue-200"
-            >
-              <div className="mb-2 sm:mb-0">
-                <p>© 2025 Digital Literacy Hub, VU Amsterdam. All rights reserved.</p>
-              </div>
-              <div className="flex items-center space-x-4">
-              </div>
-            </motion.div>
+            {/* Quick Navigation */}
+            <div className="md:col-span-1">
+              <motion.h3
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="text-lg font-semibold mb-4 text-center md:text-left"
+              >
+                {t("quickLinksTitle")}
+              </motion.h3>
+              <motion.ul
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="space-y-2 text-center md:text-left"
+              >
+                {(["hero", "mission", "team", "research", "publications", "contact"] as const).map((id) => (
+                  <li key={id}>
+                    <button
+                      onClick={() => scrollToSection(id)}
+                      className="text-blue-200 hover:text-white transition-colors text-sm"
+                    >
+                      {t(id === "hero" ? "home" : id === "team" ? "ourTeam" : id)}
+                    </button>
+                  </li>
+                ))}
+              </motion.ul>
+            </div>
+
+            {/* Resources */}
+            <div className="md:col-span-1">
+              <motion.h3
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.5 }}
+                className="text-lg font-semibold mb-4 text-center md:text-left"
+              >
+                {t("resourcesTitle")}
+              </motion.h3>
+              <motion.ul
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.6 }}
+                className="space-y-2 text-center md:text-left"
+              >
+                <li>
+                  <a
+                    href="https://vu.nl/en/about-vu/faculties/faculty-of-social-sciences/departments/communication-science"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white transition-colors text-sm"
+                  >
+                    {t("communicationScience")}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://dmb-lab.nl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white transition-colors text-sm"
+                  >
+                    DMB Lab
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://vu.nl/en/research"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white transition-colors text-sm"
+                  >
+                    {t("vuResearch")}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://vu.nl/en/education"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white transition-colors text-sm"
+                  >
+                    {t("education")}
+                  </a>
+                </li>
+              </motion.ul>
+            </div>
+
+            {/* Legal & Contact */}
+            <div className="md:col-span-1">
+              <motion.h3
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.7 }}
+                className="text-lg font-semibold mb-4 text-center md:text-left"
+              >
+                {t("legalTitle")}
+              </motion.h3>
+              <motion.ul
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="space-y-2 text-center md:text-left"
+              >
+                <li>
+                  <Link href={`${prefix}/privacy`} className="text-blue-200 hover:text-white transition-colors text-sm">
+                    {t("privacyPolicy")}
+                  </Link>
+                </li>
+                <li>
+                  <a
+                    href="https://research.vu.nl/en/persons/philipp-k-masur/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-200 hover:text-white transition-colors text-sm"
+                  >
+                    {t("vuContact")}
+                  </a>
+                </li>
+                <li>
+                  <Link href={`${prefix}/accessibility`} className="text-blue-200 hover:text-white transition-colors text-sm">
+                    {t("accessibility")}
+                  </Link>
+                </li>
+              </motion.ul>
+            </div>
           </div>
-        </motion.footer>
+
+          {/* Bottom Bar */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.9 }}
+            className="border-t border-blue-400/30 mt-6 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-blue-200"
+          >
+            <div className="mb-2 sm:mb-0">
+              <p>{t("copyright")}</p>
+            </div>
+            <div className="flex items-center space-x-4">
+            </div>
+          </motion.div>
+        </div>
+      </motion.footer>
     </>
   )
 }

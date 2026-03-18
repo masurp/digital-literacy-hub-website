@@ -1,0 +1,312 @@
+{
+  "nav": {
+    "home": "Home",
+    "mission": "Missie",
+    "team": "Team",
+    "publications": "Publicaties",
+    "contact": "Contact"
+  },
+  "hero": {
+    "headingBefore": "",
+    "headingStrong": "Digitaal burgerschap",
+    "headingMiddle": " versterken door",
+    "headingGradient": "onderzoek, ontwerp en dialoog",
+    "descFull": "Onderzoeksgroep die digitale geletterdheid bevordert door evidence-based inzichten over sociale media, privacy en AI-ethiek",
+    "ctaMission": "Lees onze missie",
+    "ctaTeam": "Ontmoet het team"
+  },
+  "mission": {
+    "title": "Onze Missie",
+    "subtitle": "Digitaal burgerschap versterken door onderzoek en samenwerking",
+    "p1": "Bij de Digital Literacy Hub onderzoeken we hoe mensen de digitale wereld navigeren, weerstaan en hervormen. Onze missie is om individuen en gemeenschappen te versterken door middel van onderzoeksgerichte inzichten en op maat gemaakte interventies die kritisch, zelfverzekerd en verantwoordelijk digitaal handelen bevorderen. Wij geloven dat digitale geletterdheid geen statisch vaardigheidspakket is, maar een dynamische en zich ontwikkelende capaciteit — een die moet worden gecultiveerd in dialoog met snel veranderende technologieën, platforms en maatschappelijke normen.",
+    "p2": "Geworteld in academische excellentie en interdisciplinaire samenwerking brengt de Hub onderzoekers, docenten, ontwerpers en beleidsmakers samen om oplossingen te co-creëren die er toe doen. Van door AI aangedreven personalisering en gedrag op sociale media tot platformbestuur en data-ethiek: ons werk pakt de urgente uitdagingen van het digitale leven aan. Wij streven ernaar de kloof tussen theorie en praktijk te overbruggen — door complexe inzichten te vertalen naar praktische tools en strategieën die digitaal burgerschap ondersteunen, privacy beschermen en digitaal welzijn voor iedereen bevorderen.",
+    "learnMore": "Lees meer over hoe wij digitale geletterdheid zien →",
+    "values": {
+      "research": {
+        "title": "Onderzoeksgericht",
+        "description": "Ons werk verankerd in rigoureus academisch onderzoek en evidence-based inzichten"
+      },
+      "collaborative": {
+        "title": "Samenwerkend",
+        "description": "Diverse perspectieven uit de academische wereld, industrie en het maatschappelijk middenveld samenbrengen"
+      },
+      "ethical": {
+        "title": "Ethisch",
+        "description": "Verantwoord digitaal handelen bevorderen en individuele rechten en welzijn beschermen"
+      },
+      "inclusive": {
+        "title": "Inclusief",
+        "description": "Zorgen dat digitale geletterdheidsoplossingen werken voor diverse gemeenschappen en contexten"
+      },
+      "innovative": {
+        "title": "Innovatief",
+        "description": "Geavanceerde benaderingen ontwikkelen om opkomende digitale uitdagingen aan te pakken"
+      },
+      "impact": {
+        "title": "Impactgericht",
+        "description": "Onderzoek vertalen naar praktische tools en strategieën die echt een verschil maken"
+      }
+    }
+  },
+  "research": {
+    "title": "Ons Onderzoek",
+    "subtitle": "Het snijvlak van technologie, samenleving en menselijk gedrag verkennen",
+    "clickToLearnMore": "Klik voor meer informatie",
+    "teamMembersLabel": "Teamleden:",
+    "statusLabel": "Status:",
+    "statusActive": "Actief",
+    "statusPlanning": "In planning",
+    "projects": {
+      "privacy": {
+        "title": "Digitale Privacy-interventies",
+        "description": "Het ontwikkelen en testen van interventies om het bewustzijn van digitale privacy en het bijbehorende gedrag bij gebruikers van sociale media te verbeteren."
+      },
+      "socialMedia": {
+        "title": "Sociale Media Geletterdheid",
+        "description": "Het creëren van educatieve kaders om kritisch denken over inhoud en algoritmen van sociale media te bevorderen."
+      },
+      "wellbeing": {
+        "title": "Digitaal Welzijn: Maatstaven",
+        "description": "Het ontwikkelen van nieuwe maatstaven en methoden voor het beoordelen van digitaal welzijn in verschillende contexten."
+      },
+      "ai": {
+        "title": "AI-ethiek Educatie",
+        "description": "Het ontwerpen van curricula en tools voor het onderwijzen van AI-ethiek en algoritmisch bewustzijn aan diverse doelgroepen."
+      }
+    }
+  },
+  "team": {
+    "title": "Ons Team",
+    "subtitle": "Ontmoet de onderzoekers die de toekomst van digitale geletterdheid vormgeven",
+    "readMore": "lees meer",
+    "roleCoDirector": "Co-directeur",
+    "roleMember": "Lid",
+    "personalWebsite": "Persoonlijke website",
+    "vuProfile": "VU-profiel",
+    "partnersTitle": "Onze Partners",
+    "partnersSubtitle": "Partnerinstellingen",
+    "members": {
+      "philipp": {
+        "bio": "Philipp Masur is universitair hoofddocent bij de afdeling Communicatiewetenschap aan de Vrije Universiteit Amsterdam en Managing Director van het Digital Media and Behavior Lab. Zijn onderzoek richt zich op het toepassen van sociaal-psychologische en communicatietheorieën op online communicatie. Hij onderzoekt met name de effecten van sociale normen en sociale invloed op sociale media, privacy- en zelfonthullingsdynamieken, en de gevolgen van technologiegebruik voor welzijn. Daarbij streeft hij ernaar de kennis en vaardigheden te identificeren en te bevorderen die nodig zijn om online omgevingen op een gezonde en zelfbepaalde manier te navigeren."
+      },
+      "douglas": {
+        "bio": "Doug Parry is universitair docent bij de afdeling Communicatiewetenschap aan de Vrije Universiteit Amsterdam. Zijn onderzoek richt zich op de manieren waarop adolescenten en jongvolwassenen digitale media gebruiken, de mogelijke gevolgen van dit gedrag voor hun cognitie, mentale gezondheid en welzijn, en de kennis en vaardigheden die hen in staat stellen te gedijen in een digitale samenleving."
+      },
+      "jolanda": {
+        "bio": "Jolanda Veldhuis is universitair hoofddocent op het gebied van Gezondheids- en Risicocommunicatie en Mediapsychologie bij de afdeling Communicatiewetenschap (Vrije Universiteit Amsterdam). Ze is gespecialiseerd in digitale geletterdheidsonderwijs en interventieontwerp voor diverse populaties, met een specifieke focus op lichaamstevredenheid en welzijn."
+      },
+      "tilo": {
+        "bio": "Tilo Hartmann is hoogleraar Virtual Reality en Communicatie bij de afdeling Communicatiewetenschap aan de Vrije Universiteit Amsterdam. Zijn onderzoek maakt gebruik van mediapsychologie om te onderzoeken hoe mensen media ervaren, met bijzondere aandacht voor aanwezigheid, perceptuele illusies en bevooroordeelde realiteitspercepties. Zijn meer recente werk richt zich op meeslepende technologieën zoals virtual en augmented reality, met als doel de determinanten en effecten van aanwezigheid in sterk meeslepende media te begrijpen. Daarnaast bestudeert hij mediagebruik in de context van entertainment en persoonlijk welzijn."
+      },
+      "martin": {
+        "bio": "Martin Baars is promovendus bij de afdeling Communicatiewetenschap aan de Vrije Universiteit Amsterdam. Zijn onderzoek bevordert het opkomende veld van meeslepende desinformatie door te onderzoeken hoe meeslepende media de overtuigingen van mensen beïnvloeden."
+      }
+    }
+  },
+  "contact": {
+    "title": "Neem Contact Op",
+    "subtitle": "Of u nu beleid vormt, de volgende generatie onderwijst, verslag doet van de digitale samenleving, of onderzoek uitvoert — we horen graag van u.",
+    "formTitle": "Stuur ons een bericht",
+    "iAmA": "Ik ben een…",
+    "selectBackground": "Selecteer uw achtergrond…",
+    "nameLabel": "Naam",
+    "namePlaceholder": "Uw naam",
+    "emailLabel": "E-mail",
+    "messagePlaceholder": "Vertel ons over uw interesse of verzoek…",
+    "errorMessage": "Er is iets misgegaan. Probeer het opnieuw of e-mail ons rechtstreeks.",
+    "sending": "Verzenden…",
+    "sendButton": "Bericht versturen",
+    "successTitle": "Bericht verzonden!",
+    "successSubtitle": "We nemen zo snel mogelijk contact met u op.",
+    "sendAnother": "Nog een bericht sturen",
+    "messageLabel": "Bericht",
+    "orReachUs": "Of bereik ons rechtstreeks via",
+    "subjectWithAudience": "Bericht van {audience} — Digital Literacy Hub",
+    "subjectDefault": "Nieuw bericht — Digital Literacy Hub",
+    "audiences": {
+      "policymaker": {
+        "label": "Beleidsmakers & Politici",
+        "description": "Wij leveren deskundig advies, beleidsnotities en adviesdiensten op het gebied van digitale geletterdheid, online veiligheid en AI-regelgeving."
+      },
+      "ngo": {
+        "label": "NGO's & Maatschappelijk Middenveld",
+        "description": "Wij staan open voor samenwerking met organisaties die werken aan digitale rechten, digitale en media geletterdheid en online veiligheid."
+      },
+      "educator": {
+        "label": "Scholen & Onderwijzers",
+        "description": "Wij bieden docententraining en workshops over digitale geletterdheid op maat voor alle leeftijdsgroepen. We zijn ook geïnteresseerd in samenwerking bij curiculumontwikkeling en educatief onderzoek."
+      },
+      "journalist": {
+        "label": "Journalisten & Media",
+        "description": "Wij leveren deskundig commentaar en data over digitale media, privacy en gegevensbescherming, desinformatie en AI voor uw verhalen."
+      },
+      "researcher": {
+        "label": "Collega-onderzoekers",
+        "description": "Wij staan open voor samenwerking op het gebied van digitale geletterdheid, communicatie en mediaonderzoek."
+      },
+      "other": "Anders"
+    }
+  },
+  "footer": {
+    "quickLinksTitle": "Snelle Links",
+    "resourcesTitle": "Bronnen",
+    "legalTitle": "Juridisch & Info",
+    "home": "Home",
+    "mission": "Missie",
+    "ourTeam": "Ons Team",
+    "research": "Onderzoek",
+    "publications": "Publicaties",
+    "contact": "Contact",
+    "communicationScience": "Communicatiewetenschap",
+    "vuResearch": "VU Onderzoek",
+    "education": "Onderwijs",
+    "privacyPolicy": "Privacybeleid",
+    "vuContact": "Contact (VU-profiel)",
+    "accessibility": "Toegankelijkheid",
+    "copyright": "© 2025 Digital Literacy Hub, VU Amsterdam. Alle rechten voorbehouden."
+  },
+  "publications": {
+    "title": "Onze Publicaties",
+    "subtitle": "Onderzoeksresultaten die bijdragen aan het veld van digitale geletterdheid",
+    "searchPlaceholder": "Zoek op titel, auteur of tijdschrift...",
+    "foundSingular": "{count} publicatie gevonden",
+    "foundPlural": "{count} publicaties gevonden",
+    "loadMore": "Meer publicaties laden",
+    "noResults": "Geen publicaties gevonden die overeenkomen met uw zoekopdracht.",
+    "viewArticle": "Bekijk artikel",
+    "preprint": "Preprint",
+    "downloadPdf": "PDF downloaden",
+    "authorsLabel": "Auteurs:",
+    "yearLabel": "Jaar:",
+    "journalLabel": "Tijdschrift:",
+    "summaryLabel": "Samenvatting:",
+    "abstractLabel": "Abstract:",
+    "accessLabel": "Toegang:",
+    "figureLabel": "Figuur:"
+  },
+  "dataAnalysis": {
+    "backToHub": "Terug naar de Hub",
+    "filterButton": "Filter",
+    "filterByLabel": "Filter op",
+    "clearAll": "Alles wissen",
+    "noCategoricalVars": "Geen categorische variabelen beschikbaar",
+    "authorsLabel": "Auteurs:",
+    "rows": "Rijen",
+    "variables": "Variabelen",
+    "numeric": "Numeriek",
+    "categorical": "Categorisch",
+    "numericVarsTitle": "Numerieke variabelen",
+    "numericVarsSubtitle": "Beschrijvende samenvatting voor gefilterde rijen",
+    "categoricalVarsTitle": "Categorische variabelen",
+    "categoricalVarsSubtitle": "Waardetellingen voor gefilterde rijen",
+    "tableHeaders": {
+      "variable": "Variabele",
+      "n": "N",
+      "mean": "Gem.",
+      "sd": "SD",
+      "min": "Min",
+      "max": "Max",
+      "description": "Beschrijving"
+    },
+    "tabs": {
+      "overview": "Overzicht",
+      "visualize": "Visualiseren",
+      "statistics": "Statistieken"
+    },
+    "changeDataset": "Dataset wijzigen",
+    "selectDataset": "Selecteer een dataset",
+    "loadDataset": "Dataset laden",
+    "loading": "Laden...",
+    "errorLoading": "Dataset laden mislukt."
+  },
+  "pages": {
+    "digitalLiteracy": {
+      "back": "← Terug",
+      "title": "Hoe Wij Kijken naar Digitale Geletterdheid",
+      "subtitle": "Digitale geletterdheid als dynamische competenties voor het navigeren in onze steeds complexere digitale wereld.",
+      "h2Skills": "Vaardigheden bestaan niet in {gradient}",
+      "h2SkillsGradient": "isolatie",
+      "h2Interventions": "De behoefte aan {gradient}",
+      "h2InterventionsGradient": "op maat gemaakte interventies",
+      "p1": "We denken bij 'digitale geletterdheid' vaak aan een eenvoudige checklist — weten hoe je een zoekmachine gebruikt of privacy-instellingen aanpast. Maar in een wereld vol AI, complexe algoritmen en constante verbondenheid betekent digitaal geletterd zijn veel meer. Bij de Digital Literacy Hub beschouwen we geletterdheid niet als een statische lijst van technische vaardigheden, maar als een dynamische set van vier kerncompetenties die worden toegepast op de levensgebieden die er het meest toe doen. Wij zien dit als een 'kaart' die sleutelvaardigheden — Technische Vaardigheden, Informatieverwerking, Communicatie en Contentcreatie — verbindt met kritieke omgevingen: zoals Computer & Internet, Privacy & Data, Nieuws & Desinformatie, Reclame, AI & Algoritmen of Digitaal Welzijn. Echte geletterdheid gaat niet alleen over het indrukken van knoppen; het gaat over mensen die het kritisch denkvermogen hebben om een deepfake te herkennen, de creativiteit om AI-tools effectief te gebruiken en de reflectieve vaardigheden om schermtijd te beheren voor een betere mentale gezondheid.",
+      "p2": "Een kernonderdeel van onze filosofie is dat deze vaardigheden niet los van elkaar bestaan — ze zijn diep met elkaar verbonden. We geloven in een 'rimpeleffect' van digitaal leren: de sterktes die mensen op één gebied ontwikkelen, helpen hen vaak ook op andere gebieden. Adolescenten die heel vaardig zijn in communiceren op sociale media, kunnen bijvoorbeeld hulp nodig hebben bij het overbrengen van die vaardigheden naar het begrijpen van dataprivacy of de impact van algoritmen. Ouderen kunnen de digitale wereld juist met grote voorzichtigheid en veiligheidsbewustzijn benaderen, maar meer ondersteuning nodig hebben bij basisnavigatie. Dit onderling verbonden perspectief stelt ons in staat het volledige beeld van iemands digitale leven te zien. Het erkent dat iemand niet simpelweg 'geletterd' of 'ongeletterd' is, maar een uniek profiel heeft van sterktes en hiaten — of het nu een 'socialiseerder' is die uitblinkt in verbinding of een 'informatiezoeker' die uitstekend is in onderzoek maar moeite heeft met digitale stress.",
+      "p3": "Dit holistische perspectief onderstreept waarom een 'one-size-fits-all'-benadering van digitaal onderwijs tekortschiet. Omdat elk individu — van een tiener die sociale druk navigeert tot een professional die zich aanpast aan AI — een andere 'kaart' van competenties heeft, moet onderwijs op maat worden gemaakt. Door digitale geletterdheid te begrijpen als een flexibel, meerdimensionaal web van vaardigheden, kunnen we afstappen van generieke lezingen en overstappen op gepersonaliseerde leertrajecten. Ons raamwerk is ontworpen om precies te identificeren waar specifieke groepen uitblinken en waar ze uitdagingen ondervinden, zodat adaptieve tools kunnen worden gecreëerd die mensen ontmoeten waar ze zijn. Uiteindelijk stelt deze op maat gemaakte aanpak iedereen in staat verder te gaan dan basisdeelname en de digitale wereld met vertrouwen, veiligheid en doelgerichtheid te navigeren.",
+      "ctaTitle": "Geïnteresseerd in ons werk?",
+      "ctaResearch": "Verken ons onderzoek",
+      "ctaContact": "Neem contact op"
+    },
+    "privacy": {
+      "back": "Terug naar de Hub",
+      "title": "Privacybeleid",
+      "lastUpdated": "Laatst bijgewerkt: {date}",
+      "s1Title": "1. Wie wij zijn",
+      "s1Body": "Deze website wordt beheerd door de Digital Literacy Hub, een onderzoeksgroep gevestigd bij de afdeling Communicatiewetenschap, Vrije Universiteit Amsterdam (VU Amsterdam), De Boelelaan 1105, 1081 HV Amsterdam, Nederland.",
+      "s1Contact": "De hub wordt geleid door dr. Philipp K. Masur. Voor vragen over dit privacybeleid of uw persoonsgegevens kunt u contact met ons opnemen via",
+      "s2Title": "2. Welke gegevens wij verzamelen",
+      "s2Body": "Deze website maakt geen gebruik van cookies, trackingtechnologieën of analysetools, en verzamelt geen persoonsgegevens van bezoekers die de site enkel bezoeken.",
+      "s2Body2": "De enige situatie waarin persoonsgegevens worden verzameld, is wanneer u vrijwillig het contactformulier invult. In dat geval worden de volgende gegevens verzameld:",
+      "s2Items": ["Uw naam", "Uw e-mailadres", "Uw bericht", "Uw opgegeven achtergrond of rol (bijv. onderzoeker, journalist)"],
+      "s3Title": "3. Waarom wij gegevens verzamelen",
+      "s3Body": "Gegevens uit het contactformulier worden uitsluitend verzameld om op uw verzoek te reageren. De rechtsgrondslag voor het verwerken van deze gegevens is gerechtvaardigde belangen (artikel 6(1)(f) AVG) — met name het gerechtvaardigde belang om te kunnen reageren op berichten die via de website aan ons zijn gestuurd.",
+      "s4Title": "4. Hoe gegevens worden verwerkt — Formspree",
+      "s4Body": "Contactformulierberichten worden verwerkt door Formspree, een externe formulierverwerkingsdienst beheerd door Formspree, Inc. (Verenigde Staten). Wanneer u het contactformulier indient, worden uw gegevens verzonden naar en tijdelijk opgeslagen op de servers van Formspree, voordat ze per e-mail aan ons worden doorgestuurd.",
+      "s4Body2": "Formspree treedt op als gegevensverwerker namens ons. De doorgifte van gegevens naar de VS is gebaseerd op de naleving door Formspree van de toepasselijke mechanismen voor gegevensdoorgifte. Zie voor meer informatie het privacybeleid van Formspree.",
+      "s5Title": "5. Hoe lang wij uw gegevens bewaren",
+      "s5Body": "Wij bewaren contactformulierberichten alleen zolang als nodig is om uw verzoek af te handelen, doorgaans niet langer dan 12 maanden. U kunt op elk moment verwijdering aanvragen door contact met ons op te nemen via",
+      "s6Title": "6. Uw rechten onder de AVG",
+      "s6Intro": "Als u in de EU/EER bent gevestigd, heeft u de volgende rechten met betrekking tot uw persoonsgegevens:",
+      "s6Items": [
+        "Recht op inzage — u kunt een kopie opvragen van de gegevens die wij over u bewaren",
+        "Recht op rectificatie — u kunt ons vragen onjuiste gegevens te corrigeren",
+        "Recht op verwijdering — u kunt ons vragen uw gegevens te wissen",
+        "Recht op beperking van de verwerking — u kunt ons vragen te beperken hoe wij uw gegevens gebruiken",
+        "Recht van bezwaar — u kunt bezwaar maken tegen onze verwerking op basis van gerechtvaardigde belangen"
+      ],
+      "s6Contact": "Om een van deze rechten uit te oefenen, neemt u contact met ons op via",
+      "s6Response": "Wij reageren binnen 30 dagen.",
+      "s6Authority": "U heeft ook het recht om een klacht in te dienen bij de Nederlandse toezichthoudende autoriteit voor gegevensbescherming, de Autoriteit Persoonsgegevens.",
+      "s7Title": "7. Externe links",
+      "s7Body": "Deze website bevat links naar externe websites (bijv. gepubliceerd onderzoek, VU Amsterdam-pagina's). Wij zijn niet verantwoordelijk voor de privacypraktijken van die sites en raden u aan hun respectieve privacybeleid te raadplegen.",
+      "s8Title": "8. Wijzigingen in dit beleid",
+      "s8Body": "Wij kunnen dit privacybeleid van tijd tot tijd bijwerken. De datum bovenaan deze pagina geeft aan wanneer het voor het laatst is herzien. We raden u aan het periodiek te controleren."
+    },
+    "accessibility": {
+      "back": "Terug naar de Hub",
+      "title": "Toegankelijkheidsverklaring",
+      "lastReviewed": "Laatst beoordeeld: {date}",
+      "s1Title": "Onze toezegging",
+      "s1Body": "De Digital Literacy Hub zet zich in om deze website zo toegankelijk mogelijk te maken voor alle bezoekers, inclusief mensen met een beperking. We streven ernaar te voldoen aan de Web Content Accessibility Guidelines (WCAG) 2.1 op niveau AA, in lijn met de EU-richtlijn voor webaccessibiliteit.",
+      "s2Title": "Wat goed werkt",
+      "s2Items": [
+        "Alle pagina's zijn te navigeren met een toetsenbord",
+        "Tekstinhoud heeft voldoende kleurcontrast ten opzichte van de achtergrond",
+        "De site maakt gebruik van semantische HTML-koppen om inhoud logisch te structureren",
+        "Alle formuliervelden zijn gelabeld",
+        "De site werkt zonder JavaScript voor de kern informatieve inhoud",
+        "Tekst kan worden vergroot tot 200% zonder verlies van inhoud of functionaliteit"
+      ],
+      "s3Title": "Bekende beperkingen",
+      "s3Intro": "Wij zijn transparant over de volgende gebieden waar de site niet volledig voldoet aan WCAG 2.1 AA:",
+      "s3Items": [
+        "3D-animaties — De interactieve 3D-visualisaties op de homepage (netwerkanimatie, golfachtergrond, zwevende knooppunten) zijn decoratief en niet toegankelijk voor schermlezers. Ze bevatten geen informatie en worden waar mogelijk als presentationeel gemarkeerd.",
+        "Beweging — De site maakt gebruik van animaties en bewegingseffecten die momenteel niet uitgeschakeld kunnen worden via een voorkeurinstelling. We streven ernaar in een toekomstige update rekening te houden met de systeeminstelling prefers-reduced-motion.",
+        "Pagina data-analyse — Het interactieve data-analysetools vereist muis- of aanwijzerinteractie voor sommige functies en is mogelijk niet volledig bruikbaar met alleen toetsenbordnavigatie."
+      ],
+      "s4Title": "Een probleem melden",
+      "s4Body": "Als u een toegankelijkheidsbarrière op deze site tegenkomt, of als u inhoud in een alternatief formaat nodig heeft, neem dan contact met ons op en wij doen ons best om te helpen:",
+      "s4Response": "We streven ernaar toegankelijkheidsvragen binnen 5 werkdagen te beantwoorden.",
+      "s5Title": "Technische informatie",
+      "s5Body": "Deze website is gebouwd met Next.js en React. Het is getest in moderne versies van Chrome, Firefox en Safari op desktop en mobiel. Het is nog niet formeel geauditeerd door een onafhankelijk toegankelijkheidsspecialist."
+    }
+  },
+  "metadata": {
+    "title": "Digital Literacy Hub @ VU Amsterdam",
+    "description": "Onderzoeksgroep aan de VU Amsterdam die bestudeert hoe mensen digitale media, privacy en AI navigeren. Onder leiding van dr. Philipp Masur produceren wij evidence-based inzichten over digitale geletterdheid, sociale media en algoritmische geletterdheid.",
+    "privacyTitle": "Privacybeleid",
+    "privacyDescription": "Privacybeleid voor de Digital Literacy Hub-website, waarin wordt uitgelegd hoe wij persoonsgegevens verwerken conform de AVG.",
+    "accessibilityTitle": "Toegankelijkheid",
+    "accessibilityDescription": "Toegankelijkheidsverklaring voor de Digital Literacy Hub-website, met onze toezegging voor inclusief ontwerp en bekende beperkingen.",
+    "digitalLiteracyTitle": "Digitale Geletterdheid",
+    "digitalLiteracyDescription": "Hoe de Digital Literacy Hub digitale geletterdheid ziet als dynamische competenties voor het navigeren in onze steeds complexere digitale wereld."
+  }
+}

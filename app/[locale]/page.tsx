@@ -7,7 +7,6 @@ import ResearchSection from "@/components/research-section"
 import PublicationsSection from "@/components/publications-section"
 import ContactSection from "@/components/contact-section"
 import Navigation from "@/components/navigation"
-import ScrollHeader from "@/components/scroll-header"
 import Footer from "@/components/footer"
 import MissionSection from "@/components/mission-section"
 import Script from "next/script"
@@ -86,7 +85,6 @@ export default function Home() {
 
       <div ref={containerRef} className="relative">
         <Navigation />
-        <ScrollHeader />
 
         <main className="relative">
           <section id="hero" className="min-h-screen" aria-label="Hero section">

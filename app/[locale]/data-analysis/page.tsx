@@ -7,6 +7,7 @@ import VisualizationBuilder from "@/components/data-analysis/visualization-build
 import { motion, AnimatePresence } from "framer-motion"
 import Link from "next/link"
 import Papa from "papaparse"
+import { useTranslations, useLocale } from "next-intl"
 
 interface DataSet {
   raw: any[]
@@ -52,6 +53,7 @@ function FilterPopover({
   filters: { [key: string]: string[] }
   setFilters: (f: { [key: string]: string[] }) => void
 }) {
+  const t = useTranslations("dataAnalysis")
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
 
@@ -96,7 +98,7 @@ function FilterPopover({
             d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2a1 1 0 01-.293.707L13 13.414V19a1 1 0 01-.553.894l-4 2A1 1 0 017 21v-7.586L3.293 6.707A1 1 0 013 6V4z"
           />
         </svg>
-        Filter
+        {t("filterButton")}
         {activeCount > 0 && (
           <span className="bg-blue-600 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center leading-none">
             {activeCount}
@@ -114,18 +116,18 @@ function FilterPopover({
             className="absolute top-full left-0 mt-1 w-72 bg-white border border-gray-200 rounded-xl shadow-lg z-50 p-4 space-y-4"
           >
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold text-gray-700">Filter by</span>
+              <span className="text-sm font-semibold text-gray-700">{t("filterByLabel")}</span>
               {activeCount > 0 && (
                 <button
                   onClick={() => setFilters({})}
                   className="text-xs text-gray-400 hover:text-gray-600 underline"
                 >
-                  Clear all
+                  {t("clearAll")}
                 </button>
               )}
             </div>
             {categoricalCols.length === 0 ? (
-              <p className="text-sm text-gray-400">No categorical variables available</p>
+              <p className="text-sm text-gray-400">{t("noCategoricalVars")}</p>
             ) : (
               categoricalCols.map((col) => (
                 <div key={col}>
@@ -169,6 +171,7 @@ function OverviewTab({
   filteredData: any[]
   project: Project
 }) {
+  const t = useTranslations("dataAnalysis")
   const numericCols = dataset.columns.filter(
     (col) => dataset.columnTypes[col] === "numeric" && !col.toLowerCase().includes("id"),
   )
@@ -197,13 +200,13 @@ function OverviewTab({
       <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
         <h3 className="text-base font-semibold text-gray-800 mb-1">{project.name}</h3>
         <p className="text-sm text-gray-500 mb-1">{project.description}</p>
-        <p className="text-xs text-gray-400">Authors: {project.authors}</p>
+        <p className="text-xs text-gray-400">{t("authorsLabel")} {project.authors}</p>
         <div className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-4">
           {[
-            { label: "Rows", value: filteredData.length },
-            { label: "Variables", value: dataset.columns.length },
-            { label: "Numeric", value: numericCols.length },
-            { label: "Categorical", value: categoricalCols.length },
+            { label: t("rows"), value: filteredData.length },
+            { label: t("variables"), value: dataset.columns.length },
+            { label: t("numeric"), value: numericCols.length },
+            { label: t("categorical"), value: categoricalCols.length },
           ].map((item) => (
             <div key={item.label} className="bg-gray-50 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-blue-600">{item.value}</p>
@@ -217,23 +220,26 @@ function OverviewTab({
       {numericCols.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden">
           <div className="px-6 pt-5 pb-3">
-            <h3 className="text-base font-semibold text-gray-800">Numeric Variables</h3>
-            <p className="text-xs text-gray-400 mt-0.5">Descriptive summary for filtered rows</p>
+            <h3 className="text-base font-semibold text-gray-800">{t("numericVarsTitle")}</h3>
+            <p className="text-xs text-gray-400 mt-0.5">{t("numericVarsSubtitle")}</p>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead className="bg-gray-50 border-y border-gray-200">
                 <tr>
-                  {["Variable", "N", "Mean", "SD", "Min", "Max", "Description"].map((h) => (
-                    <th
-                      key={h}
-                      className={`py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide ${
-                        h === "Variable" || h === "Description" ? "text-left px-6" : "text-right px-4"
-                      }`}
-                    >
-                      {h}
-                    </th>
-                  ))}
+                  {(["variable", "n", "mean", "sd", "min", "max", "description"] as const).map((key) => {
+                    const h = t(`tableHeaders.${key}`)
+                    return (
+                      <th
+                        key={key}
+                        className={`py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wide ${
+                          key === "variable" || key === "description" ? "text-left px-6" : "text-right px-4"
+                        }`}
+                      >
+                        {h}
+                      </th>
+                    )
+                  })}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -264,8 +270,8 @@ function OverviewTab({
       {/* Categorical variables */}
       {categoricalCols.length > 0 && (
         <div className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-          <h3 className="text-base font-semibold text-gray-800 mb-1">Categorical Variables</h3>
-          <p className="text-xs text-gray-400 mb-4">Value counts for filtered rows</p>
+          <h3 className="text-base font-semibold text-gray-800 mb-1">{t("categoricalVarsTitle")}</h3>
+          <p className="text-xs text-gray-400 mb-4">{t("categoricalVarsSubtitle")}</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {categoricalCols.map((col) => {
               const counts: Record<string, number> = {}
@@ -312,6 +318,9 @@ function OverviewTab({
 // ─── Main page ────────────────────────────────────────────────────────────────
 
 export default function DataAnalysisPage() {
+  const t = useTranslations("dataAnalysis")
+  const locale = useLocale()
+  const prefix = locale === "nl" ? "" : "/en"
   const [dataset, setDataset] = useState<DataSet | null>(null)
   const [currentProject, setCurrentProject] = useState<Project | null>(null)
   const [filteredData, setFilteredData] = useState<any[]>([])
@@ -374,9 +383,9 @@ export default function DataAnalysisPage() {
   }
 
   const TABS = [
-    { id: "overview", label: "Overview" },
-    { id: "visualize", label: "Visualize" },
-    { id: "statistics", label: "Statistics" },
+    { id: "overview", label: t("tabs.overview") },
+    { id: "visualize", label: t("tabs.visualize") },
+    { id: "statistics", label: t("tabs.statistics") },
   ] as const
 
   return (
@@ -386,11 +395,11 @@ export default function DataAnalysisPage() {
       {/* Page header */}
       <div className="border-b border-gray-200 bg-white">
         <div className="max-w-7xl mx-auto px-4 py-6">
-          <Link href="/" className="text-blue-600 hover:text-blue-700 text-sm mb-3 inline-flex items-center gap-1">
+          <Link href={`${prefix}/`} className="text-blue-600 hover:text-blue-700 text-sm mb-3 inline-flex items-center gap-1">
             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
-            Back to Hub
+            {t("backToHub")}
           </Link>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Data Analysis Explorer</h1>
           <p className="text-gray-500 mt-1 text-sm">

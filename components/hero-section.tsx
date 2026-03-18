@@ -7,8 +7,10 @@ import { Suspense, useState } from "react"
 import { motion } from "framer-motion"
 import { OrbitControls, Stars } from "@react-three/drei"
 import NetworkShape from "@/components/3d/network-shape"
+import { useTranslations } from "next-intl"
 
 export default function HeroSection() {
+  const t = useTranslations("hero")
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -46,9 +48,9 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 0.5 }}
             className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-gray-800 mb-4 sm:mb-6 leading-tight"
           >
-            Empowering <strong>digital citizenship</strong> through{" "}
+            {t("headingBefore")}<strong>{t("headingStrong")}</strong>{t("headingMiddle")}{" "}
             <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-              research, design, and dialogue
+              {t("headingGradient")}
             </span>
           </motion.h1>
 
@@ -67,8 +69,7 @@ export default function HeroSection() {
             transition={{ duration: 1, delay: 1.2 }}
             className="text-base sm:text-lg md:text-xl text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto px-2"
           >
-            Research hub advancing <strong>digital literacy</strong> through evidence-based insights on{" "}
-            <strong>social media</strong>, <strong>privacy</strong>, and <strong>AI ethics</strong>
+            {t("descFull")}
           </motion.p>
 
           <motion.div
@@ -83,7 +84,7 @@ export default function HeroSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Read our Mission
+              {t("ctaMission")}
             </motion.button>
             <motion.button
               onClick={() => document.getElementById("team")?.scrollIntoView({ behavior: "smooth" })}
@@ -91,7 +92,7 @@ export default function HeroSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Meet the Team
+              {t("ctaTeam")}
             </motion.button>
           </motion.div>
         </div>

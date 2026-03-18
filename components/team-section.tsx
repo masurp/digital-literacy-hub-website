@@ -6,13 +6,14 @@ import Image from "next/image"
 import { Canvas } from "@react-three/fiber"
 import { Suspense } from "react"
 import FloatingNodes from "@/components/3d/floating-nodes"
+import { useTranslations } from "next-intl"
 
-const teamMembers = [
+const teamData = [
   {
     id: 1,
     name: "Philipp K. Masur",
-    role: "Co-Director",
-    bio: "Philipp Masur is an Associate Professor at the Department of Communication Science at the Vrije Universiteit Amsterdam and Managing Director of the Digital Media and Behavior Lab. His research is concerned with applying socio-psychological and communication theories to study online communication. Particularly, he investigates social norm effects and social influences on social media, privacy and self-disclosure dynamics, and technology uses' implications for well-being. In doing so, he aims to identify and foster knowledge and skills necessary to navigate online environments in a healthy and self-determined way.",
+    bioKey: "philipp" as const,
+    role: "coDirector" as const,
     image: "https://research.vu.nl/files-asset/447630676/Portrait_01a_klein.jpg",
     personalWebpage: "https://www.philippmasur.de/",
     institutionalPage: "https://research.vu.nl/en/persons/philipp-k-masur",
@@ -20,8 +21,8 @@ const teamMembers = [
   {
     id: 2,
     name: "Douglas Parry",
-    role: "Co-Director",
-    bio: "Doug Parry is an Assistant Professor in the Department of Communication Science at the Vrije Universiteit Amsterdam. His research focuses on the ways in which adolescents and young adults use digital media; the potential effects that this behaviour can have on their cognition, mental health, and well-being; and the knowledge and skills that enable them to thrive in a digital society.",
+    bioKey: "douglas" as const,
+    role: "coDirector" as const,
     image: "https://research.vu.nl/files-asset/368615332/dougaparry.png/",
     personalWebpage: "https://dougaparry.com/",
     institutionalPage: "https://research.vu.nl/en/persons/douglas-parry",
@@ -29,8 +30,8 @@ const teamMembers = [
   {
     id: 3,
     name: "Jolanda Veldhuis",
-    role: "Co-Director",
-    bio: "Jolanda Veldhuis is an Associate Professor in the field of Health and Risk Communication as well as Media Psychology at the Department of Communication Science (Vrije Universiteit Amsterdam). She specializes in digital literacy education and intervention design for diverse populations, with a specific focus on body image satisfaction and well-being.",
+    bioKey: "jolanda" as const,
+    role: "coDirector" as const,
     image: "https://dmb-lab.nl/wp-content/uploads/2025/01/Jolanda-Veldhuis-CW-General-Info.jpg",
     personalWebpage: "",
     institutionalPage: "https://research.vu.nl/en/persons/jolanda-veldhuis",
@@ -38,8 +39,8 @@ const teamMembers = [
   {
     id: 4,
     name: "Tilo Hartmann",
-    role: "Member",
-    bio: "Tilo Hartmann is Professor for Virtual Reality and Communication at the Department of Communication Science at Vrije Universiteit Amsterdam. His research draws on media psychology to examine how people experience media, with a particular focus on presence, perceptual illusions, and biased perceptions of reality. More recently, his work centers on immersive technologies such as virtual and augmented reality, aiming to understand the determinants and effects of presence in highly immersive media. In addition, he studies media use in the context of entertainment and personal wellbeing.",
+    bioKey: "tilo" as const,
+    role: "member" as const,
     image: "https://dmb-lab.nl/wp-content/uploads/2024/07/AGU6021-Tilo-Hartmann.jpg",
     personalWebpage: "",
     institutionalPage: "https://research.vu.nl/en/persons/tilo-hartmann/",
@@ -47,8 +48,8 @@ const teamMembers = [
   {
     id: 5,
     name: "Martin Baars",
-    role: "Member",
-    bio: "Martin Baars is a PhD candidate at the Department of Communication Science at Vrije Universiteit Amsterdam. His research advances the emerging field of immersive disinformation by examining how immersive media shape people’s beliefs.",
+    bioKey: "martin" as const,
+    role: "member" as const,
     image: "https://dmb-lab.nl/wp-content/uploads/2026/01/Martin_Baars.jpg",
     personalWebpage: "",
     institutionalPage: "https://research.vu.nl/en/persons/martin-baars/",
@@ -88,24 +89,18 @@ const partners = [
   },
 ]
 
-// Helper function to truncate text and add "read more" link
 const truncateWithReadMore = (text: string, maxLength = 200) => {
-  if (text.length <= maxLength) {
-    return { truncated: text, needsReadMore: false }
-  }
-
-  // Find the last space before maxLength to avoid cutting words
+  if (text.length <= maxLength) return { truncated: text, needsReadMore: false }
   let truncateAt = maxLength
-  while (truncateAt > 0 && text[truncateAt] !== " ") {
-    truncateAt--
-  }
-
-  const truncated = text.substring(0, truncateAt).trim()
-  return { truncated, needsReadMore: true }
+  while (truncateAt > 0 && text[truncateAt] !== " ") truncateAt--
+  return { truncated: text.substring(0, truncateAt).trim(), needsReadMore: true }
 }
 
 export default function TeamSection() {
-  const [selectedMember, setSelectedMember] = useState<(typeof teamMembers)[0] | null>(null)
+  const t = useTranslations("team")
+  const [selectedId, setSelectedId] = useState<number | null>(null)
+
+  const selectedMember = selectedId !== null ? teamData.find((m) => m.id === selectedId) ?? null : null
 
   return (
     <div className="relative w-full min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 overflow-hidden">
@@ -128,17 +123,18 @@ export default function TeamSection() {
           className="text-center mb-8 sm:mb-12"
         >
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-800 mb-3 sm:mb-4">
-            Our <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Team</span>
+            <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{t("title")}</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-            Meet the researchers shaping the future of digital literacy
+            {t("subtitle")}
           </p>
         </motion.div>
 
         {/* Team Member Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto w-full">
-          {teamMembers.map((member, index) => {
-            const { truncated, needsReadMore } = truncateWithReadMore(member.bio, 200)
+          {teamData.map((member, index) => {
+            const bio = t(`members.${member.bioKey}.bio`)
+            const { truncated, needsReadMore } = truncateWithReadMore(bio, 200)
 
             return (
               <motion.div
@@ -147,24 +143,26 @@ export default function TeamSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: index * 0.2 }}
                 whileHover={{ scale: 1.05 }}
-                onClick={() => setSelectedMember(member)}
+                onClick={() => setSelectedId(member.id)}
                 className="bg-white/80 backdrop-blur-sm rounded-xl p-4 sm:p-6 shadow-lg cursor-pointer hover:shadow-xl transition-all duration-300 min-h-[400px] sm:min-h-[450px] flex flex-col"
               >
                 <div className="w-44 h-44 sm:w-62 sm:h-62 mx-auto mb-3 sm:mb-4 rounded-full overflow-hidden relative">
                   <Image
                     src={member.image || "/placeholder.svg"}
-                    alt={`${member.name} - ${member.role} at Digital Literacy Hub`}
+                    alt={`${member.name} - ${member.role === "coDirector" ? t("roleCoDirector") : t("roleMember")} at Digital Literacy Hub`}
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 176px, 248px"
                   />
                 </div>
                 <h3 className="text-lg sm:text-xl font-semibold text-gray-800 mb-2">{member.name}</h3>
-                <p className="text-purple-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">{member.role}</p>
+                <p className="text-purple-600 font-medium mb-2 sm:mb-3 text-sm sm:text-base">
+                  {member.role === "coDirector" ? t("roleCoDirector") : t("roleMember")}
+                </p>
                 <div className="text-gray-600 text-xs sm:text-sm flex-grow">
                   {truncated}
                   {needsReadMore && (
-                    <span className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer ml-1">read more</span>
+                    <span className="text-blue-600 hover:text-blue-800 font-medium cursor-pointer ml-1">{t("readMore")}</span>
                   )}
                 </div>
               </motion.div>
@@ -181,12 +179,11 @@ export default function TeamSection() {
         >
           <div className="text-center mb-6 sm:mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-2">
-              Our{" "}
               <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Partners
+                {t("partnersTitle")}
               </span>
             </h3>
-            <p className="text-sm sm:text-base text-gray-600">Partner Institutions</p>
+            <p className="text-sm sm:text-base text-gray-600">{t("partnersSubtitle")}</p>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
@@ -228,7 +225,7 @@ export default function TeamSection() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
-            onClick={() => setSelectedMember(null)}
+            onClick={() => setSelectedId(null)}
           >
             <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
@@ -237,9 +234,8 @@ export default function TeamSection() {
               className="bg-white rounded-2xl p-6 sm:p-8 max-w-2xl mx-auto max-h-[90vh] overflow-y-auto w-full relative"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close X button */}
               <button
-                onClick={() => setSelectedMember(null)}
+                onClick={() => setSelectedId(null)}
                 className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-800 transition-all duration-200 z-10"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -249,17 +245,20 @@ export default function TeamSection() {
               <div className="w-36 h-36 sm:w-64 sm:h-64 mx-auto mb-4 sm:mb-6 rounded-full overflow-hidden relative">
                 <Image
                   src={selectedMember.image || "/placeholder.svg"}
-                  alt={`${selectedMember.name} - ${selectedMember.role}`}
+                  alt={`${selectedMember.name}`}
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 144px, 256px"
                 />
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 text-center">{selectedMember.name}</h3>
-              <p className="text-purple-600 font-medium mb-4 text-center text-sm sm:text-base">{selectedMember.role}</p>
-              <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-6">{selectedMember.bio}</p>
+              <p className="text-purple-600 font-medium mb-4 text-center text-sm sm:text-base">
+                {selectedMember.role === "coDirector" ? t("roleCoDirector") : t("roleMember")}
+              </p>
+              <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-6">
+                {t(`members.${selectedMember.bioKey}.bio`)}
+              </p>
 
-              {/* Webpage Links */}
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
                 {selectedMember.personalWebpage && (
                   <a
@@ -268,7 +267,7 @@ export default function TeamSection() {
                     rel="noopener noreferrer"
                     className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm sm:text-base text-center font-medium"
                   >
-                    🌐 Personal Website
+                    🌐 {t("personalWebsite")}
                   </a>
                 )}
                 {selectedMember.institutionalPage && (
@@ -278,7 +277,7 @@ export default function TeamSection() {
                     rel="noopener noreferrer"
                     className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors text-sm sm:text-base text-center font-medium"
                   >
-                    🏛️ VU Profile
+                    🏛️ {t("vuProfile")}
                   </a>
                 )}
               </div>
